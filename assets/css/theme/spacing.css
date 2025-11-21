@@ -1,0 +1,22 @@
+/**
+ * Semantic Spacing Tokens
+ *
+ * These tokens provide consistent spacing values for component-level gaps.
+ * Use these for spacing BETWEEN components, not within component internals.
+ *
+ * Usage in templates:
+ *   - gap-space-sm, gap-space-md (between components)
+ *   - space-y-space-lg (vertical rhythm)
+ *
+ * Internal component spacing (px-4, py-2, etc.) should use raw Tailwind utilities.
+ */
+
+@theme {
+  /* Component-level spacing scale */
+  --spacing-space-xs: 0.5rem;   /* 8px  - tight component gaps */
+  --spacing-space-sm: 0.75rem;  /* 12px - small component gaps */
+  --spacing-space-md: 1rem;     /* 16px - default component gaps */
+  --spacing-space-lg: 1.5rem;   /* 24px - large component gaps */
+  --spacing-space-xl: 2rem;     /* 32px - section spacing */
+  --spacing-space-2xl: 3rem;    /* 48px - major section spacing */
+}

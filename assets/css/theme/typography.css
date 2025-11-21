@@ -1,0 +1,59 @@
+/**
+ * Semantic Typography Tokens
+ *
+ * These tokens provide consistent typography styles across the application.
+ *
+ * Usage in templates:
+ *   - text-body-sm, text-body, text-body-lg
+ *   - text-heading-sm, text-heading, text-heading-lg
+ *   - font-heading, font-body
+ */
+
+@theme {
+  /* Font families */
+  --font-family-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Font sizes - keeping simple, raw utilities like text-sm, text-base, text-lg work well */
+  /* These are provided by Tailwind by default, no custom tokens needed */
+
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+}
+
+/* Optional: Semantic utility classes for common typography patterns */
+@layer utilities {
+  .text-body-sm {
+    @apply text-sm text-foreground;
+  }
+
+  .text-body {
+    @apply text-base text-foreground;
+  }
+
+  .text-body-lg {
+    @apply text-lg text-foreground;
+  }
+
+  .text-heading-sm {
+    @apply text-lg font-semibold text-foreground;
+  }
+
+  .text-heading {
+    @apply text-xl font-semibold text-foreground;
+  }
+
+  .text-heading-lg {
+    @apply text-2xl font-bold text-foreground;
+  }
+
+  .text-heading-xl {
+    @apply text-3xl font-bold text-foreground;
+  }
+
+  .text-muted-text {
+    @apply text-sm text-muted-foreground;
+  }
+}

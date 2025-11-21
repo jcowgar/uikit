@@ -1,0 +1,154 @@
+/**
+ * Semantic Color Tokens - Radix Colors Inspired (OKLCH)
+ *
+ * Professional color system based on Radix Colors principles using OKLCH color space.
+ * OKLCH provides perceptually uniform colors with better contrast and manipulation.
+ *
+ * Color format: oklch(Lightness Chroma Hue)
+ *   - Lightness: 0-100% (brightness)
+ *   - Chroma: 0-0.4 (saturation/vibrancy)
+ *   - Hue: 0-360 (color wheel position)
+ *
+ * Benefits of OKLCH:
+ *   - Perceptually uniform (10% lighter looks consistent across all colors)
+ *   - Easy to create variants (adjust L for lighter/darker, C for more/less vibrant)
+ *   - Better contrast ratios
+ *   - Access to wider color gamut (P3 displays)
+ *
+ * Usage in templates:
+ *   - bg-background, bg-surface, bg-card
+ *   - text-foreground, text-muted-foreground
+ *   - border-border, border-input
+ *   - bg-primary, text-primary-foreground
+ */
+
+/**
+ * Light Theme Colors
+ * Based on Radix Colors - professional, subtle, excellent contrast
+ */
+@theme {
+  /* Base Colors - Light Mode */
+  --color-background: oklch(100% 0 0);           /* Pure white background */
+  --color-foreground: oklch(13% 0.01 286);       /* Near-black text (slate-12) */
+
+  /* Surface Colors - Subtle elevation */
+  --color-surface: oklch(98% 0.004 286);         /* Barely off-white (slate-2) */
+  --color-card: oklch(100% 0 0);                 /* White cards for contrast */
+  --color-card-foreground: oklch(13% 0.01 286);  /* Dark text on cards */
+
+  /* Muted Colors - For secondary content */
+  --color-muted: oklch(96.5% 0.004 286);         /* Subtle muted background (slate-3) */
+  --color-muted-foreground: oklch(56% 0.015 286); /* Medium gray text (slate-11) */
+
+  /* Border Colors - Subtle but visible */
+  --color-border: oklch(90% 0.01 286);           /* Soft borders (slate-6) */
+  --color-input: oklch(85% 0.015 286);           /* Slightly darker input borders (slate-7) */
+  --color-ring: oklch(70% 0.19 255);             /* Blue focus ring */
+
+  /* Primary Colors - Professional blue (Radix Blue) */
+  --color-primary: oklch(55% 0.22 255);          /* Vibrant professional blue (blue-9) */
+  --color-primary-foreground: oklch(100% 0 0);   /* White text on primary */
+
+  /* Secondary Colors - Subtle accent */
+  --color-secondary: oklch(96.5% 0.004 286);     /* Light gray background */
+  --color-secondary-foreground: oklch(13% 0.01 286); /* Dark text */
+
+  /* Accent Colors - For highlights */
+  --color-accent: oklch(96% 0.014 286);          /* Slightly emphasized (slate-4) */
+  --color-accent-foreground: oklch(13% 0.01 286); /* Dark text */
+
+  /* Semantic State Colors - Clear, accessible */
+  --color-destructive: oklch(55% 0.22 25);       /* Red for errors/danger (red-9) */
+  --color-destructive-foreground: oklch(100% 0 0); /* White text */
+
+  --color-success: oklch(60% 0.19 145);          /* Green for success (green-9) */
+  --color-success-foreground: oklch(100% 0 0);   /* White text */
+
+  --color-warning: oklch(70% 0.17 60);           /* Amber for warnings (amber-9) */
+  --color-warning-foreground: oklch(13% 0.01 286); /* Dark text (better contrast) */
+
+  --color-info: oklch(55% 0.22 255);             /* Blue for info (matches primary) */
+  --color-info-foreground: oklch(100% 0 0);      /* White text */
+
+  /* Popover Colors - Light Mode */
+  --color-popover: oklch(100% 0 0);                  /* White background for popovers */
+  --color-popover-foreground: oklch(13% 0.01 286);   /* Near-black text */
+
+  /* Sidebar Colors - Light Mode */
+  --color-sidebar-background: oklch(98% 0.004 286);        /* Barely off-white (slate-2) */
+  --color-sidebar-foreground: oklch(13% 0.01 286);         /* Near-black text */
+  --color-sidebar-primary: oklch(13% 0.01 286);            /* Dark primary for sidebar */
+  --color-sidebar-primary-foreground: oklch(98% 0.004 286); /* Light text on primary */
+  --color-sidebar-accent: oklch(96% 0.014 286);            /* Slightly emphasized (slate-4) */
+  --color-sidebar-accent-foreground: oklch(13% 0.01 286);  /* Dark text on accent */
+  --color-sidebar-border: oklch(90% 0.01 286);             /* Soft borders (slate-6) */
+  --color-sidebar-ring: oklch(70% 0.19 255);               /* Blue focus ring */
+}
+
+/**
+ * Dark Theme Colors - Radix Colors Inspired (OKLCH)
+ *
+ * Dark theme based on Radix Colors dark mode palette.
+ * Note the clever inversion: backgrounds get darker, but relative relationships stay consistent.
+ * Applied via custom variant in app.css: @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+ */
+@layer base {
+  [data-theme="dark"] {
+    /* Base Colors - Dark Mode */
+    --color-background: oklch(13% 0.01 286);         /* Deep dark slate (slate-1) */
+    --color-foreground: oklch(93% 0.006 286);        /* Soft white text (slate-12) */
+
+    /* Surface Colors - Subtle elevation in dark */
+    --color-surface: oklch(16% 0.012 286);           /* Slightly elevated (slate-2) */
+    --color-card: oklch(19% 0.015 286);              /* Cards are more elevated (slate-3) */
+    --color-card-foreground: oklch(93% 0.006 286);   /* Light text on cards */
+
+    /* Muted Colors - For secondary content */
+    --color-muted: oklch(22% 0.017 286);             /* Muted backgrounds (slate-4) */
+    --color-muted-foreground: oklch(69% 0.017 286);  /* Medium gray text (slate-11) */
+
+    /* Border Colors - Visible but subtle */
+    --color-border: oklch(32% 0.023 286);            /* Soft borders (slate-6) */
+    --color-input: oklch(38% 0.027 286);             /* Input borders slightly lighter (slate-7) */
+    --color-ring: oklch(70% 0.19 255);               /* Blue focus ring (consistent) */
+
+    /* Primary Colors - Lighter blue for dark mode (better contrast) */
+    --color-primary: oklch(70% 0.19 255);            /* Lighter blue for dark bg (blue-9 dark) */
+    --color-primary-foreground: oklch(13% 0.01 286); /* Dark text on lighter blue */
+
+    /* Secondary Colors - Subtle accent */
+    --color-secondary: oklch(22% 0.017 286);         /* Subtle background */
+    --color-secondary-foreground: oklch(93% 0.006 286); /* Light text */
+
+    /* Accent Colors - For highlights */
+    --color-accent: oklch(25% 0.02 286);             /* Slightly emphasized (slate-5) */
+    --color-accent-foreground: oklch(93% 0.006 286); /* Light text */
+
+    /* Semantic State Colors - Adjusted for dark mode visibility */
+    --color-destructive: oklch(60% 0.21 25);         /* Lighter red for dark bg (red-9 dark) */
+    --color-destructive-foreground: oklch(93% 0.006 286); /* Light text */
+
+    --color-success: oklch(65% 0.18 145);            /* Lighter green (green-9 dark) */
+    --color-success-foreground: oklch(13% 0.01 286); /* Dark text for better contrast */
+
+    --color-warning: oklch(75% 0.16 60);             /* Lighter amber (amber-9 dark) */
+    --color-warning-foreground: oklch(13% 0.01 286); /* Dark text */
+
+    --color-info: oklch(70% 0.19 255);               /* Lighter blue (matches primary) */
+    --color-info-foreground: oklch(13% 0.01 286);    /* Dark text */
+
+    /* Popover Colors - Dark Mode */
+    --color-popover: oklch(19% 0.015 286);           /* Elevated dark background (slate-3) */
+    --color-popover-foreground: oklch(93% 0.006 286); /* Light text */
+
+    /* Sidebar Colors - Dark Mode */
+    --color-sidebar-background: oklch(13% 0.01 286);         /* Deep dark slate (slate-1) */
+    --color-sidebar-foreground: oklch(93% 0.006 286);        /* Soft white text */
+    --color-sidebar-primary: oklch(70% 0.19 255);            /* Lighter blue for dark mode */
+    --color-sidebar-primary-foreground: oklch(13% 0.01 286); /* Dark text on lighter blue */
+    --color-sidebar-accent: oklch(25% 0.02 286);             /* Slightly emphasized (slate-5) */
+    --color-sidebar-accent-foreground: oklch(93% 0.006 286); /* Light text on accent */
+    --color-sidebar-border: oklch(32% 0.023 286);            /* Soft borders (slate-6) */
+    --color-sidebar-ring: oklch(70% 0.19 255);               /* Blue focus ring */
+  }
+}

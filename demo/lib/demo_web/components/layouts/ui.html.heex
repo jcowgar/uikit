@@ -1,0 +1,239 @@
+<%!--
+UI Component Library Layout
+
+This layout provides a sidebar navigation for browsing all UI components.
+Used exclusively for /ui/* routes (developer reference pages).
+--%>
+<.sidebar_provider>
+  <.sidebar side="left" variant="sidebar" collapsible="offcanvas">
+    <.sidebar_header>
+      <.flex align="between" class="items-center">
+        <div>
+          <h2 class="text-lg font-semibold text-sidebar-foreground">UI Library</h2>
+          <p class="text-xs text-sidebar-foreground/70">Component Reference</p>
+        </div>
+      </.flex>
+    </.sidebar_header>
+
+    <.sidebar_content>
+      <.sidebar_group label="Form & Input">
+        <.sidebar_menu>
+          <.sidebar_menu_item
+            icon="hero-cursor-arrow-ripple"
+            label="Button"
+            navigate={~p"/button"}
+          />
+          <.sidebar_menu_item
+            icon="hero-rectangle-group"
+            label="Button Group"
+            navigate={~p"/button-group"}
+          />
+          <.sidebar_menu_item icon="hero-pencil-square" label="Input" navigate={~p"/input"} />
+          <.sidebar_menu_item
+            icon="hero-rectangle-stack"
+            label="Input Group"
+            navigate={~p"/input-group"}
+          />
+          <.sidebar_menu_item
+            icon="hero-document-text"
+            label="Textarea"
+            navigate={~p"/textarea"}
+          />
+          <.sidebar_menu_item
+            icon="hero-check-circle"
+            label="Checkbox"
+            navigate={~p"/checkbox"}
+          />
+          <.sidebar_menu_item
+            icon="hero-adjustments-horizontal"
+            label="Switch"
+            navigate={~p"/switch"}
+          />
+          <.sidebar_menu_item
+            icon="hero-list-bullet"
+            label="Radio Group"
+            navigate={~p"/radio-group"}
+          />
+          <.sidebar_menu_item
+            icon="hero-chevron-up-down"
+            label="Select"
+            navigate={~p"/select"}
+          />
+          <.sidebar_menu_item
+            icon="hero-magnifying-glass"
+            label="Combobox"
+            navigate={~p"/combobox"}
+          />
+          <.sidebar_menu_item icon="hero-tag" label="Chip Input" navigate={~p"/chip-input"} />
+          <.sidebar_menu_item icon="hero-document" label="Form" navigate={~p"/form"} />
+        </.sidebar_menu>
+      </.sidebar_group>
+
+      <.sidebar_group label="Layout & Navigation">
+        <.sidebar_menu>
+          <.sidebar_menu_item icon="hero-squares-2x2" label="Layout" navigate={~p"/layout"} />
+          <.sidebar_menu_item
+            icon="hero-bars-3-bottom-left"
+            label="Sidebar"
+            navigate={~p"/sidebar"}
+          />
+          <.sidebar_menu_item
+            icon="hero-chevron-right"
+            label="Breadcrumb"
+            navigate={~p"/breadcrumb"}
+          />
+          <.sidebar_menu_item icon="hero-folder-open" label="Tabs" navigate={~p"/tabs"} />
+          <.sidebar_menu_item
+            icon="hero-arrows-up-down"
+            label="Scroll Area"
+            navigate={~p"/scroll-area"}
+          />
+          <.sidebar_menu_item icon="hero-minus" label="Separator" navigate={~p"/separator"} />
+          <.sidebar_menu_item
+            icon="hero-square-3-stack-3d"
+            label="Kanban"
+            navigate={~p"/kanban"}
+          />
+        </.sidebar_menu>
+      </.sidebar_group>
+
+      <.sidebar_group label="Overlays & Dialogs">
+        <.sidebar_menu>
+          <.sidebar_menu_item icon="hero-window" label="Dialog" navigate={~p"/dialog"} />
+          <.sidebar_menu_item
+            icon="hero-exclamation-triangle"
+            label="Alert Dialog"
+            navigate={~p"/alert-dialog"}
+          />
+          <.sidebar_menu_item
+            icon="hero-command-line"
+            label="Command"
+            navigate={~p"/command"}
+          />
+          <.sidebar_menu_item
+            icon="hero-arrow-right-on-rectangle"
+            label="Drawer"
+            navigate={~p"/drawer"}
+          />
+          <.sidebar_menu_item
+            icon="hero-ellipsis-vertical"
+            label="Dropdown Menu"
+            navigate={~p"/dropdown-menu"}
+          />
+          <.sidebar_menu_item
+            icon="hero-chat-bubble-bottom-center-text"
+            label="Popover"
+            navigate={~p"/popover"}
+          />
+          <.sidebar_menu_item
+            icon="hero-rectangle-stack"
+            label="Sheet"
+            navigate={~p"/sheet"}
+          />
+        </.sidebar_menu>
+      </.sidebar_group>
+
+      <.sidebar_group label="Feedback & Status">
+        <.sidebar_menu>
+          <.sidebar_menu_item
+            icon="hero-information-circle"
+            label="Alert"
+            navigate={~p"/alert"}
+          />
+          <.sidebar_menu_item icon="hero-tag" label="Badge" navigate={~p"/badge"} />
+          <.sidebar_menu_item
+            icon="hero-arrow-path"
+            label="Spinner"
+            navigate={~p"/spinner"}
+          />
+          <.sidebar_menu_item
+            icon="hero-squares-plus"
+            label="Skeleton"
+            navigate={~p"/skeleton"}
+          />
+          <.sidebar_menu_item
+            icon="hero-bell"
+            label="Sonner"
+            navigate={~p"/sonner"}
+          />
+        </.sidebar_menu>
+      </.sidebar_group>
+
+      <.sidebar_group label="Display & Media">
+        <.sidebar_menu>
+          <.sidebar_menu_item
+            icon="hero-rectangle-group"
+            label="Card"
+            navigate={~p"/card"}
+          />
+          <.sidebar_menu_item icon="hero-user-circle" label="Avatar" navigate={~p"/avatar"} />
+          <.sidebar_menu_item icon="hero-table-cells" label="Table" navigate={~p"/table"} />
+        </.sidebar_menu>
+      </.sidebar_group>
+
+      <.sidebar_group label="Miscellaneous">
+        <.sidebar_menu>
+          <.sidebar_menu_item
+            icon="hero-squares-2x2"
+            label="Toggle Group"
+            navigate={~p"/miscellaneous"}
+          />
+        </.sidebar_menu>
+      </.sidebar_group>
+
+      <.sidebar_group label="Design System">
+        <.sidebar_menu>
+          <.sidebar_menu_item
+            icon="hero-swatch"
+            label="Styling"
+            navigate={~p"/styling"}
+          />
+        </.sidebar_menu>
+      </.sidebar_group>
+    </.sidebar_content>
+
+    <.sidebar_footer>
+      <.sidebar_menu>
+        <.sidebar_menu_item
+          icon="hero-home"
+          label="Back to Home"
+          navigate={~p"/"}
+        />
+      </.sidebar_menu>
+    </.sidebar_footer>
+
+    <.sidebar_rail />
+  </.sidebar>
+
+  <.sidebar_inset>
+    <header class="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+      <.sidebar_trigger />
+      <.separator orientation="vertical" class="h-6" />
+      <.breadcrumb>
+        <.breadcrumb_list>
+          <%= for {crumb, index} <- Enum.with_index(@breadcrumbs) do %>
+            <%= if index > 0 do %>
+              <.breadcrumb_separator />
+            <% end %>
+            <.breadcrumb_item>
+              <%= if Map.get(crumb, :current, false) do %>
+                <.breadcrumb_page>{crumb.label}</.breadcrumb_page>
+              <% else %>
+                <%= if crumb.path do %>
+                  <.breadcrumb_link navigate={crumb.path}>{crumb.label}</.breadcrumb_link>
+                <% else %>
+                  <span class="text-muted-foreground">{crumb.label}</span>
+                <% end %>
+              <% end %>
+            </.breadcrumb_item>
+          <% end %>
+        </.breadcrumb_list>
+      </.breadcrumb>
+    </header>
+
+    <main class="flex-1 overflow-auto">
+      <.flash_group flash={@flash} />
+      {@inner_content}
+    </main>
+  </.sidebar_inset>
+</.sidebar_provider>
