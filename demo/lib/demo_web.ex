@@ -95,6 +95,7 @@ defmodule DemoWeb do
       import UiKit.Components.Ui.LayoutNavigation
       import UiKit.Components.Ui.Miscellaneous
       import UiKit.Components.Ui.OverlaysDialogs
+      import UiKit.Components.Ui.Typography
 
       # Translation
       use Gettext, backend: DemoWeb.Gettext

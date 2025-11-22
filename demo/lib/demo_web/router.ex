@@ -23,6 +23,7 @@ defmodule DemoWeb.Router do
       
       live "/", Ui.IndexLive
       live "/styling", Ui.StylingLive
+      live "/typography", Ui.TypographyLive
       live "/layout", Ui.LayoutLive
       live "/button", Ui.ButtonLive
       live "/button-group", Ui.ButtonGroupLive
