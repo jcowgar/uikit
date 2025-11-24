@@ -1463,8 +1463,18 @@ defmodule UiKit.Components.Ui.FormInput do
   @spec radio_card(map()) :: Rendered.t()
   def radio_card(assigns) do
     # Determine if using structured layout or custom content
-    has_structured_content = assigns.title != [] or assigns.visual != [] or assigns.description != []
-    assigns = assign(assigns, :has_structured_content, has_structured_content)
+    # Check if any structured slots are provided
+    title = Map.get(assigns, :title, [])
+    visual = Map.get(assigns, :visual, [])
+    description = Map.get(assigns, :description, [])
+    has_structured_content = title != [] or visual != [] or description != []
+
+    assigns =
+      assigns
+      |> assign(:has_structured_content, has_structured_content)
+      |> assign(:title, title)
+      |> assign(:visual, visual)
+      |> assign(:description, description)
 
     ~H"""
     <label
