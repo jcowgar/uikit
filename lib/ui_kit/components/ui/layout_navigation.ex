@@ -1848,7 +1848,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="tabs"
       data-default-value={@default_value}
       data-value={@value}
-      phx-hook="Tabs TabBarHook"
+      phx-hook="Tabs"
       class={["flex flex-col gap-2", @class]}
       {@rest}
     >
