@@ -34,6 +34,7 @@ defmodule DemoWeb.UiBreadcrumbs do
     "/checkbox" => {"Form & Input", "Checkbox"},
     "/switch" => {"Form & Input", "Switch"},
     "/radio-group" => {"Form & Input", "Radio Group"},
+    "/radio-card" => {"Form & Input", "Radio Card"},
     "/select" => {"Form & Input", "Select"},
     "/form" => {"Form & Input", "Form"},
     # Layout & Navigation
