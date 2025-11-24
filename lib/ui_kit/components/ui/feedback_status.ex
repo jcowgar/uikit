@@ -917,4 +917,86 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   defp gap_class(5), do: "gap-5"
   defp gap_class(6), do: "gap-6"
   defp gap_class(gap), do: "gap-#{gap}"
+
+  @doc """
+  Renders a progress bar component.
+
+  Displays an indicator showing the completion progress of a task, typically
+  displayed as a progress bar. The progress value ranges from 0 to 100.
+
+  ## Features
+
+  - Smooth transition animations when progress changes
+  - Customizable width via CSS classes
+  - Semantic color tokens (bg-primary)
+  - Proper accessibility attributes
+  - Overflow handling with rounded corners
+
+  ## Examples
+
+      # Basic usage with 33% progress
+      <.progress value={33} />
+
+      # 66% progress with custom width
+      <.progress value={66} class="w-[60%]" />
+
+      # Full progress
+      <.progress value={100} />
+
+      # In a card with label
+      <div class="space-y-2">
+        <div class="flex justify-between text-sm">
+          <span>Loading...</span>
+          <span>66%</span>
+        </div>
+        <.progress value={66} />
+      </div>
+
+      # Custom styling
+      <.progress value={75} class="h-3 w-full" />
+
+  ## Attributes
+
+  - `value` - Progress value from 0 to 100 (default: 0)
+  - `class` - Additional CSS classes for the progress container
+  - `rest` - Additional HTML attributes to pass to the progress element
+
+  ## Accessibility
+
+  The progress component includes proper ARIA attributes:
+  - `role="progressbar"` for screen reader compatibility
+  - `aria-valuenow` with current progress value
+  - `aria-valuemin` and `aria-valuemax` for range context
+
+  """
+  attr :value, :integer, default: 0, doc: "Progress value from 0 to 100"
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global, doc: "Additional HTML attributes"
+
+  @spec progress(map()) :: Rendered.t()
+  def progress(assigns) do
+    # Ensure value is between 0 and 100
+    assigns = assign(assigns, :value, min(max(assigns.value, 0), 100))
+
+    ~H"""
+    <div
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow={@value}
+      data-slot="progress"
+      class={[
+        "relative h-2 w-full overflow-hidden rounded-full bg-primary/20",
+        @class
+      ]}
+      {@rest}
+    >
+      <div
+        data-slot="progress-indicator"
+        class="h-full w-full flex-1 bg-primary transition-all"
+        style={"transform: translateX(-#{100 - @value}%)"}
+      />
+    </div>
+    """
+  end
 end

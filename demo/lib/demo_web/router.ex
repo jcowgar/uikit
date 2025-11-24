@@ -50,6 +50,7 @@ defmodule DemoWeb.Router do
       live "/spinner", Ui.SpinnerLive
       live "/skeleton", Ui.SkeletonLive
       live "/segmented-progress-bar", Ui.SegmentedProgressBarLive
+      live "/progress", Ui.ProgressLive
       live "/avatar", Ui.AvatarLive
       live "/table", Ui.TableLive
       live "/dropdown-menu", Ui.DropdownMenuLive

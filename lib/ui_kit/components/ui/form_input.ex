@@ -70,7 +70,7 @@ defmodule UiKit.Components.Ui.FormInput do
 
   attr(:size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg))
   attr(:class, :string, default: nil)
-  attr(:rest, :global, include: ~w(disabled type form name value aria-label navigate patch href))
+  attr(:rest, :global, include: ~w(disabled type form name value aria-label navigate patch href phx-click phx-value-val))
   slot(:inner_block, required: true)
 
   @spec button(map()) :: Rendered.t()
