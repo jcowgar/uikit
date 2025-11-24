@@ -319,6 +319,71 @@ defmodule DemoWeb.Ui.RadioCardLive do
           </.card>
         </section>
 
+        <%!-- Example: Fully Custom Content --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Fully Custom Content</h2>
+          <p class="text-muted-foreground mb-4">
+            Don't use the predefined slots - provide completely custom HTML layout for maximum flexibility.
+          </p>
+
+          <.card class="max-w-2xl">
+            <.card_header>
+              <.card_title>Custom Layout Example</.card_title>
+              <.card_description>
+                These cards use the inner_block slot with custom HTML instead of title/description slots
+              </.card_description>
+            </.card_header>
+            <.card_content>
+              <.radio_group name="custom_demo" value="custom1">
+                <.radio_card
+                  value="custom1"
+                  id="custom-1"
+                  name="custom_demo"
+                  checked
+                >
+                  <div class="flex items-center gap-4">
+                    <div class="flex size-16 items-center justify-center rounded-full bg-blue-500/10">
+                      <span class="text-3xl">🎨</span>
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold">Creative Layout</h3>
+                      <p class="text-sm text-muted-foreground mt-1">
+                        Build your own custom card structure with complete control over markup and styling
+                      </p>
+                      <div class="mt-2 flex gap-2">
+                        <.badge variant="default">Custom</.badge>
+                        <.badge variant="outline">Flexible</.badge>
+                      </div>
+                    </div>
+                  </div>
+                </.radio_card>
+
+                <.radio_card
+                  value="custom2"
+                  id="custom-2"
+                  name="custom_demo"
+                >
+                  <div class="space-y-3">
+                    <div class="flex items-start justify-between">
+                      <h3 class="font-semibold text-base">Any Structure You Want</h3>
+                      <.badge variant="success">Recommended</.badge>
+                    </div>
+                    <p class="text-sm text-muted-foreground">
+                      Create grid layouts, complex hierarchies, custom spacing - anything you need.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                      <div class="rounded bg-muted p-2">Feature A</div>
+                      <div class="rounded bg-muted p-2">Feature B</div>
+                      <div class="rounded bg-muted p-2">Feature C</div>
+                      <div class="rounded bg-muted p-2">Feature D</div>
+                    </div>
+                  </div>
+                </.radio_card>
+              </.radio_group>
+            </.card_content>
+          </.card>
+        </section>
+
         <%!-- Code Example --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Code Example</h2>

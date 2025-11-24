@@ -1368,8 +1368,9 @@ defmodule UiKit.Components.Ui.FormInput do
   Renders a selectable card with a radio button.
 
   The radio card component displays a bordered card that contains a radio button
-  and customizable content. It's perfect for selection interfaces where users need
-  to choose between multiple options with more context than a simple radio button.
+  and customizable content. Clicking anywhere on the card selects the radio button.
+  Perfect for selection interfaces where users need to choose between multiple
+  options with more context than a simple radio button.
 
   ## Usage Patterns
 
@@ -1381,25 +1382,31 @@ defmodule UiKit.Components.Ui.FormInput do
   - Game type selection (8-ball, 9-ball, 10-ball)
   - Break type selection (Winner, Loser, Alternating)
 
-  ## Slots
+  ## Content Options
 
-  - `:visual` - Optional slot for icons, images, or other visual elements
-  - `:title` - Main title/label for the option (required)
-  - `:description` - Optional description text providing more context
-  - `:content` - Optional slot for custom content beyond title/description
+  You can use the component in two ways:
+
+  1. **Structured layout** - Use convenience slots for common patterns:
+     - `:visual` - Optional icon/image at the top
+     - `:title` - Main heading
+     - `:description` - Explanatory text
+     - `:content` - Additional custom content
+
+  2. **Fully custom** - Use `:inner_block` for complete control over layout
 
   ## Features
 
+  - Entire card is clickable to select the radio button
   - Hover effect with background color transition
   - Integrates with existing radio_group_item component
   - Supports all radio_group_item attributes
-  - Flexible content layout with multiple slots
+  - Flexible content layout
   - Semantic color tokens for theme support
   - Accessible with proper ARIA attributes
 
   ## Examples
 
-      # Basic card with title and description
+      # Basic card with title and description (structured)
       <.radio_group name="theme" value="system">
         <.radio_card value="system" id="theme-system" name="theme" checked>
           <:title>System</:title>
@@ -1412,7 +1419,7 @@ defmodule UiKit.Components.Ui.FormInput do
         </.radio_card>
       </.radio_group>
 
-      # Card with visual element (icon or image)
+      # Card with visual element (structured)
       <.radio_card value="8ball" id="game-8ball" name="game_type">
         <:visual>
           <img src="/images/8ball.svg" class="size-12" alt="8-Ball" />
@@ -1421,17 +1428,18 @@ defmodule UiKit.Components.Ui.FormInput do
         <:description>Standard 8-ball pool game</:description>
       </.radio_card>
 
-      # Card with custom content
+      # Completely custom content layout
       <.radio_card value="pro" id="plan-pro" name="plan">
-        <:title>Pro Plan</:title>
-        <:description>For professionals</:description>
-        <:content>
-          <div class="mt-2 text-2xl font-bold">$29/mo</div>
-          <ul class="mt-2 text-sm space-y-1">
-            <li>✓ Unlimited projects</li>
-            <li>✓ Priority support</li>
-          </ul>
-        </:content>
+        <div class="flex items-start gap-4">
+          <div class="flex size-12 items-center justify-center rounded-full bg-primary/10">
+            <.icon name="hero-star" class="size-6" />
+          </div>
+          <div class="flex-1">
+            <h3 class="font-semibold">Pro Plan</h3>
+            <p class="text-sm text-muted-foreground">For professionals</p>
+            <div class="mt-2 text-2xl font-bold">$29/mo</div>
+          </div>
+        </div>
       </.radio_card>
 
   """
@@ -1447,53 +1455,71 @@ defmodule UiKit.Components.Ui.FormInput do
   )
 
   slot(:visual, doc: "Optional visual element like an icon or image")
-  slot(:title, required: true, doc: "Main title/label for the option")
+  slot(:title, doc: "Main title/label for the option")
   slot(:description, doc: "Optional description text")
-  slot(:content, doc: "Optional custom content slot")
+  slot(:content, doc: "Optional additional custom content")
+  slot(:inner_block, doc: "Completely custom content (alternative to structured slots)")
 
   @spec radio_card(map()) :: Rendered.t()
   def radio_card(assigns) do
+    # Determine if using structured layout or custom content
+    has_structured_content = assigns.title != [] or assigns.visual != [] or assigns.description != []
+    assigns = assign(assigns, :has_structured_content, has_structured_content)
+
     ~H"""
-    <div class={[
-      "flex items-start gap-3 rounded-lg border border-border p-4 transition-colors",
-      "hover:bg-accent/50 cursor-pointer",
-      @class
-    ]}>
+    <label
+      for={@id}
+      class={[
+        "flex items-start gap-3 rounded-lg border border-border p-4 transition-colors cursor-pointer",
+        "hover:bg-accent/50",
+        @class
+      ]}
+    >
       <.radio_group_item
         value={@value}
         id={@id}
         name={@name}
         checked={@checked}
-        class="mt-1"
+        class="mt-1 pointer-events-none"
         {@rest}
       />
 
-      <div class="flex flex-1 flex-col gap-2">
-        <%= if @visual != [] do %>
-          <div class="flex-shrink-0">
-            {render_slot(@visual)}
+      <%= if @has_structured_content do %>
+        <%!-- Structured layout with convenience slots --%>
+        <div class="flex flex-1 flex-col gap-2">
+          <%= if @visual != [] do %>
+            <div class="flex-shrink-0">
+              {render_slot(@visual)}
+            </div>
+          <% end %>
+
+          <div class="flex-1 space-y-1">
+            <%= if @title != [] do %>
+              <div class="font-medium text-sm leading-none">
+                {render_slot(@title)}
+              </div>
+            <% end %>
+
+            <%= if @description != [] do %>
+              <p class="text-sm text-muted-foreground">
+                {render_slot(@description)}
+              </p>
+            <% end %>
           </div>
-        <% end %>
 
-        <div class="flex-1 space-y-1">
-          <label for={@id} class="cursor-pointer font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            {render_slot(@title)}
-          </label>
-
-          <%= if @description != [] do %>
-            <p class="text-sm text-muted-foreground">
-              {render_slot(@description)}
-            </p>
+          <%= if @content != [] do %>
+            <div class="mt-2">
+              {render_slot(@content)}
+            </div>
           <% end %>
         </div>
-
-        <%= if @content != [] do %>
-          <div class="mt-2">
-            {render_slot(@content)}
-          </div>
-        <% end %>
-      </div>
-    </div>
+      <% else %>
+        <%!-- Fully custom content via inner_block --%>
+        <div class="flex-1">
+          {render_slot(@inner_block)}
+        </div>
+      <% end %>
+    </label>
     """
   end
 
