@@ -35,6 +35,7 @@ defmodule DemoWeb.Router do
       live "/checkbox", Ui.CheckboxLive
       live "/switch", Ui.SwitchLive
       live "/radio-group", Ui.RadioGroupLive
+      live "/radio-card", Ui.RadioCardLive
       live "/select", Ui.SelectLive
       live "/combobox", Ui.ComboboxLive
       live "/chip-input", Ui.ChipInputLive

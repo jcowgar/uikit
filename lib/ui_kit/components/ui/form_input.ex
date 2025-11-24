@@ -1365,6 +1365,139 @@ defmodule UiKit.Components.Ui.FormInput do
   end
 
   @doc """
+  Renders a selectable card with a radio button.
+
+  The radio card component displays a bordered card that contains a radio button
+  and customizable content. It's perfect for selection interfaces where users need
+  to choose between multiple options with more context than a simple radio button.
+
+  ## Usage Patterns
+
+  Common use cases include:
+  - Theme selection (Light, Dark, System)
+  - Plan selection (Free, Pro, Enterprise)
+  - Payment method selection
+  - Shipping method selection
+  - Game type selection (8-ball, 9-ball, 10-ball)
+  - Break type selection (Winner, Loser, Alternating)
+
+  ## Slots
+
+  - `:visual` - Optional slot for icons, images, or other visual elements
+  - `:title` - Main title/label for the option (required)
+  - `:description` - Optional description text providing more context
+  - `:content` - Optional slot for custom content beyond title/description
+
+  ## Features
+
+  - Hover effect with background color transition
+  - Integrates with existing radio_group_item component
+  - Supports all radio_group_item attributes
+  - Flexible content layout with multiple slots
+  - Semantic color tokens for theme support
+  - Accessible with proper ARIA attributes
+
+  ## Examples
+
+      # Basic card with title and description
+      <.radio_group name="theme" value="system">
+        <.radio_card value="system" id="theme-system" name="theme" checked>
+          <:title>System</:title>
+          <:description>Automatically match your device's system theme</:description>
+        </.radio_card>
+
+        <.radio_card value="light" id="theme-light" name="theme">
+          <:title>Light Mode</:title>
+          <:description>Always use light theme</:description>
+        </.radio_card>
+      </.radio_group>
+
+      # Card with visual element (icon or image)
+      <.radio_card value="8ball" id="game-8ball" name="game_type">
+        <:visual>
+          <img src="/images/8ball.svg" class="size-12" alt="8-Ball" />
+        </:visual>
+        <:title>8-Ball</:title>
+        <:description>Standard 8-ball pool game</:description>
+      </.radio_card>
+
+      # Card with custom content
+      <.radio_card value="pro" id="plan-pro" name="plan">
+        <:title>Pro Plan</:title>
+        <:description>For professionals</:description>
+        <:content>
+          <div class="mt-2 text-2xl font-bold">$29/mo</div>
+          <ul class="mt-2 text-sm space-y-1">
+            <li>✓ Unlimited projects</li>
+            <li>✓ Priority support</li>
+          </ul>
+        </:content>
+      </.radio_card>
+
+  """
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :string, required: true)
+  attr(:checked, :boolean, default: false)
+  attr(:class, :string, default: nil)
+
+  attr(:rest, :global,
+    include:
+      ~w(disabled required aria-invalid aria-describedby form autofocus phx-click phx-value-action)
+  )
+
+  slot(:visual, doc: "Optional visual element like an icon or image")
+  slot(:title, required: true, doc: "Main title/label for the option")
+  slot(:description, doc: "Optional description text")
+  slot(:content, doc: "Optional custom content slot")
+
+  @spec radio_card(map()) :: Rendered.t()
+  def radio_card(assigns) do
+    ~H"""
+    <div class={[
+      "flex items-start gap-3 rounded-lg border border-border p-4 transition-colors",
+      "hover:bg-accent/50 cursor-pointer",
+      @class
+    ]}>
+      <.radio_group_item
+        value={@value}
+        id={@id}
+        name={@name}
+        checked={@checked}
+        class="mt-1"
+        {@rest}
+      />
+
+      <div class="flex flex-1 flex-col gap-2">
+        <%= if @visual != [] do %>
+          <div class="flex-shrink-0">
+            {render_slot(@visual)}
+          </div>
+        <% end %>
+
+        <div class="flex-1 space-y-1">
+          <label for={@id} class="cursor-pointer font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            {render_slot(@title)}
+          </label>
+
+          <%= if @description != [] do %>
+            <p class="text-sm text-muted-foreground">
+              {render_slot(@description)}
+            </p>
+          <% end %>
+        </div>
+
+        <%= if @content != [] do %>
+          <div class="mt-2">
+            {render_slot(@content)}
+          </div>
+        <% end %>
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a custom select dropdown that allows users to pick from a list of options.
 
   This component matches the shadcn/ui Select design with a custom dropdown menu
