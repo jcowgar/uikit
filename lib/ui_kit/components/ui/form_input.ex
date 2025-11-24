@@ -1344,6 +1344,7 @@ defmodule UiKit.Components.Ui.FormInput do
         disabled={@rest[:disabled]}
         tabindex="-1"
         class="sr-only"
+        style="scroll-margin-top: -9999px !important;"
         aria-hidden="true"
         phx-update="ignore"
         phx-hook="RadioToggle"
