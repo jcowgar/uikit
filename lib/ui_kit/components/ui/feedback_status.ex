@@ -768,4 +768,153 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
     />
     """
   end
+
+  @doc """
+  Renders a segmented progress bar component.
+
+  A segmented progress bar displays progress through distinct segments, making it ideal for
+  visualizing race-to-target scenarios such as game scoring (e.g., "first to 5 wins") or
+  multi-step processes where each segment represents a completed milestone.
+
+  ## Features
+
+  - Flexible segment count (any number of segments)
+  - Customizable filled and empty segment colors
+  - Responsive sizing that scales to container
+  - Automatic segment width calculation
+  - Clean, modern design with rounded corners
+  - Semantic color tokens for theme support
+  - Configurable gap between segments
+
+  ## Examples
+
+      # Basic usage - 2 of 5 segments filled
+      <.segmented_progress_bar total={5} filled={2} />
+
+      # Race to 7 - 3 wins so far
+      <.segmented_progress_bar total={7} filled={3} />
+
+      # Custom colors
+      <.segmented_progress_bar
+        total={5}
+        filled={2}
+        filled_class="bg-success"
+        empty_class="bg-muted"
+      />
+
+      # Custom size and gap
+      <.segmented_progress_bar
+        total={5}
+        filled={2}
+        class="h-3"
+        gap={1}
+      />
+
+      # Full width with larger segments
+      <.segmented_progress_bar
+        total={5}
+        filled={4}
+        class="w-full h-4"
+      />
+
+  ## Attributes
+
+  - `total` - Total number of segments (required)
+  - `filled` - Number of filled segments (required, must be <= total)
+  - `filled_class` - CSS class for filled segments (default: "bg-primary")
+  - `empty_class` - CSS class for empty segments (default: "bg-accent")
+  - `gap` - Gap between segments in Tailwind spacing units (default: 2)
+  - `class` - Additional CSS classes for the container
+
+  ## Use Cases
+
+  - Pool game scoring (race to N games)
+  - Tournament brackets progress
+  - Set progress in sports
+  - Multi-stage achievements
+  - Progress toward a goal or quota
+  - Skill level indicators
+
+  """
+  attr(:total, :integer, required: true, doc: "Total number of segments")
+  attr(:filled, :integer, required: true, doc: "Number of filled segments")
+
+  attr(:filled_class, :string,
+    default: "bg-primary",
+    doc: "CSS class for filled segments"
+  )
+
+  attr(:empty_class, :string,
+    default: "bg-accent",
+    doc: "CSS class for empty segments"
+  )
+
+  attr(:gap, :integer,
+    default: 2,
+    doc: "Gap between segments in Tailwind spacing units (e.g., 1, 2, 3)"
+  )
+
+  attr(:class, :string,
+    default: nil,
+    doc: "Additional CSS classes for size and appearance"
+  )
+
+  attr(:rest, :global, doc: "Additional HTML attributes")
+
+  @spec segmented_progress_bar(map()) :: Rendered.t()
+  def segmented_progress_bar(assigns) do
+    # Validate that filled <= total
+    filled = min(assigns.filled, assigns.total)
+    assigns = assign(assigns, :filled, filled)
+
+    # Generate list of segment states
+    segments =
+      Enum.map(1..assigns.total, fn i ->
+        i <= filled
+      end)
+
+    assigns = assign(assigns, :segments, segments)
+
+    # Add default height if no height class provided
+    has_height = assigns.class && String.contains?(assigns.class, "h-")
+    default_height = if has_height, do: "", else: "h-2"
+    assigns = assign(assigns, :default_height, default_height)
+
+    ~H"""
+    <div
+      data-slot="segmented-progress-bar"
+      role="progressbar"
+      aria-valuenow={@filled}
+      aria-valuemin="0"
+      aria-valuemax={@total}
+      aria-label={"#{@filled} of #{@total} complete"}
+      class={[
+        "flex w-full items-center",
+        @default_height,
+        gap_class(@gap),
+        @class
+      ]}
+      {@rest}
+    >
+      <div
+        :for={is_filled <- @segments}
+        class={[
+          "flex-1 h-full rounded-full transition-colors duration-200",
+          if(is_filled, do: @filled_class, else: @empty_class)
+        ]}
+      />
+    </div>
+    """
+  end
+
+  # Helper function to generate gap class
+  @spec gap_class(integer()) :: String.t()
+  defp gap_class(0), do: "gap-0"
+  defp gap_class(1), do: "gap-1"
+  defp gap_class(2), do: "gap-2"
+  defp gap_class(3), do: "gap-3"
+  defp gap_class(4), do: "gap-4"
+  defp gap_class(5), do: "gap-5"
+  defp gap_class(6), do: "gap-6"
+  defp gap_class(gap), do: "gap-#{gap}"
 end

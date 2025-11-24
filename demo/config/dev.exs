@@ -48,7 +48,8 @@ config :demo, DemoWeb.Endpoint,
     web_console_logger: true,
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"lib/demo_web/(?:controllers|live|components|router)/?.*\.(ex|heex)$"
+      ~r"lib/demo_web/(?:controllers|live|components|router)/?.*\.(ex|heex)$",
+      ~r"\.\./lib/ui_kit/.*\.(ex|heex)$"
     ]
   ]
 

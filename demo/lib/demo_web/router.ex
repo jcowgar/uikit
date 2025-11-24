@@ -49,6 +49,7 @@ defmodule DemoWeb.Router do
       live "/sonner", Ui.SonnerLive
       live "/spinner", Ui.SpinnerLive
       live "/skeleton", Ui.SkeletonLive
+      live "/segmented-progress-bar", Ui.SegmentedProgressBarLive
       live "/avatar", Ui.AvatarLive
       live "/table", Ui.TableLive
       live "/dropdown-menu", Ui.DropdownMenuLive
