@@ -1848,7 +1848,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="tabs"
       data-default-value={@default_value}
       data-value={@value}
-      phx-hook="Tabs"
+      phx-hook="Tabs TabBarHook"
       class={["flex flex-col gap-2", @class]}
       {@rest}
     >
@@ -2165,6 +2165,134 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
         class="bg-border/40 hover:bg-border/60 relative flex-1 rounded-full transition-colors"
       />
     </div>
+    """
+  end
+
+  @doc """
+  Renders a mobile-first bottom tab bar for application navigation.
+
+  This component is designed for mobile devices to provide primary navigation
+  at the bottom of the screen. It supports an active state based on the current
+  route and displays icons with labels.
+
+  ## Features
+
+  - Fixed bottom positioning, full-width layout.
+  - Equal-width items using CSS flexbox.
+  - Icon-over-label vertical layout for better mobile UX.
+  - Active state management via a JavaScript hook (`TabBarHook`).
+  - Supports route-based active state integration with Phoenix LiveView navigation.
+  - Ensures 44px minimum touch targets for accessibility.
+  - Theme-aware colors.
+
+  ## Components
+
+  - `<.tab_bar>` - Root container for the tab bar.
+  - `<.tab_bar_item>` - Individual navigation item with icon + label.
+
+  ## Examples
+
+      # Basic tab bar
+      <.tab_bar active_path={@current_path}>
+        <.tab_bar_item icon="hero-home" label="Home" path={~p"/"} />
+        <.tab_bar_item icon="hero-calendar" label="Schedule" path={~p"/schedule"} />
+        <.tab_bar_item icon="hero-trophy" label="Standings" path={~p"/standings"} />
+        <.tab_bar_item icon="hero-ellipsis-horizontal" label="More" path={~p"/more"} />
+      </.tab_bar>
+
+      # With badge
+      <.tab_bar active_path={@current_path}>
+        <.tab_bar_item icon="hero-chat-bubble-oval-left" label="Chat" path={~p"/chat"} badge="3" />
+        <.tab_bar_item icon="hero-bell" label="Alerts" path={~p"/alerts"} badge="99+" />
+      </.tab_bar>
+
+  """
+  attr(:active_path, :string,
+    required: true,
+    doc: "The current LiveView path to determine the active tab."
+  )
+
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
+
+  @spec tab_bar(map()) :: Rendered.t()
+  def tab_bar(assigns) do
+    ~H"""
+    <div
+      phx-hook="TabBarHook"
+      data-slot="tab-bar"
+      data-active-path={@active_path}
+      class={[
+        "fixed inset-x-0 bottom-0 z-40 block h-16 bg-background shadow-md md:hidden",
+        "border-t border-border flex items-stretch justify-around",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders an individual item within the tab bar.
+
+  Each item represents a navigation link with an icon and a label. It highlights
+  automatically if its path matches the `tab_bar`'s `active_path`.
+
+  ## Attributes
+
+  - `path` - The LiveView path this item navigates to (required).
+  - `icon` - The Heroicons name for the icon to display (e.g., "hero-home").
+  - `label` - The text label for the tab item.
+  - `badge` - Optional string to display as a badge (e.g., notification count).
+  - `class` - Additional CSS classes for the item.
+
+  ## Examples
+
+      <.tab_bar_item icon="hero-home" label="Home" path={~p"/"} />
+      <.tab_bar_item icon="hero-calendar" label="Schedule" path={~p"/schedule"} badge="New" />
+
+  """
+  attr(:navigate, :string, required: true, doc: "The LiveView path this item navigates to.")
+  attr(:icon, :string, default: nil, doc: "The Heroicons name for the icon to display.")
+  attr(:label, :string, default: nil, doc: "The text label for the tab item.")
+  attr(:badge, :string, default: nil, doc: "Optional notification badge content.")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id phx-click))
+  slot(:inner_block)
+
+  @spec tab_bar_item(map()) :: Rendered.t()
+  def tab_bar_item(assigns) do
+    ~H"""
+    <.link
+      navigate={@navigate}
+      data-slot="tab-bar-item"
+      class={[
+        "flex flex-1 flex-col items-center justify-center gap-0.5 relative py-1 px-2",
+        "text-muted-foreground transition-colors duration-200",
+        "active:text-primary active:bg-primary-foreground",
+        "data-[active=true]:text-primary data-[active=true]:font-medium",
+        "min-h-[44px]", # Ensures minimum touch target
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        @class
+      ]}
+      {@rest}
+    >
+      <div class="relative">
+        <.icon :if={@icon} name={@icon} class="size-6" />
+        <%= if @badge do %>
+          <span class="absolute -top-1 -right-2 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full">
+            <%= @badge %>
+          </span>
+        <% end %>
+      </div>
+      <span class="text-xs">
+        <%= @label %>
+      </span>
+      {render_slot(@inner_block)}
+    </.link>
     """
   end
 end

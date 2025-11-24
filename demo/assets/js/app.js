@@ -55,6 +55,8 @@ import {LocalTime} from "../../../assets/js/hooks/local_time"
 import {PositionDropdown} from "../../../assets/js/hooks/position_dropdown"
 // Chart.js integration for data visualization
 import {ChartHook} from "../../../assets/js/hooks/chart"
+// Mobile Tab Bar navigation
+import {TabBarHook} from "../../../assets/js/hooks/tab_bar_hook"
 
 // Custom hooks for LiveView components
 const Hooks = {
@@ -103,6 +105,7 @@ const Hooks = {
   LocalTime: LocalTime,
   PositionDropdown: PositionDropdown,
   Chart: ChartHook,
+  TabBar: TabBarHook,
   // ... (Other hooks can be copied if needed, but let's start with these)
 }
 

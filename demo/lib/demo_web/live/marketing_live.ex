@@ -7,7 +7,6 @@ defmodule DemoWeb.Ui.MarketingLive do
   import UiKit.Components.LayoutComponents
   import UiKit.Components.Ui.Marketing
   import UiKit.Components.Ui.Typography
-  import UiKit.Components.CoreComponents # For button
 
   def mount(_params, _session, socket) do
     {:ok, socket}
@@ -92,7 +91,6 @@ defmodule DemoWeb.Ui.MarketingLive do
             <.button variant="ghost">Visit FAQ</.button>
           </:actions>
         </.cta>
-
       </.stack>
     </.container>
     """

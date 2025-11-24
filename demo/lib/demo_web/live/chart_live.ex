@@ -15,135 +15,134 @@ defmodule DemoWeb.Ui.ChartLive do
   @impl true
   def render(assigns) do
     ~H"""
-    
-      <.container>
-        <.stack size="large">
+    <.container>
+      <.stack size="large">
+        <div>
+          <h1 class="text-3xl font-bold text-foreground">Chart</h1>
+          <p class="text-muted-foreground mt-2">
+            Interactive charts powered by Chart.js with automatic theme support.
+          </p>
+        </div>
+
+        <%!-- Bar Chart --%>
+        <section class="space-y-4">
           <div>
-            <h1 class="text-3xl font-bold text-foreground">Chart</h1>
-            <p class="text-muted-foreground mt-2">
-              Interactive charts powered by Chart.js with automatic theme support.
+            <h2 class="text-2xl font-semibold text-foreground">Bar Chart</h2>
+            <p class="text-muted-foreground">
+              Display data using vertical bars. Great for comparing values across categories.
             </p>
           </div>
 
-          <%!-- Bar Chart --%>
-          <section class="space-y-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-foreground">Bar Chart</h2>
-              <p class="text-muted-foreground">
-                Display data using vertical bars. Great for comparing values across categories.
-              </p>
-            </div>
+          <.card>
+            <.card_header>
+              <.card_title>Monthly Sales</.card_title>
+              <.card_description>Sales data for the first half of 2024</.card_description>
+            </.card_header>
+            <.card_content>
+              <.chart id="bar-chart" class="h-[350px]" config={@bar_chart_config} />
+            </.card_content>
+          </.card>
+        </section>
 
-            <.card>
-              <.card_header>
-                <.card_title>Monthly Sales</.card_title>
-                <.card_description>Sales data for the first half of 2024</.card_description>
-              </.card_header>
-              <.card_content>
-                <.chart id="bar-chart" class="h-[350px]" config={@bar_chart_config} />
-              </.card_content>
-            </.card>
-          </section>
+        <%!-- Line Chart --%>
+        <section class="space-y-4">
+          <div>
+            <h2 class="text-2xl font-semibold text-foreground">Line Chart</h2>
+            <p class="text-muted-foreground">
+              Show trends over time with smooth lines connecting data points.
+            </p>
+          </div>
 
-          <%!-- Line Chart --%>
-          <section class="space-y-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-foreground">Line Chart</h2>
-              <p class="text-muted-foreground">
-                Show trends over time with smooth lines connecting data points.
-              </p>
-            </div>
+          <.card>
+            <.card_header>
+              <.card_title>Revenue vs Expenses</.card_title>
+              <.card_description>Financial overview for Q1 2024</.card_description>
+            </.card_header>
+            <.card_content>
+              <.chart id="line-chart" class="h-[350px]" config={@line_chart_config} />
+            </.card_content>
+          </.card>
+        </section>
 
-            <.card>
-              <.card_header>
-                <.card_title>Revenue vs Expenses</.card_title>
-                <.card_description>Financial overview for Q1 2024</.card_description>
-              </.card_header>
-              <.card_content>
-                <.chart id="line-chart" class="h-[350px]" config={@line_chart_config} />
-              </.card_content>
-            </.card>
-          </section>
+        <%!-- Pie Chart --%>
+        <section class="space-y-4">
+          <div>
+            <h2 class="text-2xl font-semibold text-foreground">Pie Chart</h2>
+            <p class="text-muted-foreground">
+              Visualize proportions and percentages as segments of a circle.
+            </p>
+          </div>
 
-          <%!-- Pie Chart --%>
-          <section class="space-y-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-foreground">Pie Chart</h2>
-              <p class="text-muted-foreground">
-                Visualize proportions and percentages as segments of a circle.
-              </p>
-            </div>
+          <.card>
+            <.card_header>
+              <.card_title>Market Share</.card_title>
+              <.card_description>Product distribution by category</.card_description>
+            </.card_header>
+            <.card_content>
+              <.chart id="pie-chart" class="h-[350px]" config={@pie_chart_config} />
+            </.card_content>
+          </.card>
+        </section>
 
-            <.card>
-              <.card_header>
-                <.card_title>Market Share</.card_title>
-                <.card_description>Product distribution by category</.card_description>
-              </.card_header>
-              <.card_content>
-                <.chart id="pie-chart" class="h-[350px]" config={@pie_chart_config} />
-              </.card_content>
-            </.card>
-          </section>
+        <%!-- Doughnut Chart --%>
+        <section class="space-y-4">
+          <div>
+            <h2 class="text-2xl font-semibold text-foreground">Doughnut Chart</h2>
+            <p class="text-muted-foreground">
+              Similar to pie charts but with a hollow center, offering more visual appeal.
+            </p>
+          </div>
 
-          <%!-- Doughnut Chart --%>
-          <section class="space-y-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-foreground">Doughnut Chart</h2>
-              <p class="text-muted-foreground">
-                Similar to pie charts but with a hollow center, offering more visual appeal.
-              </p>
-            </div>
+          <.card>
+            <.card_header>
+              <.card_title>Browser Usage</.card_title>
+              <.card_description>Visitor browser statistics</.card_description>
+            </.card_header>
+            <.card_content>
+              <.chart id="doughnut-chart" class="h-[350px]" config={@doughnut_chart_config} />
+            </.card_content>
+          </.card>
+        </section>
 
-            <.card>
-              <.card_header>
-                <.card_title>Browser Usage</.card_title>
-                <.card_description>Visitor browser statistics</.card_description>
-              </.card_header>
-              <.card_content>
-                <.chart id="doughnut-chart" class="h-[350px]" config={@doughnut_chart_config} />
-              </.card_content>
-            </.card>
-          </section>
+        <%!-- Interactive Example --%>
+        <section class="space-y-4">
+          <div>
+            <h2 class="text-2xl font-semibold text-foreground">Interactive Chart</h2>
+            <p class="text-muted-foreground">
+              Charts can be updated dynamically from your LiveView.
+            </p>
+          </div>
 
-          <%!-- Interactive Example --%>
-          <section class="space-y-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-foreground">Interactive Chart</h2>
-              <p class="text-muted-foreground">
-                Charts can be updated dynamically from your LiveView.
-              </p>
-            </div>
+          <.card>
+            <.card_header>
+              <.card_title>Real-time Data</.card_title>
+              <.card_description>
+                Click the button to refresh the chart with new data
+              </.card_description>
+            </.card_header>
+            <.card_content>
+              <.chart id="interactive-chart" class="h-[350px]" config={@interactive_chart_config} />
+              <div class="mt-4">
+                <.button phx-click="refresh_chart">
+                  <.icon name="hero-arrow-path" class="w-4 h-4 mr-2" /> Refresh Data
+                </.button>
+              </div>
+            </.card_content>
+          </.card>
+        </section>
 
-            <.card>
-              <.card_header>
-                <.card_title>Real-time Data</.card_title>
-                <.card_description>
-                  Click the button to refresh the chart with new data
-                </.card_description>
-              </.card_header>
-              <.card_content>
-                <.chart id="interactive-chart" class="h-[350px]" config={@interactive_chart_config} />
-                <div class="mt-4">
-                  <.button phx-click="refresh_chart">
-                    <.icon name="hero-arrow-path" class="w-4 h-4 mr-2" /> Refresh Data
-                  </.button>
-                </div>
-              </.card_content>
-            </.card>
-          </section>
+        <%!-- Code Example --%>
+        <section class="space-y-4">
+          <div>
+            <h2 class="text-2xl font-semibold text-foreground">Usage</h2>
+            <p class="text-muted-foreground">
+              How to use the chart component in your LiveView.
+            </p>
+          </div>
 
-          <%!-- Code Example --%>
-          <section class="space-y-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-foreground">Usage</h2>
-              <p class="text-muted-foreground">
-                How to use the chart component in your LiveView.
-              </p>
-            </div>
-
-            <.card>
-              <.card_content>
-                <pre class="text-sm p-4 bg-muted rounded-lg overflow-x-auto" phx-no-format><code phx-no-curly-interpolation># In your LiveView module
+          <.card>
+            <.card_content>
+              <pre class="text-sm p-4 bg-muted rounded-lg overflow-x-auto" phx-no-format><code phx-no-curly-interpolation># In your LiveView module
     def mount(_params, _session, socket) do
     chart_config = %{
     type: "bar",
@@ -172,12 +171,11 @@ defmodule DemoWeb.Ui.ChartLive do
     new_config = %{...}
     {:noreply, assign(socket, chart_config: new_config)}
     end</code></pre>
-              </.card_content>
-            </.card>
-          </section>
-        </.stack>
-      </.container>
-    
+            </.card_content>
+          </.card>
+        </section>
+      </.stack>
+    </.container>
     """
   end
 

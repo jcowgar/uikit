@@ -35,7 +35,12 @@ config :esbuild,
         --alias:mermaid=./node_modules/mermaid
       ),
     cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Path.expand("../assets/node_modules", __DIR__)]}
+    env: %{
+      "NODE_PATH" => [
+        Path.expand("../deps", __DIR__),
+        Path.expand("../assets/node_modules", __DIR__)
+      ]
+    }
   ]
 
 # Configure tailwind (the version is required)

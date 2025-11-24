@@ -81,7 +81,7 @@ defmodule DemoWeb do
       import Phoenix.HTML
       # Core UI components
       alias DemoWeb.Layouts
-      
+
       # UiKit Components
       import UiKit.Components.CoreComponents
       import UiKit.Components.LayoutComponents

@@ -43,303 +43,299 @@ defmodule DemoWeb.Ui.FormLive do
   @impl true
   def render(assigns) do
     ~H"""
-    
-      <.container>
-        <.stack size="large">
-          <%!-- Header --%>
-          <div>
-            <h1 class="text-3xl font-bold text-foreground">Form Components</h1>
-            <p class="text-muted-foreground mt-2">
-              Building blocks for creating accessible forms with consistent styling and validation.
-            </p>
-          </div>
+    <.container>
+      <.stack size="large">
+        <%!-- Header --%>
+        <div>
+          <h1 class="text-3xl font-bold text-foreground">Form Components</h1>
+          <p class="text-muted-foreground mt-2">
+            Building blocks for creating accessible forms with consistent styling and validation.
+          </p>
+        </div>
 
-          <%!-- Basic Form Composition --%>
-          <section>
-            <h2 class="text-xl font-semibold text-foreground mb-4">Basic Composition</h2>
-            <.card class="max-w-md">
-              <.card_header>
-                <.card_title>Manual Field Composition</.card_title>
-                <.card_description>
-                  Build forms using individual components for maximum control
-                </.card_description>
-              </.card_header>
-              <.card_content>
-                <.stack size="medium">
-                  <.form_item>
-                    <.form_label for="basic-email">Email</.form_label>
-                    <.input type="email" id="basic-email" name="email" placeholder="john@example.com" />
-                    <.form_description>
-                      We'll never share your email with anyone.
-                    </.form_description>
-                  </.form_item>
+        <%!-- Basic Form Composition --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Basic Composition</h2>
+          <.card class="max-w-md">
+            <.card_header>
+              <.card_title>Manual Field Composition</.card_title>
+              <.card_description>
+                Build forms using individual components for maximum control
+              </.card_description>
+            </.card_header>
+            <.card_content>
+              <.stack size="medium">
+                <.form_item>
+                  <.form_label for="basic-email">Email</.form_label>
+                  <.input type="email" id="basic-email" name="email" placeholder="john@example.com" />
+                  <.form_description>
+                    We'll never share your email with anyone.
+                  </.form_description>
+                </.form_item>
 
-                  <.form_item>
-                    <.form_label for="basic-password">Password</.form_label>
-                    <.input
-                      type="password"
-                      id="basic-password"
-                      name="password"
-                      placeholder="••••••••"
-                    />
-                  </.form_item>
-
-                  <.button class="w-full">Sign In</.button>
-                </.stack>
-              </.card_content>
-            </.card>
-          </section>
-
-          <%!-- Form with Validation --%>
-          <section>
-            <h2 class="text-xl font-semibold text-foreground mb-4">
-              Form with Validation (Phoenix Forms)
-            </h2>
-            <.card class="max-w-md">
-              <.card_header>
-                <.card_title>Create Account</.card_title>
-                <.card_description>
-                  Try submitting without filling fields to see validation
-                </.card_description>
-              </.card_header>
-              <.card_content>
-                <.form
-                  for={@form}
-                  id="user-form"
-                  phx-change="validate"
-                  phx-submit="save"
-                  class="space-y-4"
-                >
-                  <.form_field
-                    field={@form[:name]}
-                    type="text"
-                    label="Name"
-                    description="Your full name"
-                    placeholder="John Doe"
-                  />
-
-                  <.form_field
-                    field={@form[:email]}
-                    type="email"
-                    label="Email"
-                    description="We'll send you a confirmation email"
-                    placeholder="john@example.com"
-                  />
-
-                  <.form_field
-                    field={@form[:password]}
+                <.form_item>
+                  <.form_label for="basic-password">Password</.form_label>
+                  <.input
                     type="password"
-                    label="Password"
-                    description="Must be at least 8 characters"
+                    id="basic-password"
+                    name="password"
                     placeholder="••••••••"
                   />
+                </.form_item>
 
-                  <.form_field
-                    field={@form[:age]}
-                    type="number"
-                    label="Age"
-                    placeholder="18"
+                <.button class="w-full">Sign In</.button>
+              </.stack>
+            </.card_content>
+          </.card>
+        </section>
+
+        <%!-- Form with Validation --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">
+            Form with Validation (Phoenix Forms)
+          </h2>
+          <.card class="max-w-md">
+            <.card_header>
+              <.card_title>Create Account</.card_title>
+              <.card_description>
+                Try submitting without filling fields to see validation
+              </.card_description>
+            </.card_header>
+            <.card_content>
+              <.form
+                for={@form}
+                id="user-form"
+                phx-change="validate"
+                phx-submit="save"
+                class="space-y-4"
+              >
+                <.form_field
+                  field={@form[:name]}
+                  type="text"
+                  label="Name"
+                  description="Your full name"
+                  placeholder="John Doe"
+                />
+
+                <.form_field
+                  field={@form[:email]}
+                  type="email"
+                  label="Email"
+                  description="We'll send you a confirmation email"
+                  placeholder="john@example.com"
+                />
+
+                <.form_field
+                  field={@form[:password]}
+                  type="password"
+                  label="Password"
+                  description="Must be at least 8 characters"
+                  placeholder="••••••••"
+                />
+
+                <.form_field
+                  field={@form[:age]}
+                  type="number"
+                  label="Age"
+                  placeholder="18"
+                />
+
+                <div class="flex items-center gap-3 pt-2">
+                  <.checkbox
+                    id="terms"
+                    name="user[terms]"
+                    checked={Phoenix.HTML.Form.normalize_value("checkbox", @form[:terms].value)}
                   />
+                  <.label for="terms" class="cursor-pointer">
+                    I agree to the terms and conditions
+                  </.label>
+                </div>
 
-                  <div class="flex items-center gap-3 pt-2">
-                    <.checkbox
-                      id="terms"
-                      name="user[terms]"
-                      checked={Phoenix.HTML.Form.normalize_value("checkbox", @form[:terms].value)}
-                    />
-                    <.label for="terms" class="cursor-pointer">
-                      I agree to the terms and conditions
+                <.button type="submit" class="w-full">Create Account</.button>
+              </.form>
+
+              <div
+                :if={@submitted}
+                class="mt-4 p-3 bg-success/10 border border-success/20 rounded-md"
+              >
+                <p class="text-sm text-success">Account created successfully!</p>
+              </div>
+            </.card_content>
+          </.card>
+        </section>
+
+        <%!-- Error States --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Error States</h2>
+          <.card class="max-w-md">
+            <.card_header>
+              <.card_title>Form with Errors</.card_title>
+              <.card_description>
+                Examples of how validation errors appear
+              </.card_description>
+            </.card_header>
+            <.card_content>
+              <.stack size="medium">
+                <.form_item>
+                  <.form_label for="error-email" error>Email</.form_label>
+                  <.input
+                    type="email"
+                    id="error-email"
+                    name="email"
+                    value="invalid-email"
+                    aria-invalid="true"
+                    aria-describedby="error-email-message"
+                  />
+                  <.form_message id="error-email-message">
+                    Please enter a valid email address
+                  </.form_message>
+                </.form_item>
+
+                <.form_item>
+                  <.form_label for="error-password" error>Password</.form_label>
+                  <.input
+                    type="password"
+                    id="error-password"
+                    name="password"
+                    value="123"
+                    aria-invalid="true"
+                    aria-describedby="error-password-message"
+                  />
+                  <.form_description>Must be at least 8 characters</.form_description>
+                  <.form_message id="error-password-message">
+                    Password is too short
+                  </.form_message>
+                </.form_item>
+              </.stack>
+            </.card_content>
+          </.card>
+        </section>
+
+        <%!-- Form Layouts --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Form Layouts</h2>
+          <.card>
+            <.card_header>
+              <.card_title>Contact Form</.card_title>
+              <.card_description>
+                Example of a more complex form layout
+              </.card_description>
+            </.card_header>
+            <.card_content>
+              <form class="space-y-6">
+                <.grid cols={2}>
+                  <.form_item>
+                    <.form_label for="first-name">First Name</.form_label>
+                    <.input type="text" id="first-name" name="first_name" placeholder="John" />
+                  </.form_item>
+
+                  <.form_item>
+                    <.form_label for="last-name">Last Name</.form_label>
+                    <.input type="text" id="last-name" name="last_name" placeholder="Doe" />
+                  </.form_item>
+                </.grid>
+
+                <.form_item>
+                  <.form_label for="contact-email">Email</.form_label>
+                  <.input
+                    type="email"
+                    id="contact-email"
+                    name="email"
+                    placeholder="john@example.com"
+                  />
+                </.form_item>
+
+                <.form_item>
+                  <.form_label for="subject">Subject</.form_label>
+                  <.input type="text" id="subject" name="subject" placeholder="How can we help?" />
+                </.form_item>
+
+                <.form_item>
+                  <.form_label for="message">Message</.form_label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    placeholder="Tell us more..."
+                    class="w-full px-3 py-2 rounded-md border border-input bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] dark:bg-input/30"
+                  ></textarea>
+                  <.form_description>
+                    Provide as much detail as possible
+                  </.form_description>
+                </.form_item>
+
+                <.flex align="between">
+                  <div class="flex items-center gap-3">
+                    <.checkbox id="subscribe" name="subscribe" />
+                    <.label for="subscribe" class="cursor-pointer">
+                      Subscribe to newsletter
                     </.label>
                   </div>
+                  <.button>Send Message</.button>
+                </.flex>
+              </form>
+            </.card_content>
+          </.card>
+        </section>
 
-                  <.button type="submit" class="w-full">Create Account</.button>
-                </.form>
-
-                <div
-                  :if={@submitted}
-                  class="mt-4 p-3 bg-success/10 border border-success/20 rounded-md"
-                >
-                  <p class="text-sm text-success">Account created successfully!</p>
+        <%!-- Component Reference --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Component Reference</h2>
+          <.card class="max-w-2xl">
+            <.card_header>
+              <.card_title>Available Components</.card_title>
+            </.card_header>
+            <.card_content>
+              <.stack size="small">
+                <div>
+                  <h3 class="font-semibold text-foreground mb-2">Composition Components</h3>
+                  <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>
+                      <code class="text-xs">&lt;.form_item&gt;</code>
+                      - Container for form fields with consistent spacing
+                    </li>
+                    <li>
+                      <code class="text-xs">&lt;.form_label&gt;</code>
+                      - Label with error state styling
+                    </li>
+                    <li>
+                      <code class="text-xs">&lt;.form_description&gt;</code> - Helper text for fields
+                    </li>
+                    <li>
+                      <code class="text-xs">&lt;.form_message&gt;</code> - Error message display
+                    </li>
+                  </ul>
                 </div>
-              </.card_content>
-            </.card>
-          </section>
 
-          <%!-- Error States --%>
-          <section>
-            <h2 class="text-xl font-semibold text-foreground mb-4">Error States</h2>
-            <.card class="max-w-md">
-              <.card_header>
-                <.card_title>Form with Errors</.card_title>
-                <.card_description>
-                  Examples of how validation errors appear
-                </.card_description>
-              </.card_header>
-              <.card_content>
-                <.stack size="medium">
-                  <.form_item>
-                    <.form_label for="error-email" error>Email</.form_label>
-                    <.input
-                      type="email"
-                      id="error-email"
-                      name="email"
-                      value="invalid-email"
-                      aria-invalid="true"
-                      aria-describedby="error-email-message"
-                    />
-                    <.form_message id="error-email-message">
-                      Please enter a valid email address
-                    </.form_message>
-                  </.form_item>
+                <div>
+                  <h3 class="font-semibold text-foreground mb-2">High-Level Components</h3>
+                  <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>
+                      <code class="text-xs">&lt;.form_field&gt;</code>
+                      - Complete field with label, input, description, and errors
+                    </li>
+                  </ul>
+                </div>
 
-                  <.form_item>
-                    <.form_label for="error-password" error>Password</.form_label>
-                    <.input
-                      type="password"
-                      id="error-password"
-                      name="password"
-                      value="123"
-                      aria-invalid="true"
-                      aria-describedby="error-password-message"
-                    />
-                    <.form_description>Must be at least 8 characters</.form_description>
-                    <.form_message id="error-password-message">
-                      Password is too short
-                    </.form_message>
-                  </.form_item>
-                </.stack>
-              </.card_content>
-            </.card>
-          </section>
-
-          <%!-- Form Layouts --%>
-          <section>
-            <h2 class="text-xl font-semibold text-foreground mb-4">Form Layouts</h2>
-            <.card>
-              <.card_header>
-                <.card_title>Contact Form</.card_title>
-                <.card_description>
-                  Example of a more complex form layout
-                </.card_description>
-              </.card_header>
-              <.card_content>
-                <form class="space-y-6">
-                  <.grid cols={2}>
-                    <.form_item>
-                      <.form_label for="first-name">First Name</.form_label>
-                      <.input type="text" id="first-name" name="first_name" placeholder="John" />
-                    </.form_item>
-
-                    <.form_item>
-                      <.form_label for="last-name">Last Name</.form_label>
-                      <.input type="text" id="last-name" name="last_name" placeholder="Doe" />
-                    </.form_item>
-                  </.grid>
-
-                  <.form_item>
-                    <.form_label for="contact-email">Email</.form_label>
-                    <.input
-                      type="email"
-                      id="contact-email"
-                      name="email"
-                      placeholder="john@example.com"
-                    />
-                  </.form_item>
-
-                  <.form_item>
-                    <.form_label for="subject">Subject</.form_label>
-                    <.input type="text" id="subject" name="subject" placeholder="How can we help?" />
-                  </.form_item>
-
-                  <.form_item>
-                    <.form_label for="message">Message</.form_label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="4"
-                      placeholder="Tell us more..."
-                      class="w-full px-3 py-2 rounded-md border border-input bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] dark:bg-input/30"
-                    ></textarea>
-                    <.form_description>
-                      Provide as much detail as possible
-                    </.form_description>
-                  </.form_item>
-
-                  <.flex align="between">
-                    <div class="flex items-center gap-3">
-                      <.checkbox id="subscribe" name="subscribe" />
-                      <.label for="subscribe" class="cursor-pointer">
-                        Subscribe to newsletter
-                      </.label>
-                    </div>
-                    <.button>Send Message</.button>
-                  </.flex>
-                </form>
-              </.card_content>
-            </.card>
-          </section>
-
-          <%!-- Component Reference --%>
-          <section>
-            <h2 class="text-xl font-semibold text-foreground mb-4">Component Reference</h2>
-            <.card class="max-w-2xl">
-              <.card_header>
-                <.card_title>Available Components</.card_title>
-              </.card_header>
-              <.card_content>
-                <.stack size="small">
-                  <div>
-                    <h3 class="font-semibold text-foreground mb-2">Composition Components</h3>
-                    <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                      <li>
-                        <code class="text-xs">&lt;.form_item&gt;</code>
-                        - Container for form fields with consistent spacing
-                      </li>
-                      <li>
-                        <code class="text-xs">&lt;.form_label&gt;</code>
-                        - Label with error state styling
-                      </li>
-                      <li>
-                        <code class="text-xs">&lt;.form_description&gt;</code>
-                        - Helper text for fields
-                      </li>
-                      <li>
-                        <code class="text-xs">&lt;.form_message&gt;</code> - Error message display
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 class="font-semibold text-foreground mb-2">High-Level Components</h3>
-                    <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                      <li>
-                        <code class="text-xs">&lt;.form_field&gt;</code>
-                        - Complete field with label, input, description, and errors
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 class="font-semibold text-foreground mb-2">Usage Patterns</h3>
-                    <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                      <li>
-                        Use <code class="text-xs">&lt;.form_field&gt;</code>
-                        for quick, standard fields
-                      </li>
-                      <li>
-                        Use composition components for custom layouts or special requirements
-                      </li>
-                      <li>All components integrate with Phoenix forms and changesets</li>
-                      <li>Automatic accessibility with proper ARIA attributes</li>
-                    </ul>
-                  </div>
-                </.stack>
-              </.card_content>
-            </.card>
-          </section>
-        </.stack>
-      </.container>
-    
+                <div>
+                  <h3 class="font-semibold text-foreground mb-2">Usage Patterns</h3>
+                  <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>
+                      Use <code class="text-xs">&lt;.form_field&gt;</code> for quick, standard fields
+                    </li>
+                    <li>
+                      Use composition components for custom layouts or special requirements
+                    </li>
+                    <li>All components integrate with Phoenix forms and changesets</li>
+                    <li>Automatic accessibility with proper ARIA attributes</li>
+                  </ul>
+                </div>
+              </.stack>
+            </.card_content>
+          </.card>
+        </section>
+      </.stack>
+    </.container>
     """
   end
 

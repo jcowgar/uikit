@@ -20,7 +20,6 @@ defmodule DemoWeb.Router do
     live_session :ui_components,
       on_mount: [{DemoWeb.UiBreadcrumbs, :default}],
       layout: {DemoWeb.Layouts, :ui} do
-      
       live "/", Ui.IndexLive
       live "/styling", Ui.StylingLive
       live "/typography", Ui.TypographyLive
@@ -45,6 +44,8 @@ defmodule DemoWeb.Router do
       live "/tabs", Ui.TabsLive
       live "/sidebar", Ui.SidebarLive
       live "/scroll-area", Ui.ScrollAreaLive
+      live "/tab-bar", TabBarLive
+      live "/tab-bar/:_tab_path", TabBarLive
       live "/sonner", Ui.SonnerLive
       live "/spinner", Ui.SpinnerLive
       live "/skeleton", Ui.SkeletonLive

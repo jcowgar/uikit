@@ -43,8 +43,8 @@ defmodule DemoWeb.Ui.TypographyLive do
             </div>
           </div>
         </section>
-
-        <!-- Body Text -->
+        
+    <!-- Body Text -->
         <section class="flex flex-col gap-4">
           <.typography variant={:h3}>Body Text</.typography>
           <div class="flex flex-col gap-4 border p-4 rounded-lg">
@@ -81,22 +81,24 @@ defmodule DemoWeb.Ui.TypographyLive do
             </div>
           </div>
         </section>
-
-        <!-- Custom Elements -->
+        
+    <!-- Custom Elements -->
         <section class="flex flex-col gap-4">
           <.typography variant={:h3}>Custom Elements</.typography>
           <div class="flex flex-col gap-4 border p-4 rounded-lg">
             <div>
-               <.typography variant={:h1} element="div">
-                  This is styled as H1 but rendered as a DIV
-               </.typography>
-               <span class="text-xs text-muted-foreground">variant="h1" element="div"</span>
+              <.typography variant={:h1} element="div">
+                This is styled as H1 but rendered as a DIV
+              </.typography>
+              <span class="text-xs text-muted-foreground">variant="h1" element="div"</span>
             </div>
             <div>
-               <.typography variant={:p} element="span" class="text-primary">
-                  This is a span with primary color override
-               </.typography>
-               <span class="text-xs text-muted-foreground">variant="p" element="span" class="text-primary"</span>
+              <.typography variant={:p} element="span" class="text-primary">
+                This is a span with primary color override
+              </.typography>
+              <span class="text-xs text-muted-foreground">
+                variant="p" element="span" class="text-primary"
+              </span>
             </div>
           </div>
         </section>
