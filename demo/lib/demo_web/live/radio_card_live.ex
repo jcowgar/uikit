@@ -389,23 +389,23 @@ defmodule DemoWeb.Ui.RadioCardLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Code Example</h2>
 
           <.code_block language="elixir">
-<pre><code>&lt;.radio_group name="theme" value={@theme}&gt;
-  &lt;.radio_card
-    value="system"
-    id="theme-system"
-    name="theme"
-    checked={@theme == "system"}&gt;
-    &lt;:title&gt;System&lt;/:title&gt;
-    &lt;:description&gt;
-      Automatically match your device's system theme
-    &lt;/:description&gt;
-  &lt;/.radio_card&gt;
+            <pre><code>&lt;.radio_group name="theme" value={@theme}&gt;
+              &lt;.radio_card
+                value="system"
+                id="theme-system"
+                name="theme"
+                checked={@theme == "system"}&gt;
+                &lt;:title&gt;System&lt;/:title&gt;
+                &lt;:description&gt;
+                  Automatically match your device's system theme
+                &lt;/:description&gt;
+              &lt;/.radio_card&gt;
 
-  &lt;.radio_card value="light" id="theme-light" name="theme"&gt;
-    &lt;:title&gt;Light Mode&lt;/:title&gt;
-    &lt;:description&gt;Always use light theme&lt;/:description&gt;
-  &lt;/.radio_card&gt;
-&lt;/.radio_group&gt;</code></pre>
+              &lt;.radio_card value="light" id="theme-light" name="theme"&gt;
+                &lt;:title&gt;Light Mode&lt;/:title&gt;
+                &lt;:description&gt;Always use light theme&lt;/:description&gt;
+              &lt;/.radio_card&gt;
+            &lt;/.radio_group&gt;</code></pre>
           </.code_block>
         </section>
       </.stack>

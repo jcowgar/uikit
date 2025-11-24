@@ -109,24 +109,24 @@ defmodule UiKit.Components.Ui.Typography do
       # Basic code block
       <.code_block>
         <pre><code>def hello do
-  IO.puts "Hello, World!"
-end</code></pre>
+          IO.puts "Hello, World!"
+        end</code></pre>
       </.code_block>
 
       # With language hint
       <.code_block language="elixir">
         <pre><code>defmodule MyApp do
-  def start do
-    :ok
-  end
-end</code></pre>
+          def start do
+            :ok
+          end
+        end</code></pre>
       </.code_block>
 
       # With custom max height
       <.code_block language="javascript" max_height="300px">
         <pre><code>function hello() {
-  console.log("Hello!");
-}</code></pre>
+          console.log("Hello!");
+        }</code></pre>
       </.code_block>
 
       # Inline code (use with element override)
