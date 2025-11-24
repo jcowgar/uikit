@@ -57,6 +57,8 @@ import {PositionDropdown} from "../../../assets/js/hooks/position_dropdown"
 import {ChartHook} from "../../../assets/js/hooks/chart"
 // Mobile Tab Bar navigation
 import {TabBarHook} from "../../../assets/js/hooks/tab_bar_hook"
+// Accordion collapsible sections
+import AccordionHook from "../../../assets/js/hooks/accordion"
 
 // Custom hooks for LiveView components
 const Hooks = {
@@ -106,6 +108,7 @@ const Hooks = {
   PositionDropdown: PositionDropdown,
   Chart: ChartHook,
   TabBar: TabBarHook,
+  Accordion: AccordionHook,
   // ... (Other hooks can be copied if needed, but let's start with these)
 }
 

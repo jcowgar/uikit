@@ -492,10 +492,14 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       ["--sidebar-width: 16rem;", "--sidebar-width-icon: 3.5rem;"] ++
         if assigns.style, do: [assigns.style], else: []
 
-    assigns = assign(assigns, :style_list, style_list)
+    assigns =
+      assigns
+      |> assign(:style_list, style_list)
+      |> assign_new(:id, fn -> "sidebar-#{System.unique_integer([:positive])}" end)
 
     ~H"""
     <div
+      id={@id}
       phx-hook="Sidebar"
       data-slot="sidebar-wrapper"
       style={@style_list}
@@ -2293,6 +2297,226 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </span>
       {render_slot(@inner_block)}
     </.link>
+    """
+  end
+
+  @doc """
+  Renders an accordion container for collapsible content sections.
+
+  A vertically stacked set of interactive headings that each reveal a section of content.
+  Accordions are useful for organizing and displaying content in a compact, scannable format.
+
+  ## Type Modes
+
+  - `single` - Only one section can be open at a time (default behavior)
+  - `multiple` - Multiple sections can be open simultaneously
+
+  ## Features
+
+  - Smooth expand/collapse animations
+  - Keyboard navigation support
+  - Semantic HTML structure
+  - Composable sub-components (accordion_item, accordion_trigger, accordion_content)
+  - Customizable with CSS classes
+
+  ## Examples
+
+      # Single mode (only one item open at a time)
+      <.accordion id="faq">
+        <.accordion_item value="item-1">
+          <.accordion_trigger>Is it accessible?</.accordion_trigger>
+          <.accordion_content>
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </.accordion_content>
+        </.accordion_item>
+
+        <.accordion_item value="item-2">
+          <.accordion_trigger>Is it styled?</.accordion_trigger>
+          <.accordion_content>
+            Yes. It comes with default styles that you can customize.
+          </.accordion_content>
+        </.accordion_item>
+      </.accordion>
+
+      # Multiple mode (multiple items can be open)
+      <.accordion id="settings" type="multiple">
+        <.accordion_item value="general">
+          <.accordion_trigger>General Settings</.accordion_trigger>
+          <.accordion_content>
+            General configuration options...
+          </.accordion_content>
+        </.accordion_item>
+      </.accordion>
+
+  ## Accessibility
+
+  - Uses proper ARIA attributes for screen readers
+  - Supports keyboard navigation (Tab, Enter, Space, Arrow keys)
+  - Follows WAI-ARIA Accordion pattern
+
+  """
+  attr :id, :string, required: true, doc: "Unique identifier for the accordion"
+  attr :type, :string, default: "single", values: ~w(single multiple), doc: "Accordion type"
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global, doc: "Additional HTML attributes"
+  slot :inner_block, required: true, doc: "Accordion items"
+
+  @spec accordion(map()) :: Rendered.t()
+  def accordion(assigns) do
+    ~H"""
+    <div
+      id={@id}
+      phx-hook="Accordion"
+      data-slot="accordion"
+      data-type={@type}
+      class={@class}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders an individual accordion item.
+
+  Represents a single collapsible section within an accordion. Must be used within
+  an `accordion` component.
+
+  ## Examples
+
+      <.accordion_item value="item-1">
+        <.accordion_trigger>Section Title</.accordion_trigger>
+        <.accordion_content>
+          Section content goes here...
+        </.accordion_content>
+      </.accordion_item>
+
+  """
+  attr :value, :string, required: true, doc: "Unique identifier for this accordion item"
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global, doc: "Additional HTML attributes"
+  slot :inner_block, required: true, doc: "Accordion trigger and content"
+
+  @spec accordion_item(map()) :: Rendered.t()
+  def accordion_item(assigns) do
+    ~H"""
+    <div
+      data-slot="accordion-item"
+      data-value={@value}
+      class={[
+        "border-b last:border-b-0",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders an accordion trigger button.
+
+  The clickable heading that toggles the visibility of the accordion content.
+  Must be used within an `accordion_item` component.
+
+  ## Features
+
+  - Automatically includes chevron icon that rotates when expanded
+  - Keyboard accessible
+  - Focus visible states
+  - Hover effects
+
+  ## Examples
+
+      <.accordion_trigger>
+        Click to expand
+      </.accordion_trigger>
+
+      <.accordion_trigger class="text-lg font-bold">
+        Custom styled trigger
+      </.accordion_trigger>
+
+  """
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global, include: ~w(phx-click), doc: "Additional HTML attributes"
+  slot :inner_block, required: true, doc: "Trigger content (usually text)"
+
+  @spec accordion_trigger(map()) :: Rendered.t()
+  def accordion_trigger(assigns) do
+    ~H"""
+    <h3 class="flex">
+      <button
+        type="button"
+        data-slot="accordion-trigger"
+        data-state="closed"
+        class={[
+          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50",
+          "[&[data-state=open]>span.shrink-0]:rotate-180",
+          @class
+        ]}
+        {@rest}
+      >
+        <span class="flex-1">
+          {render_slot(@inner_block)}
+        </span>
+        <.icon
+          name="hero-chevron-down"
+          class="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200"
+        />
+      </button>
+    </h3>
+    """
+  end
+
+  @doc """
+  Renders accordion content panel.
+
+  The collapsible content that is shown/hidden when the trigger is clicked.
+  Must be used within an `accordion_item` component.
+
+  ## Features
+
+  - Smooth slide animations
+  - Hidden by default
+  - Supports rich content (text, images, nested components)
+
+  ## Examples
+
+      <.accordion_content>
+        <p>This is the content that will be revealed.</p>
+      </.accordion_content>
+
+      <.accordion_content class="bg-muted">
+        <div>
+          <h4>Rich Content</h4>
+          <p>You can include any content here.</p>
+        </div>
+      </.accordion_content>
+
+  """
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global, doc: "Additional HTML attributes"
+  slot :inner_block, required: true, doc: "Content to display when expanded"
+
+  @spec accordion_content(map()) :: Rendered.t()
+  def accordion_content(assigns) do
+    ~H"""
+    <div
+      data-slot="accordion-content"
+      data-state="closed"
+      class="overflow-hidden text-sm transition-all duration-200 ease-in-out"
+      style="max-height: 0; opacity: 0;"
+      {@rest}
+    >
+      <div class={[
+        "pt-0 pb-4",
+        @class
+      ]}>
+        {render_slot(@inner_block)}
+      </div>
+    </div>
     """
   end
 end
