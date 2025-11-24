@@ -15,14 +15,19 @@ export const TabBarHook = {
   updateActiveState() {
     const activePath = this.el.dataset.activePath;
     this.getTabBarItems().forEach(item => {
-      const itemPath = new URL(item.href).pathname;
-      const isActive = itemPath === activePath;
-      if (isActive) {
-        item.dataset.active = "true";
-        item.setAttribute("aria-current", "page");
-      } else {
-        item.dataset.active = "false";
-        item.removeAttribute("aria-current");
+      if (!item.href) return;
+      try {
+        const itemPath = new URL(item.href).pathname;
+        const isActive = itemPath === activePath;
+        if (isActive) {
+          item.dataset.active = "true";
+          item.setAttribute("aria-current", "page");
+        } else {
+          item.dataset.active = "false";
+          item.removeAttribute("aria-current");
+        }
+      } catch (e) {
+        console.warn("TabBarHook: invalid URL", item.href);
       }
     });
   }
