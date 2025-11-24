@@ -98,11 +98,11 @@ defmodule UiKit.Components.Ui.Kanban do
   - `inner_block` - Kanban columns or swimlanes (required)
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :headers, doc: "Column headers for swimlane boards"
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:headers, doc: "Column headers for swimlane boards")
+  slot(:inner_block, required: true)
 
   @spec kanban(map()) :: Rendered.t()
   def kanban(assigns) do
@@ -193,19 +193,20 @@ defmodule UiKit.Components.Ui.Kanban do
       </.kanban>
 
   """
-  attr :id, :string, required: true
-  attr :title, :string, required: true
-  attr :collapsed, :boolean, default: false
+  attr(:id, :string, required: true)
+  attr(:title, :string, required: true)
+  attr(:collapsed, :boolean, default: false)
 
-  attr :server_collapse, :boolean,
+  attr(:server_collapse, :boolean,
     default: false,
     doc: "Set to true to handle collapse state on the server instead of client-side"
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :header, doc: "Optional custom header content"
-  slot :actions, doc: "Optional action buttons or controls"
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:header, doc: "Optional custom header content")
+  slot(:actions, doc: "Optional action buttons or controls")
+  slot(:inner_block, required: true)
 
   @spec kanban_swimlane(map()) :: Rendered.t()
   def kanban_swimlane(assigns) do
@@ -295,16 +296,16 @@ defmodule UiKit.Components.Ui.Kanban do
   - `inner_block` - Card contents (required)
 
   """
-  attr :id, :string, required: true
-  attr :title, :string, required: true
-  attr :count, :integer, default: nil
-  attr :width, :string, default: "w-80"
-  attr :min_height, :string, default: "200px"
-  attr :show_header, :boolean, default: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :header, doc: "Optional custom header content"
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:title, :string, required: true)
+  attr(:count, :integer, default: nil)
+  attr(:width, :string, default: "w-80")
+  attr(:min_height, :string, default: "200px")
+  attr(:show_header, :boolean, default: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:header, doc: "Optional custom header content")
+  slot(:inner_block, required: true)
 
   @spec kanban_column(map()) :: Rendered.t()
   def kanban_column(assigns) do
@@ -386,16 +387,16 @@ defmodule UiKit.Components.Ui.Kanban do
       </.kanban_card>
 
   """
-  attr :id, :string, required: true
-  attr :title, :string, default: nil
-  attr :draggable, :boolean, default: true
-  attr :width, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :header, doc: "Custom header content"
-  slot :content, doc: "Main card content"
-  slot :footer, doc: "Footer content"
-  slot :inner_block, doc: "Alternative to using named slots"
+  attr(:id, :string, required: true)
+  attr(:title, :string, default: nil)
+  attr(:draggable, :boolean, default: true)
+  attr(:width, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:header, doc: "Custom header content")
+  slot(:content, doc: "Main card content")
+  slot(:footer, doc: "Footer content")
+  slot(:inner_block, doc: "Alternative to using named slots")
 
   @spec kanban_card(map()) :: Rendered.t()
   def kanban_card(assigns) do
@@ -470,10 +471,10 @@ defmodule UiKit.Components.Ui.Kanban do
   - `class` - Additional CSS classes
 
   """
-  attr :title, :string, required: true
-  attr :count, :integer, default: nil
-  attr :width, :string, default: "w-80"
-  attr :class, :string, default: nil
+  attr(:title, :string, required: true)
+  attr(:count, :integer, default: nil)
+  attr(:width, :string, default: "w-80")
+  attr(:class, :string, default: nil)
 
   @spec kanban_column_header(map()) :: Rendered.t()
   def kanban_column_header(assigns) do

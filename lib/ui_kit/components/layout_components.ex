@@ -49,18 +49,20 @@ defmodule UiKit.Components.LayoutComponents do
         Full-width content (for dashboards, kanbans, etc.)
       </.container>
   """
-  attr :max_width, :string,
+  attr(:max_width, :string,
     default: "7xl",
     values: ~w(sm md lg xl 2xl 3xl 4xl 5xl 6xl 7xl full),
     doc: "Maximum width: sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, 7xl (default), full"
+  )
 
-  attr :padding, :string,
+  attr(:padding, :string,
     default: "default",
     values: ~w(none small default),
     doc: "Horizontal padding: none (no padding), small (px-4), default (px-4 sm:px-6 lg:px-8)"
+  )
 
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  slot(:inner_block, required: true)
 
   @spec container(map()) :: Rendered.t()
   def container(assigns) do
@@ -122,10 +124,18 @@ defmodule UiKit.Components.LayoutComponents do
   @spec build_padding_class(String.t()) :: String.t()
   defp build_padding_class(padding) do
     case padding do
-      "none" -> ""
-      "small" -> "px-4"
-      "default" -> "px-4 sm:px-6 lg:px-8"
-      invalid -> raise ArgumentError, "invalid padding value: #{inspect(invalid)}. Expected none, small, or default"
+      "none" ->
+        ""
+
+      "small" ->
+        "px-4"
+
+      "default" ->
+        "px-4 sm:px-6 lg:px-8"
+
+      invalid ->
+        raise ArgumentError,
+              "invalid padding value: #{inspect(invalid)}. Expected none, small, or default"
     end
   end
 
@@ -169,15 +179,16 @@ defmodule UiKit.Components.LayoutComponents do
         <.stat_card title="Stat 4" />
       </.grid>
   """
-  attr :cols, :integer, default: 3, doc: "Number of columns (1-6)"
+  attr(:cols, :integer, default: 3, doc: "Number of columns (1-6)")
 
-  attr :gap, :string,
+  attr(:gap, :string,
     default: "medium",
     values: ~w(xs small medium large xl),
     doc: "Gap size: xs, small, medium (default), large, xl"
+  )
 
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  slot(:inner_block, required: true)
 
   @spec grid(map()) :: Rendered.t()
   def grid(assigns) do
@@ -194,12 +205,24 @@ defmodule UiKit.Components.LayoutComponents do
 
     gap_class =
       case assigns.gap do
-        "xs" -> "gap-2"
-        "small" -> "gap-4"
-        "medium" -> "gap-6"
-        "large" -> "gap-8"
-        "xl" -> "gap-12"
-        invalid -> raise ArgumentError, "invalid gap value: #{inspect(invalid)}. Expected xs, small, medium, large, or xl"
+        "xs" ->
+          "gap-2"
+
+        "small" ->
+          "gap-4"
+
+        "medium" ->
+          "gap-6"
+
+        "large" ->
+          "gap-8"
+
+        "xl" ->
+          "gap-12"
+
+        invalid ->
+          raise ArgumentError,
+                "invalid gap value: #{inspect(invalid)}. Expected xs, small, medium, large, or xl"
       end
 
     assigns =
@@ -246,31 +269,39 @@ defmodule UiKit.Components.LayoutComponents do
         <.badge>Featured</.badge>
       </.flex>
   """
-  attr :direction, :string,
+  attr(:direction, :string,
     default: "row",
     values: ~w(row col),
     doc: "Flex direction: row (horizontal) or col (vertical)"
+  )
 
-  attr :align, :string,
+  attr(:align, :string,
     default: "start",
     values: ~w(start center end between),
     doc: "Alignment: start, center, end, or between (space-between)"
+  )
 
-  attr :gap, :string,
+  attr(:gap, :string,
     default: "medium",
     values: ~w(xs small medium large),
     doc: "Gap size: xs, small, medium (default), large"
+  )
 
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  slot(:inner_block, required: true)
 
   @spec flex(map()) :: Rendered.t()
   def flex(assigns) do
     direction_class =
       case assigns.direction do
-        "row" -> "flex-row"
-        "col" -> "flex-col"
-        invalid -> raise ArgumentError, "invalid direction value: #{inspect(invalid)}. Expected row or col"
+        "row" ->
+          "flex-row"
+
+        "col" ->
+          "flex-col"
+
+        invalid ->
+          raise ArgumentError, "invalid direction value: #{inspect(invalid)}. Expected row or col"
       end
 
     align_class =
@@ -288,16 +319,27 @@ defmodule UiKit.Components.LayoutComponents do
           "justify-between items-center"
 
         invalid ->
-          raise ArgumentError, "invalid align value: #{inspect(invalid)}. Expected start, center, end, or between"
+          raise ArgumentError,
+                "invalid align value: #{inspect(invalid)}. Expected start, center, end, or between"
       end
 
     gap_class =
       case assigns.gap do
-        "xs" -> "gap-1"
-        "small" -> "gap-2"
-        "medium" -> "gap-4"
-        "large" -> "gap-6"
-        invalid -> raise ArgumentError, "invalid gap value: #{inspect(invalid)}. Expected xs, small, medium, or large"
+        "xs" ->
+          "gap-1"
+
+        "small" ->
+          "gap-2"
+
+        "medium" ->
+          "gap-4"
+
+        "large" ->
+          "gap-6"
+
+        invalid ->
+          raise ArgumentError,
+                "invalid gap value: #{inspect(invalid)}. Expected xs, small, medium, or large"
       end
 
     assigns =
@@ -340,13 +382,14 @@ defmodule UiKit.Components.LayoutComponents do
         <p>Line 3</p>
       </.stack>
   """
-  attr :size, :string,
+  attr(:size, :string,
     default: "medium",
     values: ~w(xs small medium large xl xxl),
     doc: "Vertical spacing size: xs, small, medium (default), large, xl, xxl"
+  )
 
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  slot(:inner_block, required: true)
 
   @spec stack(map()) :: Rendered.t()
   def stack(assigns) do
@@ -371,7 +414,8 @@ defmodule UiKit.Components.LayoutComponents do
           "space-y-16"
 
         invalid ->
-          raise ArgumentError, "invalid size value: #{inspect(invalid)}. Expected xs, small, medium, large, xl, or xxl"
+          raise ArgumentError,
+                "invalid size value: #{inspect(invalid)}. Expected xs, small, medium, large, xl, or xxl"
       end
 
     assigns = assign(assigns, :size_class, size_class)
@@ -406,19 +450,21 @@ defmodule UiKit.Components.LayoutComponents do
         <:main>Content</:main>
       </.sidebar_layout>
   """
-  attr :sidebar_width, :string,
+  attr(:sidebar_width, :string,
     default: "medium",
     values: ~w(narrow medium wide),
     doc: "Sidebar width: narrow (12rem), medium (16rem), wide (20rem)"
+  )
 
-  attr :gap, :string,
+  attr(:gap, :string,
     default: "medium",
     values: ~w(small medium large),
     doc: "Gap between sidebar and main: small, medium (default), large"
+  )
 
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  slot :sidebar, required: true
-  slot :main, required: true
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  slot(:sidebar, required: true)
+  slot(:main, required: true)
 
   @spec sidebar_layout(map()) :: Rendered.t()
   def sidebar_layout(assigns) do
@@ -434,15 +480,24 @@ defmodule UiKit.Components.LayoutComponents do
           "lg:w-80"
 
         invalid ->
-          raise ArgumentError, "invalid sidebar_width value: #{inspect(invalid)}. Expected narrow, medium, or wide"
+          raise ArgumentError,
+                "invalid sidebar_width value: #{inspect(invalid)}. Expected narrow, medium, or wide"
       end
 
     gap_class =
       case assigns.gap do
-        "small" -> "gap-4"
-        "medium" -> "gap-6"
-        "large" -> "gap-8"
-        invalid -> raise ArgumentError, "invalid gap value: #{inspect(invalid)}. Expected small, medium, or large"
+        "small" ->
+          "gap-4"
+
+        "medium" ->
+          "gap-6"
+
+        "large" ->
+          "gap-8"
+
+        invalid ->
+          raise ArgumentError,
+                "invalid gap value: #{inspect(invalid)}. Expected small, medium, or large"
       end
 
     assigns =
@@ -483,8 +538,8 @@ defmodule UiKit.Components.LayoutComponents do
         </.container>
       </.section>
   """
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  slot(:inner_block, required: true)
 
   @spec section(map()) :: Rendered.t()
   def section(assigns) do

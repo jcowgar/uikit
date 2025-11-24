@@ -104,18 +104,18 @@ defmodule UiKit.Components.Ui.ChipInput do
   - `allow_duplicates` - Whether to allow duplicate values (default: false)
 
   """
-  attr :id, :string, required: true
-  attr :name, :string, default: nil
-  attr :value, :any, default: nil
-  attr :values, :list, default: []
-  attr :placeholder, :string, default: "Add value..."
-  attr :suggestions, :list, default: []
-  attr :on_add, :any, default: nil
-  attr :on_remove, :any, default: nil
-  attr :class, :string, default: nil
-  attr :input_class, :string, default: nil
-  attr :allow_duplicates, :boolean, default: false
-  attr :rest, :global
+  attr(:id, :string, required: true)
+  attr(:name, :string, default: nil)
+  attr(:value, :any, default: nil)
+  attr(:values, :list, default: [])
+  attr(:placeholder, :string, default: "Add value...")
+  attr(:suggestions, :list, default: [])
+  attr(:on_add, :any, default: nil)
+  attr(:on_remove, :any, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:input_class, :string, default: nil)
+  attr(:allow_duplicates, :boolean, default: false)
+  attr(:rest, :global)
 
   @spec chip_input(map()) :: Rendered.t()
   def chip_input(assigns) do

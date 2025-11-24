@@ -59,6 +59,7 @@ defmodule DemoWeb.Router do
       live "/command", Ui.CommandLive
       live "/miscellaneous", Ui.MiscellaneousLive
       live "/kanban", Ui.KanbanLive
+      live "/marketing", Ui.MarketingLive
       live "/chart", Ui.ChartLive
     end
   end

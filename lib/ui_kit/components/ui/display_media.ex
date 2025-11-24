@@ -30,9 +30,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       </.card>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card(map()) :: Rendered.t()
   def card(assigns) do
@@ -54,9 +54,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Contains the card title, description, and optional action element.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card_header(map()) :: Rendered.t()
   def card_header(assigns) do
@@ -79,9 +79,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Typically used within card_header.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card_title(map()) :: Rendered.t()
   def card_title(assigns) do
@@ -97,9 +97,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Typically used within card_header, below the card_title.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card_description(map()) :: Rendered.t()
   def card_description(assigns) do
@@ -116,9 +116,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   Positioned in the top-right corner of the card header.
   Use for actions like a close button or menu.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card_action(map()) :: Rendered.t()
   def card_action(assigns) do
@@ -139,9 +139,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @doc """
   Renders the main card content area.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card_content(map()) :: Rendered.t()
   def card_content(assigns) do
@@ -157,9 +157,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Typically used for action buttons or secondary information.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec card_footer(map()) :: Rendered.t()
   def card_footer(assigns) do
@@ -190,10 +190,10 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       </.avatar>
 
   """
-  attr :aria_label, :string, default: nil, doc: "Accessible label for screen readers"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:aria_label, :string, default: nil, doc: "Accessible label for screen readers")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec avatar(map()) :: Rendered.t()
   def avatar(assigns) do
@@ -223,10 +223,10 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   - `src` - Image URL (required)
   - `alt` - Alternative text for accessibility (required)
   """
-  attr :src, :string, required: true
-  attr :alt, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
+  attr(:src, :string, required: true)
+  attr(:alt, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
 
   @spec avatar_image(map()) :: Rendered.t()
   def avatar_image(assigns) do
@@ -253,9 +253,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       <.avatar_fallback class="bg-primary text-primary-foreground">AB</.avatar_fallback>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec avatar_fallback(map()) :: Rendered.t()
   def avatar_fallback(assigns) do
@@ -312,12 +312,22 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       </.table>
 
   """
-  attr :class, :string, default: nil
-  attr :container_class, :string, default: nil, doc: "Additional classes for the table container wrapper"
-  attr :striped, :boolean, default: false
-  attr :x_overflow, :boolean, default: true, doc: "Enable horizontal scrolling when table overflows (default: true)"
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+
+  attr(:container_class, :string,
+    default: nil,
+    doc: "Additional classes for the table container wrapper"
+  )
+
+  attr(:striped, :boolean, default: false)
+
+  attr(:x_overflow, :boolean,
+    default: true,
+    doc: "Enable horizontal scrolling when table overflows (default: true)"
+  )
+
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table(map()) :: Rendered.t()
   def table(assigns) do
@@ -347,9 +357,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Contains the header rows with column titles.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table_header(map()) :: Rendered.t()
   def table_header(assigns) do
@@ -365,9 +375,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Contains the main data rows of the table.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table_body(map()) :: Rendered.t()
   def table_body(assigns) do
@@ -383,9 +393,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   Typically used for summary rows or totals.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table_footer(map()) :: Rendered.t()
   def table_footer(assigns) do
@@ -406,9 +416,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   Contains table cells (table_head or table_cell).
   Supports hover effects and selected state.
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table_row(map()) :: Rendered.t()
   def table_row(assigns) do
@@ -437,9 +447,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       <.table_head class="text-right">Amount</.table_head>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table_head(map()) :: Rendered.t()
   def table_head(assigns) do
@@ -468,9 +478,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       <.table_cell class="text-right">$100.00</.table_cell>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(colspan rowspan)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(colspan rowspan))
+  slot(:inner_block, required: true)
 
   @spec table_cell(map()) :: Rendered.t()
   def table_cell(assigns) do
@@ -498,9 +508,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       <.table_caption>A list of your recent invoices.</.table_caption>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec table_caption(map()) :: Rendered.t()
   def table_caption(assigns) do
@@ -655,10 +665,10 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   - Charts automatically respond to theme changes (light/dark mode)
 
   """
-  attr :id, :string, required: true, doc: "Unique identifier for the chart"
-  attr :config, :map, required: true, doc: "Chart.js configuration map"
-  attr :class, :string, default: nil, doc: "Additional CSS classes for the canvas container"
-  attr :rest, :global
+  attr(:id, :string, required: true, doc: "Unique identifier for the chart")
+  attr(:config, :map, required: true, doc: "Chart.js configuration map")
+  attr(:class, :string, default: nil, doc: "Additional CSS classes for the canvas container")
+  attr(:rest, :global)
 
   @spec chart(map()) :: Rendered.t()
   def chart(assigns) do

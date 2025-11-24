@@ -161,16 +161,16 @@ defmodule UiKit.Components.Ui.Command do
   - `class` - Additional CSS classes
   - `empty_message` - Message to show when no results (default: "No results found.")
   """
-  attr :id, :string, required: true
-  attr :commands, :list, required: true
-  attr :placeholder, :string, default: "Type a command or search..."
-  attr :search_value, :string, default: ""
-  attr :filter_mode, :atom, default: :client, values: [:client, :server]
-  attr :on_change, :string, default: nil
-  attr :on_select, :string, default: nil
-  attr :class, :string, default: nil
-  attr :empty_message, :string, default: "No results found."
-  attr :rest, :global
+  attr(:id, :string, required: true)
+  attr(:commands, :list, required: true)
+  attr(:placeholder, :string, default: "Type a command or search...")
+  attr(:search_value, :string, default: "")
+  attr(:filter_mode, :atom, default: :client, values: [:client, :server])
+  attr(:on_change, :string, default: nil)
+  attr(:on_select, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:empty_message, :string, default: "No results found.")
+  attr(:rest, :global)
 
   @spec command_menu(map()) :: Rendered.t()
   def command_menu(assigns) do
@@ -281,10 +281,10 @@ defmodule UiKit.Components.Ui.Command do
         </.command_list>
       </.command>
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec command(map()) :: Rendered.t()
   def command(assigns) do
@@ -327,16 +327,16 @@ defmodule UiKit.Components.Ui.Command do
         </:content>
       </.command_dialog>
   """
-  attr :id, :string, required: true
-  attr :title, :string, default: "Command Palette"
-  attr :description, :string, default: "Search for a command to run..."
-  attr :show_close_button, :boolean, default: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, doc: "Optional trigger button/element"
+  attr(:id, :string, required: true)
+  attr(:title, :string, default: "Command Palette")
+  attr(:description, :string, default: "Search for a command to run...")
+  attr(:show_close_button, :boolean, default: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, doc: "Optional trigger button/element")
 
   slot :content, required: true, doc: "Command menu content" do
-    attr :show_close_button, :boolean, doc: "Whether to show the X close button (default: true)"
+    attr(:show_close_button, :boolean, doc: "Whether to show the X close button (default: true)")
   end
 
   @spec command_dialog(map()) :: Rendered.t()
@@ -387,13 +387,13 @@ defmodule UiKit.Components.Ui.Command do
         phx-change="filter_commands"
       />
   """
-  attr :id, :string, default: nil
-  attr :name, :string, default: "search", doc: "Input name for form submissions"
-  attr :placeholder, :string, default: "Type a command or search..."
-  attr :value, :string, default: ""
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :icon, doc: "Optional icon to display before the input"
+  attr(:id, :string, default: nil)
+  attr(:name, :string, default: "search", doc: "Input name for form submissions")
+  attr(:placeholder, :string, default: "Type a command or search...")
+  attr(:value, :string, default: "")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:icon, doc: "Optional icon to display before the input")
 
   @spec command_input(map()) :: Rendered.t()
   def command_input(assigns) do
@@ -439,10 +439,10 @@ defmodule UiKit.Components.Ui.Command do
         </.command_group>
       </.command_list>
   """
-  attr :id, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec command_list(map()) :: Rendered.t()
   def command_list(assigns) do
@@ -473,10 +473,10 @@ defmodule UiKit.Components.Ui.Command do
         No results found.
       </.command_empty>
   """
-  attr :id, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec command_empty(map()) :: Rendered.t()
   def command_empty(assigns) do
@@ -507,10 +507,10 @@ defmodule UiKit.Components.Ui.Command do
         <.command_item>Calculator</.command_item>
       </.command_group>
   """
-  attr :heading, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:heading, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec command_group(map()) :: Rendered.t()
   def command_group(assigns) do
@@ -543,8 +543,8 @@ defmodule UiKit.Components.Ui.Command do
 
       <.command_separator />
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
 
   @spec command_separator(map()) :: Rendered.t()
   def command_separator(assigns) do
@@ -578,11 +578,11 @@ defmodule UiKit.Components.Ui.Command do
         Disabled Command
       </.command_item>
   """
-  attr :disabled, :boolean, default: false
-  attr :selected, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:disabled, :boolean, default: false)
+  attr(:selected, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec command_item(map()) :: Rendered.t()
   def command_item(assigns) do
@@ -617,9 +617,9 @@ defmodule UiKit.Components.Ui.Command do
         <.command_shortcut>⌘S</.command_shortcut>
       </.command_item>
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec command_shortcut(map()) :: Rendered.t()
   def command_shortcut(assigns) do

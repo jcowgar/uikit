@@ -102,11 +102,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, required: true, doc: "Trigger button/element"
-  slot :content, required: true, doc: "Menu content"
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Trigger button/element")
+  slot(:content, required: true, doc: "Menu content")
 
   @spec dropdown_menu(map()) :: Rendered.t()
   def dropdown_menu(assigns) do
@@ -165,13 +165,13 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_content>
 
   """
-  attr :parent_id, :string, default: nil, doc: "Parent dropdown menu ID (passed automatically)"
-  attr :align, :string, default: "start", values: ~w(start center end)
-  attr :side, :string, default: "bottom", values: ~w(top bottom left right)
-  attr :side_offset, :integer, default: 4
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:parent_id, :string, default: nil, doc: "Parent dropdown menu ID (passed automatically)")
+  attr(:align, :string, default: "start", values: ~w(start center end))
+  attr(:side, :string, default: "bottom", values: ~w(top bottom left right))
+  attr(:side_offset, :integer, default: 4)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_content(map()) :: Rendered.t()
   def dropdown_menu_content(assigns) do
@@ -255,12 +255,12 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_item>
 
   """
-  attr :variant, :string, default: "default", values: ~w(default destructive)
-  attr :inset, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-click phx-value-id phx-value-role phx-value-member-id)
-  slot :inner_block, required: true
+  attr(:variant, :string, default: "default", values: ~w(default destructive))
+  attr(:inset, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id phx-value-role phx-value-member-id))
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_item(map()) :: Rendered.t()
   def dropdown_menu_item(assigns) do
@@ -330,11 +330,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_checkbox_item>
 
   """
-  attr :checked, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-click phx-value-id)
-  slot :inner_block, required: true
+  attr(:checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id))
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_checkbox_item(map()) :: Rendered.t()
   def dropdown_menu_checkbox_item(assigns) do
@@ -387,9 +387,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_radio_group>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_radio_group(map()) :: Rendered.t()
   def dropdown_menu_radio_group(assigns) do
@@ -422,11 +422,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_radio_item>
 
   """
-  attr :checked, :boolean, default: false
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-click phx-value-id phx-value-view phx-value-order)
-  slot :inner_block, required: true
+  attr(:checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id phx-value-view phx-value-order))
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_radio_item(map()) :: Rendered.t()
   def dropdown_menu_radio_item(assigns) do
@@ -476,10 +476,10 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.dropdown_menu_label inset>Actions</.dropdown_menu_label>
 
   """
-  attr :inset, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:inset, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_label(map()) :: Rendered.t()
   def dropdown_menu_label(assigns) do
@@ -512,8 +512,8 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.dropdown_menu_item variant="destructive">Delete</.dropdown_menu_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
 
   @spec dropdown_menu_separator(map()) :: Rendered.t()
   def dropdown_menu_separator(assigns) do
@@ -549,9 +549,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_shortcut(map()) :: Rendered.t()
   def dropdown_menu_shortcut(assigns) do
@@ -580,9 +580,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_group>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_group(map()) :: Rendered.t()
   def dropdown_menu_group(assigns) do
@@ -622,11 +622,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_sub>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, required: true
-  slot :content, required: true
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true)
+  slot(:content, required: true)
 
   @spec dropdown_menu_sub(map()) :: Rendered.t()
   def dropdown_menu_sub(assigns) do
@@ -674,10 +674,10 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_sub_trigger>
 
   """
-  attr :inset, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:inset, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_sub_trigger(map()) :: Rendered.t()
   def dropdown_menu_sub_trigger(assigns) do
@@ -723,9 +723,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dropdown_menu_sub_content>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dropdown_menu_sub_content(map()) :: Rendered.t()
   def dropdown_menu_sub_content(assigns) do
@@ -919,15 +919,16 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.sheet>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, required: true, doc: "Trigger button/element"
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Trigger button/element")
 
   slot :content, required: true, doc: "Sheet content" do
-    attr :side, :string,
+    attr(:side, :string,
       values: ~w(top right bottom left),
       doc: "Which edge to slide in from (default: right)"
+    )
   end
 
   @spec sheet(map()) :: Rendered.t()
@@ -980,11 +981,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   - `side` - Which edge to slide from: "top", "right", "bottom", "left" (default: "right")
 
   """
-  attr :id, :string, required: true
-  attr :side, :string, default: "right", values: ~w(top right bottom left)
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:side, :string, default: "right", values: ~w(top right bottom left))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec sheet_content(map()) :: Rendered.t()
   def sheet_content(assigns) do
@@ -1078,9 +1079,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.sheet_header>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec sheet_header(map()) :: Rendered.t()
   def sheet_header(assigns) do
@@ -1110,9 +1111,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.sheet_footer>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec sheet_footer(map()) :: Rendered.t()
   def sheet_footer(assigns) do
@@ -1139,9 +1140,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.sheet_title class="text-destructive">Delete Account</.sheet_title>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec sheet_title(map()) :: Rendered.t()
   def sheet_title(assigns) do
@@ -1168,9 +1169,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.sheet_description>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec sheet_description(map()) :: Rendered.t()
   def sheet_description(assigns) do
@@ -1390,11 +1391,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.alert_dialog>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, required: true, doc: "Trigger button/element"
-  slot :content, required: true, doc: "Dialog content"
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Trigger button/element")
+  slot(:content, required: true, doc: "Dialog content")
 
   @spec alert_dialog(map()) :: Rendered.t()
   def alert_dialog(assigns) do
@@ -1466,9 +1467,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.alert_dialog_header>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec alert_dialog_header(map()) :: Rendered.t()
   def alert_dialog_header(assigns) do
@@ -1496,9 +1497,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.alert_dialog_footer>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec alert_dialog_footer(map()) :: Rendered.t()
   def alert_dialog_footer(assigns) do
@@ -1525,10 +1526,10 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.alert_dialog_title class="text-destructive">Warning</.alert_dialog_title>
 
   """
-  attr :id, :string, default: nil, doc: "Optional ID for ARIA labeling"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, default: nil, doc: "Optional ID for ARIA labeling")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec alert_dialog_title(map()) :: Rendered.t()
   def alert_dialog_title(assigns) do
@@ -1557,10 +1558,10 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.alert_dialog_description>
 
   """
-  attr :id, :string, default: nil, doc: "Optional ID for ARIA description"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, default: nil, doc: "Optional ID for ARIA description")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec alert_dialog_description(map()) :: Rendered.t()
   def alert_dialog_description(assigns) do
@@ -1605,9 +1606,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.alert_dialog_action>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-click phx-value-id disabled)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id disabled))
+  slot(:inner_block, required: true)
 
   @spec alert_dialog_action(map()) :: Rendered.t()
   def alert_dialog_action(assigns) do
@@ -1657,10 +1658,10 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.alert_dialog_cancel>
 
   """
-  attr :dialog_id, :string, required: true, doc: "The ID of the alert dialog to close"
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-click disabled)
-  slot :inner_block, required: true
+  attr(:dialog_id, :string, required: true, doc: "The ID of the alert dialog to close")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click disabled))
+  slot(:inner_block, required: true)
 
   @spec alert_dialog_cancel(map()) :: Rendered.t()
   def alert_dialog_cancel(assigns) do
@@ -1812,13 +1813,13 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dialog>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, doc: "Optional trigger button/element"
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, doc: "Optional trigger button/element")
 
   slot :content, required: true, doc: "Dialog content" do
-    attr :show_close_button, :boolean, doc: "Whether to show the X close button (default: true)"
+    attr(:show_close_button, :boolean, doc: "Whether to show the X close button (default: true)")
   end
 
   @spec dialog(map()) :: Rendered.t()
@@ -1892,11 +1893,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   - Simply add `autofocus` to your input: `<.input field={@form[:name]} autofocus />`
 
   """
-  attr :id, :string, required: true
-  attr :show_close_button, :boolean, default: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:show_close_button, :boolean, default: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dialog_content(map()) :: Rendered.t()
   def dialog_content(assigns) do
@@ -1954,9 +1955,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dialog_header>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dialog_header(map()) :: Rendered.t()
   def dialog_header(assigns) do
@@ -1991,9 +1992,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dialog_body>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dialog_body(map()) :: Rendered.t()
   def dialog_body(assigns) do
@@ -2039,12 +2040,12 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dialog_footer>
 
   """
-  attr :dialog_id, :string, required: true, doc: "The ID of the dialog to close"
-  attr :auto_cancel, :boolean, default: true, doc: "Whether to automatically add a Cancel button"
-  attr :cancel_label, :string, default: "Cancel", doc: "Label for the auto-cancel button"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:dialog_id, :string, required: true, doc: "The ID of the dialog to close")
+  attr(:auto_cancel, :boolean, default: true, doc: "Whether to automatically add a Cancel button")
+  attr(:cancel_label, :string, default: "Cancel", doc: "Label for the auto-cancel button")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dialog_footer(map()) :: Rendered.t()
   def dialog_footer(assigns) do
@@ -2080,9 +2081,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.dialog_title class="text-destructive">Delete Account</.dialog_title>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dialog_title(map()) :: Rendered.t()
   def dialog_title(assigns) do
@@ -2113,9 +2114,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dialog_description>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec dialog_description(map()) :: Rendered.t()
   def dialog_description(assigns) do
@@ -2339,15 +2340,16 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.drawer>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, required: true, doc: "Trigger button/element"
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Trigger button/element")
 
   slot :content, required: true, doc: "Drawer content" do
-    attr :direction, :string,
+    attr(:direction, :string,
       values: ~w(top right bottom left),
       doc: "Which edge to slide in from (default: bottom)"
+    )
   end
 
   @spec drawer(map()) :: Rendered.t()
@@ -2410,11 +2412,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   - `direction` - Which edge to slide from: "top", "right", "bottom", "left" (default: "bottom")
 
   """
-  attr :id, :string, required: true
-  attr :direction, :string, default: "bottom", values: ~w(top right bottom left)
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:direction, :string, default: "bottom", values: ~w(top right bottom left))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec drawer_content(map()) :: Rendered.t()
   def drawer_content(assigns) do
@@ -2508,9 +2510,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.drawer_header>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec drawer_header(map()) :: Rendered.t()
   def drawer_header(assigns) do
@@ -2546,9 +2548,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.drawer_footer>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec drawer_footer(map()) :: Rendered.t()
   def drawer_footer(assigns) do
@@ -2575,9 +2577,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.drawer_title class="text-primary">Featured</.drawer_title>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec drawer_title(map()) :: Rendered.t()
   def drawer_title(assigns) do
@@ -2604,9 +2606,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.drawer_description>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec drawer_description(map()) :: Rendered.t()
   def drawer_description(assigns) do
@@ -2814,22 +2816,24 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.popover>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :trigger, required: true, doc: "Trigger button/element"
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Trigger button/element")
 
   slot :content, required: true, doc: "Popover content" do
-    attr :align, :string,
+    attr(:align, :string,
       values: ~w(start center end),
       doc: "Horizontal alignment (default: center)"
+    )
 
-    attr :side, :string,
+    attr(:side, :string,
       values: ~w(top right bottom left),
       doc: "Which side to place popover (default: bottom)"
+    )
 
-    attr :side_offset, :integer, doc: "Distance from trigger in pixels (default: 4)"
-    attr :class, :string, doc: "Additional CSS classes for the popover content"
+    attr(:side_offset, :integer, doc: "Distance from trigger in pixels (default: 4)")
+    attr(:class, :string, doc: "Additional CSS classes for the popover content")
   end
 
   @spec popover(map()) :: Rendered.t()
@@ -2879,13 +2883,13 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   - `side_offset` - Distance from trigger in pixels (default: 4)
 
   """
-  attr :id, :string, required: true
-  attr :align, :string, default: "center", values: ~w(start center end)
-  attr :side, :string, default: "bottom", values: ~w(top bottom left right)
-  attr :side_offset, :integer, default: 4
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:align, :string, default: "center", values: ~w(start center end))
+  attr(:side, :string, default: "bottom", values: ~w(top bottom left right))
+  attr(:side_offset, :integer, default: 4)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec popover_content(map()) :: Rendered.t()
   def popover_content(assigns) do
@@ -3043,16 +3047,21 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       end
 
   """
-  attr :open, :boolean, required: true, doc: "Controls dialog visibility"
-  attr :title, :string, required: true, doc: "Dialog title"
-  attr :message, :string, required: true, doc: "Warning message about consequences"
-  attr :confirmation_text, :string, required: true, doc: "Exact text user must type to confirm"
-  attr :confirmation_label, :string, required: true, doc: "Label/instruction for confirmation input"
-  attr :on_confirm, :string, required: true, doc: "Phoenix event name for confirmation"
-  attr :on_cancel, :string, required: true, doc: "Phoenix event name for cancellation"
-  attr :id, :string, default: "destructive-confirmation-dialog", doc: "DOM ID for the dialog"
-  attr :class, :string, default: nil
-  attr :rest, :global
+  attr(:open, :boolean, required: true, doc: "Controls dialog visibility")
+  attr(:title, :string, required: true, doc: "Dialog title")
+  attr(:message, :string, required: true, doc: "Warning message about consequences")
+  attr(:confirmation_text, :string, required: true, doc: "Exact text user must type to confirm")
+
+  attr(:confirmation_label, :string,
+    required: true,
+    doc: "Label/instruction for confirmation input"
+  )
+
+  attr(:on_confirm, :string, required: true, doc: "Phoenix event name for confirmation")
+  attr(:on_cancel, :string, required: true, doc: "Phoenix event name for cancellation")
+  attr(:id, :string, default: "destructive-confirmation-dialog", doc: "DOM ID for the dialog")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
 
   @spec destructive_confirmation_dialog(map()) :: Rendered.t()
   def destructive_confirmation_dialog(assigns) do

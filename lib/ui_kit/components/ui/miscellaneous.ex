@@ -46,11 +46,11 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.collapsible>
 
   """
-  attr :id, :string, required: true
-  attr :open, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:open, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec collapsible(map()) :: Rendered.t()
   def collapsible(assigns) do
@@ -86,10 +86,14 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.collapsible_trigger>
 
   """
-  attr :target_id, :string, default: nil, doc: "ID of the collapsible container (auto-detected from parent)"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:target_id, :string,
+    default: nil,
+    doc: "ID of the collapsible container (auto-detected from parent)"
+  )
+
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec collapsible_trigger(map()) :: Rendered.t()
   def collapsible_trigger(assigns) do
@@ -133,11 +137,11 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.collapsible_content>
 
   """
-  attr :id, :string, default: nil
-  attr :open, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, default: nil)
+  attr(:open, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec collapsible_content(map()) :: Rendered.t()
   def collapsible_content(assigns) do
@@ -211,17 +215,17 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.toggle_group>
 
   """
-  attr :id, :string, required: true
-  attr :type, :string, default: "single", values: ~w(single multiple)
-  attr :variant, :string, default: "default", values: ~w(default outline)
-  attr :size, :string, default: "default", values: ~w(sm default lg)
-  attr :spacing, :integer, default: 0
-  attr :value, :any, default: nil, doc: "Current value (string for single, list for multiple)"
-  attr :on_value_change, :string, default: nil, doc: "Event name to trigger on change"
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:type, :string, default: "single", values: ~w(single multiple))
+  attr(:variant, :string, default: "default", values: ~w(default outline))
+  attr(:size, :string, default: "default", values: ~w(sm default lg))
+  attr(:spacing, :integer, default: 0)
+  attr(:value, :any, default: nil, doc: "Current value (string for single, list for multiple)")
+  attr(:on_value_change, :string, default: nil, doc: "Event name to trigger on change")
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec toggle_group(map()) :: Rendered.t()
   def toggle_group(assigns) do
@@ -294,18 +298,18 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.toggle_group_item>
 
   """
-  attr :value, :string, required: true
-  attr :aria_label, :string, required: true
-  attr :variant, :string, default: "default"
-  attr :size, :string, default: "default"
-  attr :spacing, :integer, default: 0
-  attr :selected_values, :list, default: []
-  attr :type, :string, default: "single"
-  attr :disabled, :boolean, default: false
-  attr :on_value_change, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:value, :string, required: true)
+  attr(:aria_label, :string, required: true)
+  attr(:variant, :string, default: "default")
+  attr(:size, :string, default: "default")
+  attr(:spacing, :integer, default: 0)
+  attr(:selected_values, :list, default: [])
+  attr(:type, :string, default: "single")
+  attr(:disabled, :boolean, default: false)
+  attr(:on_value_change, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec toggle_group_item(map()) :: Rendered.t()
   def toggle_group_item(assigns) do
@@ -450,10 +454,10 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.hover_card>
 
   """
-  attr :id, :string, required: true
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec hover_card(map()) :: Rendered.t()
   def hover_card(assigns) do
@@ -486,9 +490,9 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.hover_card_trigger>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec hover_card_trigger(map()) :: Rendered.t()
   def hover_card_trigger(assigns) do
@@ -534,11 +538,11 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.hover_card_content>
 
   """
-  attr :align, :string, default: "center", values: ~w(start center end)
-  attr :side_offset, :integer, default: 4
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:align, :string, default: "center", values: ~w(start center end))
+  attr(:side_offset, :integer, default: 4)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec hover_card_content(map()) :: Rendered.t()
   def hover_card_content(assigns) do
@@ -548,7 +552,12 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       "end" => "right-0"
     }
 
-    assigns = assign(assigns, :alignment_class, Map.get(alignment_classes, assigns.align, "left-1/2 -translate-x-1/2"))
+    assigns =
+      assign(
+        assigns,
+        :alignment_class,
+        Map.get(alignment_classes, assigns.align, "left-1/2 -translate-x-1/2")
+      )
 
     ~H"""
     <div

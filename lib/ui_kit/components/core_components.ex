@@ -48,13 +48,13 @@ defmodule UiKit.Components.CoreComponents do
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
   """
-  attr :id, :string, doc: "the optional id of flash container"
-  attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
-  attr :title, :string, default: nil
-  attr :kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup"
-  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
+  attr(:id, :string, doc: "the optional id of flash container")
+  attr(:flash, :map, default: %{}, doc: "the map of flash messages to display")
+  attr(:title, :string, default: nil)
+  attr(:kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup")
+  attr(:rest, :global, doc: "the arbitrary HTML attributes to add to the flash container")
 
-  slot :inner_block, doc: "the optional inner block that renders the flash message"
+  slot(:inner_block, doc: "the optional inner block that renders the flash message")
 
   def flash(assigns) do
     assigns = assign_new(assigns, :id, fn -> "flash-#{assigns.kind}" end)
@@ -91,9 +91,9 @@ defmodule UiKit.Components.CoreComponents do
   @doc """
   Renders a header with title.
   """
-  slot :inner_block, required: true
-  slot :subtitle
-  slot :actions
+  slot(:inner_block, required: true)
+  slot(:subtitle)
+  slot(:actions)
 
   def header(assigns) do
     ~H"""
@@ -122,7 +122,7 @@ defmodule UiKit.Components.CoreComponents do
       </.list>
   """
   slot :item, required: true do
-    attr :title, :string, required: true
+    attr(:title, :string, required: true)
   end
 
   def list(assigns) do
@@ -156,8 +156,8 @@ defmodule UiKit.Components.CoreComponents do
       <.icon name="hero-x-mark" />
       <.icon name="hero-arrow-path" class="ml-1 size-3 motion-safe:animate-spin" />
   """
-  attr :name, :string, required: true
-  attr :class, :string, default: "size-4"
+  attr(:name, :string, required: true)
+  attr(:class, :string, default: "size-4")
 
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""
@@ -194,11 +194,11 @@ defmodule UiKit.Components.CoreComponents do
     * `:date` - "November 16, 2025"
     * `:time` - "2:00 PM"
   """
-  attr :value, :any, required: true, doc: "DateTime, NaiveDateTime, or ISO8601 string"
-  attr :format, :atom, default: :relative, values: [:relative, :short, :long, :date, :time]
-  attr :class, :string, default: nil
-  attr :id, :string, default: nil, doc: "Optional DOM ID, auto-generated if not provided"
-  attr :rest, :global
+  attr(:value, :any, required: true, doc: "DateTime, NaiveDateTime, or ISO8601 string")
+  attr(:format, :atom, default: :relative, values: [:relative, :short, :long, :date, :time])
+  attr(:class, :string, default: nil)
+  attr(:id, :string, default: nil, doc: "Optional DOM ID, auto-generated if not provided")
+  attr(:rest, :global)
 
   @spec datetime(map()) :: Phoenix.LiveView.Rendered.t()
   def datetime(assigns) do
@@ -267,7 +267,8 @@ defmodule UiKit.Components.CoreComponents do
       to: selector,
       time: 300,
       transition:
-        {"transition-all ease-out duration-300", "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+        {"transition-all ease-out duration-300",
+         "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
          "opacity-100 translate-y-0 sm:scale-100"}
     )
   end

@@ -7,7 +7,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   use Phoenix.Component
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
-  import UiKit.Components.Ui.Miscellaneous, only: [collapsible: 1, collapsible_trigger: 1, collapsible_content: 1]
+
+  import UiKit.Components.Ui.Miscellaneous,
+    only: [collapsible: 1, collapsible_trigger: 1, collapsible_content: 1]
 
   alias Phoenix.LiveView.Rendered
 
@@ -71,14 +73,15 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.form>
 
   """
-  attr :orientation, :string, default: "horizontal", values: ~w(horizontal vertical)
+  attr(:orientation, :string, default: "horizontal", values: ~w(horizontal vertical))
 
-  attr :decorative, :boolean,
+  attr(:decorative, :boolean,
     default: true,
     doc: "Whether the separator is purely decorative (true) or has semantic meaning (false)"
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id role aria-orientation)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id role aria-orientation))
 
   @spec separator(map()) :: Rendered.t()
   def separator(assigns) do
@@ -185,9 +188,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.breadcrumb>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec breadcrumb(map()) :: Rendered.t()
   def breadcrumb(assigns) do
@@ -213,9 +216,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.breadcrumb_list>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec breadcrumb_list(map()) :: Rendered.t()
   def breadcrumb_list(assigns) do
@@ -249,9 +252,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.breadcrumb_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec breadcrumb_item(map()) :: Rendered.t()
   def breadcrumb_item(assigns) do
@@ -290,12 +293,12 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       <.breadcrumb_link patch={~p"/users?page=2"}>Page 2</.breadcrumb_link>
 
   """
-  attr :href, :string, default: nil
-  attr :navigate, :string, default: nil
-  attr :patch, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:href, :string, default: nil)
+  attr(:navigate, :string, default: nil)
+  attr(:patch, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec breadcrumb_link(map()) :: Rendered.t()
   def breadcrumb_link(assigns) do
@@ -324,9 +327,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       <.breadcrumb_page>Current Page</.breadcrumb_page>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec breadcrumb_page(map()) :: Rendered.t()
   def breadcrumb_page(assigns) do
@@ -363,9 +366,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       <.breadcrumb_separator>/</breadcrumb_separator>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block)
 
   @spec breadcrumb_separator(map()) :: Rendered.t()
   def breadcrumb_separator(assigns) do
@@ -410,8 +413,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.breadcrumb>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
 
   @spec breadcrumb_ellipsis(map()) :: Rendered.t()
   def breadcrumb_ellipsis(assigns) do
@@ -476,11 +479,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_provider>
 
   """
-  attr :default_open, :boolean, default: true
-  attr :class, :string, default: nil
-  attr :style, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:default_open, :boolean, default: true)
+  attr(:class, :string, default: nil)
+  attr(:style, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_provider(map()) :: Rendered.t()
   def sidebar_provider(assigns) do
@@ -558,12 +561,12 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar>
 
   """
-  attr :side, :string, default: "left", values: ~w(left right)
-  attr :variant, :string, default: "sidebar", values: ~w(sidebar floating inset)
-  attr :collapsible, :string, default: "offcanvas", values: ~w(offcanvas icon none)
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:side, :string, default: "left", values: ~w(left right))
+  attr(:variant, :string, default: "sidebar", values: ~w(sidebar floating inset))
+  attr(:collapsible, :string, default: "offcanvas", values: ~w(offcanvas icon none))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar(map()) :: Rendered.t()
   def sidebar(assigns) do
@@ -632,9 +635,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
 
   defp sidebar_gap_variant(_variant), do: ""
 
-  defp sidebar_position("left"), do: "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
+  defp sidebar_position("left"),
+    do: "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
 
-  defp sidebar_position("right"), do: "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]"
+  defp sidebar_position("right"),
+    do: "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]"
 
   defp sidebar_container_variant(variant) when variant in ~w(floating inset), do: "p-2"
 
@@ -666,9 +671,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_trigger>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id disabled aria-label)
-  slot :inner_block
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id disabled aria-label))
+  slot(:inner_block)
 
   @spec sidebar_trigger(map()) :: Rendered.t()
   def sidebar_trigger(assigns) do
@@ -720,8 +725,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
 
   @spec sidebar_rail(map()) :: Rendered.t()
   def sidebar_rail(assigns) do
@@ -789,10 +794,10 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_provider>
 
   """
-  attr :full_page, :boolean, default: true
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:full_page, :boolean, default: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_inset(map()) :: Rendered.t()
   def sidebar_inset(assigns) do
@@ -832,9 +837,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_header>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_header(map()) :: Rendered.t()
   def sidebar_header(assigns) do
@@ -872,9 +877,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_footer>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_footer(map()) :: Rendered.t()
   def sidebar_footer(assigns) do
@@ -902,8 +907,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       <.sidebar_separator class="my-4" />
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
 
   @spec sidebar_separator(map()) :: Rendered.t()
   def sidebar_separator(assigns) do
@@ -934,9 +939,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_content>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_content(map()) :: Rendered.t()
   def sidebar_content(assigns) do
@@ -970,10 +975,10 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_group>
 
   """
-  attr :label, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:label, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_group(map()) :: Rendered.t()
   def sidebar_group(assigns) do
@@ -1007,9 +1012,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_group_label>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_group_label(map()) :: Rendered.t()
   def sidebar_group_label(assigns) do
@@ -1046,9 +1051,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_group>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id phx-click)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id phx-click))
+  slot(:inner_block, required: true)
 
   @spec sidebar_group_action(map()) :: Rendered.t()
   def sidebar_group_action(assigns) do
@@ -1088,9 +1093,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_group>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_group_content(map()) :: Rendered.t()
   def sidebar_group_content(assigns) do
@@ -1121,9 +1126,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu(map()) :: Rendered.t()
   def sidebar_menu(assigns) do
@@ -1179,15 +1184,15 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_item>
 
   """
-  attr :icon, :string, default: nil
-  attr :label, :string, default: nil
-  attr :badge, :string, default: nil
-  attr :items, :list, default: nil
-  attr :is_active, :boolean, default: false
-  attr :tooltip, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id href navigate patch phx-click disabled)
-  slot :inner_block
+  attr(:icon, :string, default: nil)
+  attr(:label, :string, default: nil)
+  attr(:badge, :string, default: nil)
+  attr(:items, :list, default: nil)
+  attr(:is_active, :boolean, default: false)
+  attr(:tooltip, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id href navigate patch phx-click disabled))
+  slot(:inner_block)
 
   @spec sidebar_menu_item(map()) :: Rendered.t()
   def sidebar_menu_item(assigns) do
@@ -1195,8 +1200,14 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     assigns =
       assigns
       |> assign(:simple_mode, assigns.icon != nil && assigns.label != nil && assigns.items == nil)
-      |> assign(:with_submenu, assigns.icon != nil && assigns.label != nil && assigns.items != nil && assigns.items != [])
-      |> assign(:collapsible_id, "sidebar-menu-#{assigns[:id] || 8 |> :crypto.strong_rand_bytes() |> Base.encode16()}")
+      |> assign(
+        :with_submenu,
+        assigns.icon != nil && assigns.label != nil && assigns.items != nil && assigns.items != []
+      )
+      |> assign(
+        :collapsible_id,
+        "sidebar-menu-#{assigns[:id] || 8 |> :crypto.strong_rand_bytes() |> Base.encode16()}"
+      )
 
     ~H"""
     <li
@@ -1308,13 +1319,13 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_button>
 
   """
-  attr :variant, :string, default: "default", values: ~w(default outline)
-  attr :size, :string, default: "default", values: ~w(default sm lg)
-  attr :is_active, :boolean, default: false
-  attr :tooltip, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id href navigate patch phx-click disabled)
-  slot :inner_block, required: true
+  attr(:variant, :string, default: "default", values: ~w(default outline))
+  attr(:size, :string, default: "default", values: ~w(default sm lg))
+  attr(:is_active, :boolean, default: false)
+  attr(:tooltip, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id href navigate patch phx-click disabled))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu_button(map()) :: Rendered.t()
   def sidebar_menu_button(assigns) do
@@ -1385,7 +1396,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     ]
   end
 
-  defp sidebar_menu_button_variant("default"), do: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+  defp sidebar_menu_button_variant("default"),
+    do: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
 
   defp sidebar_menu_button_variant("outline"),
     do:
@@ -1415,10 +1427,10 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_item>
 
   """
-  attr :show_on_hover, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id phx-click)
-  slot :inner_block, required: true
+  attr(:show_on_hover, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id phx-click))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu_action(map()) :: Rendered.t()
   def sidebar_menu_action(assigns) do
@@ -1463,9 +1475,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu_badge(map()) :: Rendered.t()
   def sidebar_menu_badge(assigns) do
@@ -1509,9 +1521,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu>
 
   """
-  attr :show_icon, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
+  attr(:show_icon, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
 
   @spec sidebar_menu_skeleton(map()) :: Rendered.t()
   def sidebar_menu_skeleton(assigns) do
@@ -1558,9 +1570,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu_sub(map()) :: Rendered.t()
   def sidebar_menu_sub(assigns) do
@@ -1592,9 +1604,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_sub_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu_sub_item(map()) :: Rendered.t()
   def sidebar_menu_sub_item(assigns) do
@@ -1633,11 +1645,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_menu_sub_button>
 
   """
-  attr :size, :string, default: "md", values: ~w(sm md)
-  attr :is_active, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id href navigate patch phx-click)
-  slot :inner_block, required: true
+  attr(:size, :string, default: "md", values: ~w(sm md))
+  attr(:is_active, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id href navigate patch phx-click))
+  slot(:inner_block, required: true)
 
   @spec sidebar_menu_sub_button(map()) :: Rendered.t()
   def sidebar_menu_sub_button(assigns) do
@@ -1815,17 +1827,19 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.tabs>
 
   """
-  attr :default_value, :string,
+  attr(:default_value, :string,
     default: nil,
     doc: "The value of the tab that should be active by default (client-side only)"
+  )
 
-  attr :value, :string,
+  attr(:value, :string,
     default: nil,
     doc: "The value of the currently active tab (for LiveView controlled tabs)"
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id phx-change)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id phx-change))
+  slot(:inner_block, required: true)
 
   @spec tabs(map()) :: Rendered.t()
   def tabs(assigns) do
@@ -1863,9 +1877,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.tabs_list>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec tabs_list(map()) :: Rendered.t()
   def tabs_list(assigns) do
@@ -1907,11 +1921,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.tabs_trigger>
 
   """
-  attr :value, :string, required: true
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id phx-click)
-  slot :inner_block, required: true
+  attr(:value, :string, required: true)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id phx-click))
+  slot(:inner_block, required: true)
 
   @spec tabs_trigger(map()) :: Rendered.t()
   def tabs_trigger(assigns) do
@@ -1971,11 +1985,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.tabs_content>
 
   """
-  attr :value, :string, required: true
-  attr :active, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:value, :string, required: true)
+  attr(:active, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec tabs_content(map()) :: Rendered.t()
   def tabs_content(assigns) do
@@ -2061,9 +2075,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.scroll_area>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec scroll_area(map()) :: Rendered.t()
   def scroll_area(assigns) do
@@ -2128,9 +2142,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.scroll_area>
 
   """
-  attr :orientation, :string, default: "vertical", values: ~w(vertical horizontal)
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
+  attr(:orientation, :string, default: "vertical", values: ~w(vertical horizontal))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
 
   @spec scroll_bar(map()) :: Rendered.t()
   def scroll_bar(assigns) do

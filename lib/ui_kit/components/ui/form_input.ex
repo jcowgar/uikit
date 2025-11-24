@@ -63,14 +63,15 @@ defmodule UiKit.Components.Ui.FormInput do
       </.button>
 
   """
-  attr :variant, :string,
+  attr(:variant, :string,
     default: "default",
     values: ~w(default destructive outline secondary ghost link)
+  )
 
-  attr :size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg)
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(disabled type form name value aria-label navigate patch href)
-  slot :inner_block, required: true
+  attr(:size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(disabled type form name value aria-label navigate patch href))
+  slot(:inner_block, required: true)
 
   @spec button(map()) :: Rendered.t()
   def button(assigns) do
@@ -79,7 +80,8 @@ defmodule UiKit.Components.Ui.FormInput do
       assign(
         assigns,
         :is_link,
-        Map.has_key?(assigns.rest, :navigate) || Map.has_key?(assigns.rest, :patch) || Map.has_key?(assigns.rest, :href)
+        Map.has_key?(assigns.rest, :navigate) || Map.has_key?(assigns.rest, :patch) ||
+          Map.has_key?(assigns.rest, :href)
       )
 
     ~H"""
@@ -139,9 +141,11 @@ defmodule UiKit.Components.Ui.FormInput do
     do:
       "border border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50"
 
-  defp button_variant("secondary"), do: "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+  defp button_variant("secondary"),
+    do: "bg-secondary text-secondary-foreground hover:bg-secondary/80"
 
-  defp button_variant("ghost"), do: "text-foreground hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
+  defp button_variant("ghost"),
+    do: "text-foreground hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
 
   defp button_variant("link"), do: "text-primary underline-offset-4 hover:underline"
 
@@ -214,15 +218,16 @@ defmodule UiKit.Components.Ui.FormInput do
       <.input type="text" name="custom" class="w-full" />
 
   """
-  attr :type, :string, default: "text"
-  attr :name, :string, default: nil
-  attr :value, :string, default: nil
-  attr :placeholder, :string, default: nil
-  attr :class, :string, default: nil
+  attr(:type, :string, default: "text")
+  attr(:name, :string, default: nil)
+  attr(:value, :string, default: nil)
+  attr(:placeholder, :string, default: nil)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include:
       ~w(disabled required autocomplete readonly maxlength minlength pattern id aria-label aria-invalid aria-describedby form autofocus multiple accept)
+  )
 
   @spec input(map()) :: Rendered.t()
   def input(assigns) do
@@ -327,14 +332,15 @@ defmodule UiKit.Components.Ui.FormInput do
       <.textarea name="custom" class="w-full" />
 
   """
-  attr :name, :string, default: nil
-  attr :value, :string, default: nil
-  attr :placeholder, :string, default: nil
-  attr :class, :string, default: nil
+  attr(:name, :string, default: nil)
+  attr(:value, :string, default: nil)
+  attr(:placeholder, :string, default: nil)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include:
       ~w(disabled required readonly maxlength minlength rows id aria-label aria-invalid aria-describedby form autofocus)
+  )
 
   @spec textarea(map()) :: Rendered.t()
   def textarea(assigns) do
@@ -423,12 +429,12 @@ defmodule UiKit.Components.Ui.FormInput do
       </.label>
 
   """
-  attr :for, :string, default: nil, doc: "The ID of the associated form control"
-  attr :class, :string, default: nil
-  attr :help_title, :string, default: nil, doc: "Title for inline help popover"
-  attr :help_text, :string, default: nil, doc: "Body text for inline help popover"
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:for, :string, default: nil, doc: "The ID of the associated form control")
+  attr(:class, :string, default: nil)
+  attr(:help_title, :string, default: nil, doc: "Title for inline help popover")
+  attr(:help_text, :string, default: nil, doc: "Body text for inline help popover")
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec label(map()) :: Rendered.t()
   def label(assigns) do
@@ -540,13 +546,15 @@ defmodule UiKit.Components.Ui.FormInput do
       <.checkbox id="required" name="required" aria-invalid="true" />
 
   """
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :value, :string, default: "true"
-  attr :checked, :boolean, default: false
-  attr :class, :string, default: nil
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :string, default: "true")
+  attr(:checked, :boolean, default: false)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global, include: ~w(disabled required aria-invalid aria-describedby form autofocus)
+  attr(:rest, :global,
+    include: ~w(disabled required aria-invalid aria-describedby form autofocus)
+  )
 
   @spec checkbox(map()) :: Rendered.t()
   def checkbox(assigns) do
@@ -631,9 +639,9 @@ defmodule UiKit.Components.Ui.FormInput do
       </.form_item>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec form_item(map()) :: Rendered.t()
   def form_item(assigns) do
@@ -675,11 +683,11 @@ defmodule UiKit.Components.Ui.FormInput do
       </.form_label>
 
   """
-  attr :for, :string, default: nil, doc: "The ID of the associated form control"
-  attr :error, :boolean, default: false, doc: "Whether the field has an error"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:for, :string, default: nil, doc: "The ID of the associated form control")
+  attr(:error, :boolean, default: false, doc: "Whether the field has an error")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec form_label(map()) :: Rendered.t()
   def form_label(assigns) do
@@ -737,10 +745,10 @@ defmodule UiKit.Components.Ui.FormInput do
       </.form_description>
 
   """
-  attr :id, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec form_description(map()) :: Rendered.t()
   def form_description(assigns) do
@@ -789,11 +797,11 @@ defmodule UiKit.Components.Ui.FormInput do
       </.form_message>
 
   """
-  attr :id, :string, default: nil
-  attr :field, FormField, default: nil, doc: "Phoenix form field to extract errors from"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block
+  attr(:id, :string, default: nil)
+  attr(:field, FormField, default: nil, doc: "Phoenix form field to extract errors from")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block)
 
   @spec form_message(map()) :: Rendered.t()
   def form_message(assigns) do
@@ -889,21 +897,23 @@ defmodule UiKit.Components.Ui.FormInput do
       />
 
   """
-  attr :field, FormField,
+  attr(:field, FormField,
     required: true,
     doc: "Phoenix form field struct retrieved from the form, for example: @form[:email]"
+  )
 
-  attr :type, :string, default: "text"
-  attr :label, :string, required: true
-  attr :description, :string, default: nil
-  attr :placeholder, :string, default: nil
-  attr :class, :string, default: nil
-  attr :help_title, :string, default: nil, doc: "Title for inline help popover"
-  attr :help_text, :string, default: nil, doc: "Body text for inline help popover"
+  attr(:type, :string, default: "text")
+  attr(:label, :string, required: true)
+  attr(:description, :string, default: nil)
+  attr(:placeholder, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:help_title, :string, default: nil, doc: "Title for inline help popover")
+  attr(:help_text, :string, default: nil, doc: "Body text for inline help popover")
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include:
       ~w(disabled required autocomplete readonly maxlength minlength pattern aria-label autofocus multiple accept rows)
+  )
 
   @spec form_field(map()) :: Rendered.t()
   def form_field(assigns) do
@@ -1041,13 +1051,16 @@ defmodule UiKit.Components.Ui.FormInput do
       </div>
 
   """
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :value, :string, default: "true"
-  attr :checked, :boolean, default: false
-  attr :class, :string, default: nil
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :string, default: "true")
+  attr(:checked, :boolean, default: false)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global, include: ~w(disabled required aria-label aria-describedby form autofocus phx-click phx-value-id)
+  attr(:rest, :global,
+    include:
+      ~w(disabled required aria-label aria-describedby form autofocus phx-click phx-value-id)
+  )
 
   @spec switch(map()) :: Rendered.t()
   def switch(assigns) do
@@ -1184,11 +1197,11 @@ defmodule UiKit.Components.Ui.FormInput do
       </.form>
 
   """
-  attr :name, :string, required: true
-  attr :value, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:name, :string, required: true)
+  attr(:value, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec radio_group(map()) :: Rendered.t()
   def radio_group(assigns) do
@@ -1279,15 +1292,16 @@ defmodule UiKit.Components.Ui.FormInput do
       <.radio_group_item value="disabled" id="disabled" name="choice" disabled />
 
   """
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :value, :string, required: true
-  attr :checked, :boolean, default: false
-  attr :class, :string, default: nil
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :string, required: true)
+  attr(:checked, :boolean, default: false)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include:
       ~w(disabled required aria-invalid aria-describedby form autofocus phx-click phx-value-method phx-value-theme phx-value-plan)
+  )
 
   @spec radio_group_item(map()) :: Rendered.t()
   def radio_group_item(assigns) do
@@ -1418,15 +1432,17 @@ defmodule UiKit.Components.Ui.FormInput do
       />
 
   """
-  attr :id, :string, required: true
-  attr :name, :string, required: true
-  attr :value, :any, default: nil
-  attr :placeholder, :string, default: "Select an option..."
-  attr :options, :list, required: true
-  attr :class, :string, default: nil
-  attr :disabled, :boolean, default: false
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :any, default: nil)
+  attr(:placeholder, :string, default: "Select an option...")
+  attr(:options, :list, required: true)
+  attr(:class, :string, default: nil)
+  attr(:disabled, :boolean, default: false)
 
-  attr :rest, :global, include: ~w(required aria-invalid aria-describedby form phx-change phx-target)
+  attr(:rest, :global,
+    include: ~w(required aria-invalid aria-describedby form phx-change phx-target)
+  )
 
   @spec select(map()) :: Rendered.t()
   def select(assigns) do
@@ -1664,10 +1680,10 @@ defmodule UiKit.Components.Ui.FormInput do
       </.button_group>
 
   """
-  attr :orientation, :string, default: "horizontal", values: ~w(horizontal vertical)
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:orientation, :string, default: "horizontal", values: ~w(horizontal vertical))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec button_group(map()) :: Rendered.t()
   def button_group(assigns) do
@@ -1758,9 +1774,9 @@ defmodule UiKit.Components.Ui.FormInput do
       </.button_group>
 
   """
-  attr :orientation, :string, default: "vertical", values: ~w(vertical horizontal)
-  attr :class, :string, default: nil
-  attr :rest, :global
+  attr(:orientation, :string, default: "vertical", values: ~w(vertical horizontal))
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
 
   @spec button_group_separator(map()) :: Rendered.t()
   def button_group_separator(assigns) do
@@ -1831,9 +1847,9 @@ defmodule UiKit.Components.Ui.FormInput do
       </.button_group>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec button_group_text(map()) :: Rendered.t()
   def button_group_text(assigns) do
@@ -1925,10 +1941,10 @@ defmodule UiKit.Components.Ui.FormInput do
       </.input_group>
 
   """
-  attr :disabled, :boolean, default: false
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec input_group(map()) :: Rendered.t()
   def input_group(assigns) do
@@ -2011,13 +2027,14 @@ defmodule UiKit.Components.Ui.FormInput do
       </.input_group>
 
   """
-  attr :align, :string,
+  attr(:align, :string,
     default: "inline-start",
     values: ~w(inline-start inline-end block-start block-end)
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec input_group_addon(map()) :: Rendered.t()
   def input_group_addon(assigns) do
@@ -2113,15 +2130,16 @@ defmodule UiKit.Components.Ui.FormInput do
       </.input_group>
 
   """
-  attr :variant, :string,
+  attr(:variant, :string,
     default: "ghost",
     values: ~w(default destructive outline secondary ghost link)
+  )
 
-  attr :size, :string, default: "xs", values: ~w(xs sm icon-xs icon-sm)
-  attr :type, :string, default: "button"
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(disabled aria-label phx-click phx-value-id)
-  slot :inner_block, required: true
+  attr(:size, :string, default: "xs", values: ~w(xs sm icon-xs icon-sm))
+  attr(:type, :string, default: "button")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(disabled aria-label phx-click phx-value-id))
+  slot(:inner_block, required: true)
 
   @spec input_group_button(map()) :: Rendered.t()
   def input_group_button(assigns) do
@@ -2214,9 +2232,9 @@ defmodule UiKit.Components.Ui.FormInput do
       </.input_group>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec input_group_text(map()) :: Rendered.t()
   def input_group_text(assigns) do
@@ -2277,15 +2295,16 @@ defmodule UiKit.Components.Ui.FormInput do
       </.input_group>
 
   """
-  attr :type, :string, default: "text"
-  attr :name, :string, default: nil
-  attr :value, :string, default: nil
-  attr :placeholder, :string, default: nil
-  attr :class, :string, default: nil
+  attr(:type, :string, default: "text")
+  attr(:name, :string, default: nil)
+  attr(:value, :string, default: nil)
+  attr(:placeholder, :string, default: nil)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include:
       ~w(disabled required autocomplete readonly maxlength minlength pattern id aria-label aria-invalid aria-describedby form autofocus)
+  )
 
   @spec input_group_input(map()) :: Rendered.t()
   def input_group_input(assigns) do
@@ -2352,14 +2371,15 @@ defmodule UiKit.Components.Ui.FormInput do
       </.input_group>
 
   """
-  attr :name, :string, default: nil
-  attr :value, :string, default: nil
-  attr :placeholder, :string, default: nil
-  attr :class, :string, default: nil
+  attr(:name, :string, default: nil)
+  attr(:value, :string, default: nil)
+  attr(:placeholder, :string, default: nil)
+  attr(:class, :string, default: nil)
 
-  attr :rest, :global,
+  attr(:rest, :global,
     include:
       ~w(disabled required readonly maxlength minlength rows id aria-label aria-invalid aria-describedby form autofocus)
+  )
 
   @spec input_group_textarea(map()) :: Rendered.t()
   def input_group_textarea(assigns) do

@@ -29,14 +29,19 @@ defmodule UiKit.Components.Ui.Typography do
       <.typography variant={:p}>Body text...</.typography>
       <.typography variant={:muted} element="span">Muted label</.typography>
   """
-  attr :variant, :atom, default: :p, values: [:h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :muted]
-  attr :element, :string, default: nil
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:variant, :atom,
+    default: :p,
+    values: [:h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :muted]
+  )
+
+  attr(:element, :string, default: nil)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   def typography(assigns) do
     element = assigns.element || default_element(assigns.variant)
+
     classes = [
       variant_class(assigns.variant),
       assigns.class

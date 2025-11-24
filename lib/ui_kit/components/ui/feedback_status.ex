@@ -42,14 +42,15 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       </.badge>
 
   """
-  attr :variant, :string,
+  attr(:variant, :string,
     default: "default",
     values:
       ~w(default secondary destructive success info warning info-subtle success-subtle warning-subtle destructive-subtle outline)
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec badge(map()) :: Rendered.t()
   def badge(assigns) do
@@ -77,10 +78,12 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   end
 
   defp badge_variant("default"),
-    do: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90 [a_&]:hover:bg-primary/90"
+    do:
+      "border-transparent bg-primary text-primary-foreground hover:bg-primary/90 [a_&]:hover:bg-primary/90"
 
   defp badge_variant("secondary"),
-    do: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90 [a_&]:hover:bg-secondary/90"
+    do:
+      "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90 [a_&]:hover:bg-secondary/90"
 
   defp badge_variant("destructive"),
     do:
@@ -89,24 +92,30 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   defp badge_variant("success"),
     do: "border-transparent bg-success text-white hover:bg-success/90 [a_&]:hover:bg-success/90"
 
-  defp badge_variant("info"), do: "border-transparent bg-info text-white hover:bg-info/90 [a_&]:hover:bg-info/90"
+  defp badge_variant("info"),
+    do: "border-transparent bg-info text-white hover:bg-info/90 [a_&]:hover:bg-info/90"
 
   defp badge_variant("warning"),
     do: "border-transparent bg-warning text-white hover:bg-warning/90 [a_&]:hover:bg-warning/90"
 
   # Subtle variants with light backgrounds
-  defp badge_variant("info-subtle"), do: "border-transparent bg-info/10 text-info hover:bg-info/20 [a_&]:hover:bg-info/20"
+  defp badge_variant("info-subtle"),
+    do: "border-transparent bg-info/10 text-info hover:bg-info/20 [a_&]:hover:bg-info/20"
 
   defp badge_variant("success-subtle"),
-    do: "border-transparent bg-success/10 text-success hover:bg-success/20 [a_&]:hover:bg-success/20"
+    do:
+      "border-transparent bg-success/10 text-success hover:bg-success/20 [a_&]:hover:bg-success/20"
 
   defp badge_variant("warning-subtle"),
-    do: "border-transparent bg-warning/10 text-warning hover:bg-warning/20 [a_&]:hover:bg-warning/20"
+    do:
+      "border-transparent bg-warning/10 text-warning hover:bg-warning/20 [a_&]:hover:bg-warning/20"
 
   defp badge_variant("destructive-subtle"),
-    do: "border-transparent bg-destructive/10 text-destructive hover:bg-destructive/20 [a_&]:hover:bg-destructive/20"
+    do:
+      "border-transparent bg-destructive/10 text-destructive hover:bg-destructive/20 [a_&]:hover:bg-destructive/20"
 
-  defp badge_variant("outline"), do: "text-foreground hover:bg-accent hover:text-accent-foreground [a_&]:hover:bg-accent"
+  defp badge_variant("outline"),
+    do: "text-foreground hover:bg-accent hover:text-accent-foreground [a_&]:hover:bg-accent"
 
   @doc """
   Renders an alert component for displaying important messages to users.
@@ -174,13 +183,14 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       </.alert>
 
   """
-  attr :variant, :string,
+  attr(:variant, :string,
     default: "default",
     values: ~w(default info warning destructive success)
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(id)
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(id))
+  slot(:inner_block, required: true)
 
   @spec alert(map()) :: Rendered.t()
   def alert(assigns) do
@@ -212,17 +222,20 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   defp alert_variant("default"), do: "bg-card text-card-foreground border-border"
 
   defp alert_variant("info"),
-    do: "bg-info/10 text-foreground border-info/20 [&>svg]:text-info dark:bg-info/20 dark:border-info/30"
+    do:
+      "bg-info/10 text-foreground border-info/20 [&>svg]:text-info dark:bg-info/20 dark:border-info/30"
 
   defp alert_variant("warning"),
-    do: "bg-warning/10 text-foreground border-warning/20 [&>svg]:text-warning dark:bg-warning/20 dark:border-warning/30"
+    do:
+      "bg-warning/10 text-foreground border-warning/20 [&>svg]:text-warning dark:bg-warning/20 dark:border-warning/30"
 
   defp alert_variant("destructive"),
     do:
       "bg-destructive/10 text-foreground border-destructive/20 [&>svg]:text-destructive dark:bg-destructive/20 dark:border-destructive/30"
 
   defp alert_variant("success"),
-    do: "bg-success/10 text-foreground border-success/20 [&>svg]:text-success dark:bg-success/20 dark:border-success/30"
+    do:
+      "bg-success/10 text-foreground border-success/20 [&>svg]:text-success dark:bg-success/20 dark:border-success/30"
 
   @doc """
   Renders the title for an alert.
@@ -245,9 +258,9 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       </.alert>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec alert_title(map()) :: Rendered.t()
   def alert_title(assigns) do
@@ -295,9 +308,9 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       </.alert>
 
   """
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec alert_description(map()) :: Rendered.t()
   def alert_description(assigns) do
@@ -372,9 +385,9 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   - Keyboard accessible close button
 
   """
-  attr :flash, :map, required: true, doc: "Phoenix flash messages map"
-  attr :duration, :integer, default: 5000, doc: "Auto-dismiss duration in milliseconds"
-  attr :class, :string, default: nil
+  attr(:flash, :map, required: true, doc: "Phoenix flash messages map")
+  attr(:duration, :integer, default: 5000, doc: "Auto-dismiss duration in milliseconds")
+  attr(:class, :string, default: nil)
 
   @spec sonner(map()) :: Rendered.t()
   def sonner(assigns) do
@@ -426,12 +439,12 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       <.sonner_toast kind="info" duration={3000}>Quick tip</.sonner_toast>
 
   """
-  attr :id, :string, required: true
-  attr :kind, :atom, required: true, values: [:info, :success, :warning, :error]
-  attr :duration, :integer, default: 5000
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:id, :string, required: true)
+  attr(:kind, :atom, required: true, values: [:info, :success, :warning, :error])
+  attr(:duration, :integer, default: 5000)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec sonner_toast(map()) :: Rendered.t()
   def sonner_toast(assigns) do
@@ -541,7 +554,11 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   defp hide_sonner(id) do
     %JS{}
     |> JS.set_attribute({"data-state", "closed"}, to: "##{id}")
-    |> JS.hide(to: "##{id}", time: 300, transition: {"ease-in duration-300", "opacity-100", "opacity-0"})
+    |> JS.hide(
+      to: "##{id}",
+      time: 300,
+      transition: {"ease-in duration-300", "opacity-100", "opacity-0"}
+    )
     |> JS.push("lv:clear-flash", value: %{key: String.replace(id, "sonner-", "")})
   end
 
@@ -608,8 +625,12 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   - Screen readers will announce "Loading" when the spinner appears
 
   """
-  attr :class, :string, default: nil, doc: "Additional CSS classes for size and color customization"
-  attr :rest, :global, doc: "Additional HTML attributes"
+  attr(:class, :string,
+    default: nil,
+    doc: "Additional CSS classes for size and color customization"
+  )
+
+  attr(:rest, :global, doc: "Additional HTML attributes")
 
   @spec spinner(map()) :: Rendered.t()
   def spinner(assigns) do
@@ -724,11 +745,12 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   - `aria-live="polite"` for non-intrusive announcements
 
   """
-  attr :class, :string,
+  attr(:class, :string,
     default: nil,
     doc: "Additional CSS classes for dimensions and shape (e.g., 'h-4 w-full rounded-md')"
+  )
 
-  attr :rest, :global, doc: "Additional HTML attributes"
+  attr(:rest, :global, doc: "Additional HTML attributes")
 
   @spec skeleton(map()) :: Rendered.t()
   def skeleton(assigns) do

@@ -88,15 +88,15 @@ defmodule UiKit.Components.Ui.Combobox do
   Use standard Phoenix event attributes like `phx-change="event_name"`.
 
   """
-  attr :id, :string, required: true
-  attr :value, :any, default: nil
-  attr :options, :list, default: []
-  attr :placeholder, :string, default: "Select option..."
-  attr :mode, :atom, default: :single, values: [:single, :multiple]
-  attr :search_placeholder, :string, default: "Search..."
-  attr :empty_message, :string, default: "No results found."
-  attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-change phx-blur phx-focus)
+  attr(:id, :string, required: true)
+  attr(:value, :any, default: nil)
+  attr(:options, :list, default: [])
+  attr(:placeholder, :string, default: "Select option...")
+  attr(:mode, :atom, default: :single, values: [:single, :multiple])
+  attr(:search_placeholder, :string, default: "Search...")
+  attr(:empty_message, :string, default: "No results found.")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-change phx-blur phx-focus))
 
   @spec combobox(map()) :: Rendered.t()
   def combobox(assigns) do
