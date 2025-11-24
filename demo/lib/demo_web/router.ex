@@ -56,6 +56,7 @@ defmodule DemoWeb.Router do
       live "/avatar", Ui.AvatarLive
       live "/table", Ui.TableLive
       live "/dropdown-menu", Ui.DropdownMenuLive
+      live "/context-menu", Ui.ContextMenuLive
       live "/popover", Ui.PopoverLive
       live "/sheet", Ui.SheetLive
       live "/alert-dialog", Ui.AlertDialogLive

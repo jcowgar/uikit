@@ -819,6 +819,704 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
     |> JS.toggle_attribute({"data-state", "open", "closed"}, to: "##{id}-trigger")
   end
 
+  # Context Menu Component
+  # ======================
+
+  @doc """
+  Renders a context menu wrapper component.
+
+  The context menu displays a menu triggered by right-click (contextmenu event).
+  It supports the same features as dropdown menus including checkboxes, radio buttons,
+  nested submenus, and keyboard shortcuts.
+
+  ## Features
+
+  - Right-click to open
+  - Click-outside-to-close
+  - Keyboard navigation (Arrow keys, Enter, Escape)
+  - Nested submenus
+  - Checkable items
+  - Radio groups
+  - Keyboard shortcuts display
+  - Semantic color tokens
+  - Smooth animations
+
+  ## Basic Structure
+
+      <.context_menu id="file-context">
+        <:trigger>
+          <div class="border rounded-md p-4">
+            Right-click me
+          </div>
+        </:trigger>
+        <:content>
+          <.context_menu_item>Cut</.context_menu_item>
+          <.context_menu_item>Copy</.context_menu_item>
+          <.context_menu_item>Paste</.context_menu_item>
+          <.context_menu_separator />
+          <.context_menu_item variant="destructive">Delete</.context_menu_item>
+        </:content>
+      </.context_menu>
+
+  ## Examples
+
+      # With icons and shortcuts
+      <.context_menu id="edit-context">
+        <:trigger>
+          <div class="border rounded p-4">
+            Right-click to edit
+          </div>
+        </:trigger>
+        <:content>
+          <.context_menu_item>
+            <.icon name="hero-scissors" />
+            Cut
+            <.context_menu_shortcut>⌘X</.context_menu_shortcut>
+          </.context_menu_item>
+          <.context_menu_item>
+            <.icon name="hero-document-duplicate" />
+            Copy
+            <.context_menu_shortcut>⌘C</.context_menu_shortcut>
+          </.context_menu_item>
+        </:content>
+      </.context_menu>
+
+      # With checkboxes
+      <.context_menu id="view-context">
+        <:trigger>
+          <div class="border rounded p-4">
+            Right-click for options
+          </div>
+        </:trigger>
+        <:content>
+          <.context_menu_label>View Options</.context_menu_label>
+          <.context_menu_separator />
+          <.context_menu_checkbox_item checked={@show_sidebar} phx-click="toggle-sidebar">
+            Show Sidebar
+          </.context_menu_checkbox_item>
+          <.context_menu_checkbox_item checked={@show_toolbar} phx-click="toggle-toolbar">
+            Show Toolbar
+          </.context_menu_checkbox_item>
+        </:content>
+      </.context_menu>
+
+  """
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Trigger area (right-click target)")
+  slot(:content, required: true, doc: "Menu content")
+
+  @spec context_menu(map()) :: Rendered.t()
+  def context_menu(assigns) do
+    ~H"""
+    <div
+      id={@id}
+      data-slot="context-menu"
+      class={["relative contents", @class]}
+      phx-click-away={hide_context_menu(@id)}
+      {@rest}
+    >
+      <div
+        id={"#{@id}-trigger"}
+        data-slot="context-menu-trigger"
+        phx-hook="ContextMenu"
+        data-menu-id={"#{@id}-content"}
+        class="contents"
+      >
+        {render_slot(@trigger)}
+      </div>
+
+      <div
+        id={"#{@id}-content"}
+        data-slot="context-menu-content"
+        class={[
+          "fixed z-50 min-w-[8rem] overflow-hidden rounded-md border border-border",
+          "bg-popover text-popover-foreground p-1 shadow-md",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+        ]}
+        style="display: none;"
+        data-state="closed"
+      >
+        {render_slot(@content)}
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu item.
+
+  Individual clickable menu item. Supports icons, keyboard shortcuts, and variants.
+
+  ## Variants
+
+  - `default` - Standard menu item
+  - `destructive` - For destructive/dangerous actions (delete, etc.)
+
+  ## Examples
+
+      <.context_menu_item>Edit</.context_menu_item>
+
+      <.context_menu_item variant="destructive">
+        Delete
+      </.context_menu_item>
+
+      # With icon
+      <.context_menu_item>
+        <.icon name="hero-pencil" />
+        Edit
+      </.context_menu_item>
+
+      # With icon and shortcut
+      <.context_menu_item>
+        <.icon name="hero-document-duplicate" />
+        Copy
+        <.context_menu_shortcut>⌘C</.context_menu_shortcut>
+      </.context_menu_item>
+
+      # With click handler
+      <.context_menu_item phx-click="edit-item">
+        Edit
+      </.context_menu_item>
+
+      # Disabled item
+      <.context_menu_item disabled>
+        Coming Soon
+      </.context_menu_item>
+
+      # With inset (for alignment with checkboxes)
+      <.context_menu_item inset>
+        Profile
+      </.context_menu_item>
+
+  """
+  attr(:variant, :string, default: "default", values: ~w(default destructive))
+  attr(:inset, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id phx-value-action))
+  slot(:inner_block, required: true)
+
+  @spec context_menu_item(map()) :: Rendered.t()
+  def context_menu_item(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-item"
+      data-variant={@variant}
+      data-inset={@inset}
+      data-disabled={@disabled}
+      data-context-close-on-click
+      class={[
+        # Base styles
+        "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden",
+        # Focus/hover styles
+        "focus:bg-accent focus:text-accent-foreground",
+        "hover:bg-accent hover:text-accent-foreground",
+        # Icon styles
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        # Variant styles
+        context_menu_item_variant(@variant),
+        # Inset (for alignment with checkbox items)
+        @inset && "pl-8",
+        # Disabled state
+        @disabled && "pointer-events-none opacity-50",
+        # Custom classes
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  defp context_menu_item_variant("default"), do: ""
+
+  defp context_menu_item_variant("destructive"),
+    do:
+      "text-destructive focus:bg-destructive/10 focus:text-destructive hover:bg-destructive/10 hover:text-destructive dark:focus:bg-destructive/20 dark:hover:bg-destructive/20 [&_svg]:!text-destructive"
+
+  @doc """
+  Renders a context menu checkbox item.
+
+  Menu item with a checkbox indicator that shows checked/unchecked state.
+
+  ## Examples
+
+      # Simple checkbox item
+      <.context_menu_checkbox_item checked={@show_sidebar}>
+        Show Sidebar
+      </.context_menu_checkbox_item>
+
+      # With click handler
+      <.context_menu_checkbox_item
+        checked={@notifications_enabled}
+        phx-click="toggle-notifications"
+      >
+        Enable Notifications
+      </.context_menu_checkbox_item>
+
+      # Disabled checkbox
+      <.context_menu_checkbox_item checked={false} disabled>
+        Feature Coming Soon
+      </.context_menu_checkbox_item>
+
+  """
+  attr(:checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id))
+  slot(:inner_block, required: true)
+
+  @spec context_menu_checkbox_item(map()) :: Rendered.t()
+  def context_menu_checkbox_item(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-checkbox-item"
+      data-disabled={@disabled}
+      class={[
+        # Base styles
+        "relative flex cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden",
+        # Focus/hover styles
+        "focus:bg-accent focus:text-accent-foreground",
+        "hover:bg-accent hover:text-accent-foreground",
+        # Icon styles
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        # Disabled state
+        @disabled && "pointer-events-none opacity-50",
+        # Custom classes
+        @class
+      ]}
+      {@rest}
+    >
+      <span class="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
+        <.icon :if={@checked} name="hero-check" class="size-4" />
+      </span>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu radio group container.
+
+  Container for radio items where only one item can be selected at a time.
+
+  ## Examples
+
+      <.context_menu_radio_group>
+        <.context_menu_radio_item checked={@person == "pedro"} phx-click="set-person" phx-value-person="pedro">
+          Pedro Duarte
+        </.context_menu_radio_item>
+        <.context_menu_radio_item checked={@person == "colm"} phx-click="set-person" phx-value-person="colm">
+          Colm Tuite
+        </.context_menu_radio_item>
+      </.context_menu_radio_group>
+
+  """
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec context_menu_radio_group(map()) :: Rendered.t()
+  def context_menu_radio_group(assigns) do
+    ~H"""
+    <div data-slot="context-menu-radio-group" class={@class} {@rest}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu radio item.
+
+  Menu item with a radio indicator that shows selected state.
+
+  ## Examples
+
+      # Simple radio item
+      <.context_menu_radio_item checked={@theme == "light"}>
+        Light
+      </.context_menu_radio_item>
+
+      # With click handler
+      <.context_menu_radio_item
+        checked={@person == "pedro"}
+        phx-click="set-person"
+        phx-value-person="pedro"
+      >
+        Pedro Duarte
+      </.context_menu_radio_item>
+
+  """
+  attr(:checked, :boolean, default: false)
+  attr(:disabled, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-click phx-value-id phx-value-person))
+  slot(:inner_block, required: true)
+
+  @spec context_menu_radio_item(map()) :: Rendered.t()
+  def context_menu_radio_item(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-radio-item"
+      data-disabled={@disabled}
+      class={[
+        # Base styles
+        "relative flex cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden",
+        # Focus/hover styles
+        "focus:bg-accent focus:text-accent-foreground",
+        "hover:bg-accent hover:text-accent-foreground",
+        # Icon styles
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        # Disabled state
+        @disabled && "pointer-events-none opacity-50",
+        # Custom classes
+        @class
+      ]}
+      {@rest}
+    >
+      <span class="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
+        <%= if @checked do %>
+          <span class="size-2 rounded-full bg-current"></span>
+        <% end %>
+      </span>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu label.
+
+  Non-interactive label for grouping menu items.
+
+  ## Examples
+
+      <.context_menu_label>People</.context_menu_label>
+      <.context_menu_item>Pedro</.context_menu_item>
+      <.context_menu_item>Colm</.context_menu_item>
+
+      # With inset (for alignment with checkbox items)
+      <.context_menu_label inset>Actions</.context_menu_label>
+
+  """
+  attr(:inset, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec context_menu_label(map()) :: Rendered.t()
+  def context_menu_label(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-label"
+      data-inset={@inset}
+      class={[
+        "px-2 py-1.5 text-sm font-medium text-foreground",
+        @inset && "pl-8",
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu separator.
+
+  Visual divider between menu sections.
+
+  ## Examples
+
+      <.context_menu_item>Edit</.context_menu_item>
+      <.context_menu_item>Duplicate</.context_menu_item>
+      <.context_menu_separator />
+      <.context_menu_item variant="destructive">Delete</.context_menu_item>
+
+  """
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+
+  @spec context_menu_separator(map()) :: Rendered.t()
+  def context_menu_separator(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-separator"
+      class={["-mx-1 my-1 h-px bg-border", @class]}
+      {@rest}
+    />
+    """
+  end
+
+  @doc """
+  Renders a keyboard shortcut indicator for context menu items.
+
+  Displays keyboard shortcuts aligned to the right of menu items.
+
+  ## Examples
+
+      <.context_menu_item>
+        Back
+        <.context_menu_shortcut>⌘[</.context_menu_shortcut>
+      </.context_menu_item>
+
+      <.context_menu_item>
+        Forward
+        <.context_menu_shortcut>⌘]</.context_menu_shortcut>
+      </.context_menu_item>
+
+  """
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec context_menu_shortcut(map()) :: Rendered.t()
+  def context_menu_shortcut(assigns) do
+    ~H"""
+    <span
+      data-slot="context-menu-shortcut"
+      class={["ml-auto text-xs tracking-widest text-muted-foreground", @class]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </span>
+    """
+  end
+
+  @doc """
+  Renders a context menu group.
+
+  Logical grouping for menu items (doesn't add visual styling).
+
+  ## Examples
+
+      <.context_menu_group>
+        <.context_menu_item>Profile</.context_menu_item>
+        <.context_menu_item>Billing</.context_menu_item>
+        <.context_menu_item>Settings</.context_menu_item>
+      </.context_menu_group>
+
+  """
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec context_menu_group(map()) :: Rendered.t()
+  def context_menu_group(assigns) do
+    ~H"""
+    <div data-slot="context-menu-group" class={@class} {@rest}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu submenu container.
+
+  Wrapper for nested submenu with trigger and content.
+
+  ## Examples
+
+      <.context_menu_sub id="more-tools">
+        <:trigger>
+          <.context_menu_sub_trigger>
+            More Tools
+          </.context_menu_sub_trigger>
+        </:trigger>
+        <:content>
+          <.context_menu_sub_content>
+            <.context_menu_item>
+              Save Page As...
+              <.context_menu_shortcut>⇧⌘S</.context_menu_shortcut>
+            </.context_menu_item>
+            <.context_menu_item>Developer Tools</.context_menu_item>
+          </.context_menu_sub_content>
+        </:content>
+      </.context_menu_sub>
+
+  """
+  attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true)
+  slot(:content, required: true)
+
+  @spec context_menu_sub(map()) :: Rendered.t()
+  def context_menu_sub(assigns) do
+    ~H"""
+    <div
+      id={@id}
+      data-slot="context-menu-sub"
+      class={["relative", @class]}
+      {@rest}
+    >
+      <div
+        id={"#{@id}-trigger"}
+        phx-click={toggle_context_menu_sub(@id)}
+      >
+        {render_slot(@trigger)}
+      </div>
+
+      <div id={"#{@id}-content"} class="hidden" data-state="closed">
+        {render_slot(@content)}
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a context menu submenu trigger.
+
+  Clickable item that opens a nested submenu.
+
+  ## Examples
+
+      <.context_menu_sub_trigger>
+        More Tools
+      </.context_menu_sub_trigger>
+
+      # With icon
+      <.context_menu_sub_trigger>
+        <.icon name="hero-share" />
+        Share
+      </.context_menu_sub_trigger>
+
+      # With inset
+      <.context_menu_sub_trigger inset>
+        More Options
+      </.context_menu_sub_trigger>
+
+  """
+  attr(:inset, :boolean, default: false)
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec context_menu_sub_trigger(map()) :: Rendered.t()
+  def context_menu_sub_trigger(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-sub-trigger"
+      data-inset={@inset}
+      class={[
+        # Base styles
+        "flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden",
+        # Focus/hover styles
+        "focus:bg-accent focus:text-accent-foreground",
+        "hover:bg-accent hover:text-accent-foreground",
+        "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
+        # Icon styles
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        # Inset
+        @inset && "pl-8",
+        # Custom classes
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+      <.icon name="hero-chevron-right" class="ml-auto size-4" />
+    </div>
+    """
+  end
+
+  @doc """
+  Renders context menu submenu content panel.
+
+  Container for submenu items.
+
+  ## Examples
+
+      <.context_menu_sub_content>
+        <.context_menu_item>Submenu Item 1</.context_menu_item>
+        <.context_menu_item>Submenu Item 2</.context_menu_item>
+      </.context_menu_sub_content>
+
+  """
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec context_menu_sub_content(map()) :: Rendered.t()
+  def context_menu_sub_content(assigns) do
+    ~H"""
+    <div
+      data-slot="context-menu-sub-content"
+      class={[
+        # Base styles (z-[60] to appear above parent menu's z-50)
+        "absolute left-full top-0 z-[60] min-w-[8rem] overflow-hidden rounded-md border border-border",
+        "bg-popover text-popover-foreground p-1 shadow-lg ml-1",
+        # Animation classes
+        "data-[state=open]:animate-in data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "data-[side=bottom]:slide-in-from-top-2",
+        "data-[side=left]:slide-in-from-right-2",
+        "data-[side=right]:slide-in-from-left-2",
+        "data-[side=top]:slide-in-from-bottom-2",
+        # Custom classes
+        @class
+      ]}
+      {@rest}
+    >
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  # JS commands for context menu interactions
+  defp hide_context_menu(id) do
+    [
+      to: "##{id}-content",
+      transition: {
+        "transition ease-in duration-100",
+        "opacity-100",
+        "opacity-0"
+      }
+    ]
+    |> JS.hide()
+    |> JS.set_attribute({"data-state", "closed"}, to: "##{id}-content")
+    # Close all submenus when parent menu closes
+    |> JS.hide(to: "##{id}-content [data-slot='context-menu-sub'] > div[id$='-content']")
+    |> JS.set_attribute({"data-state", "closed"},
+      to: "##{id}-content [data-slot='context-menu-sub'] > div[id$='-content']"
+    )
+  end
+
+  defp toggle_context_menu_sub(id) do
+    # Simple approach: hide ALL submenus, then toggle the clicked one
+    # This ensures only one submenu is open at a time
+    [to: "[data-slot='context-menu-sub'] > div[id$='-content']"]
+    |> JS.hide()
+    |> JS.set_attribute({"data-state", "closed"},
+      to: "[data-slot='context-menu-sub'] > div[id$='-content']"
+    )
+    # Then toggle this specific submenu wrapper
+    |> JS.toggle(
+      to: "##{id}-content",
+      in: {
+        "transition ease-out duration-150",
+        "opacity-0",
+        "opacity-100"
+      },
+      out: {
+        "transition ease-in duration-100",
+        "opacity-100",
+        "opacity-0"
+      }
+    )
+    |> JS.toggle_attribute({"data-state", "open", "closed"}, to: "##{id}-content")
+    |> JS.toggle_attribute({"data-state", "open", "closed"}, to: "##{id}-trigger")
+  end
+
   # Sheet Component
   # ================
 

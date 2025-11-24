@@ -59,6 +59,8 @@ import {ChartHook} from "../../../assets/js/hooks/chart"
 import {TabBarHook} from "../../../assets/js/hooks/tab_bar_hook"
 // Accordion collapsible sections
 import AccordionHook from "../../../assets/js/hooks/accordion"
+// Context menu for right-click menus
+import {ContextMenu} from "../../../assets/js/hooks/context_menu"
 
 // Custom hooks for LiveView components
 const Hooks = {
@@ -109,6 +111,7 @@ const Hooks = {
   Chart: ChartHook,
   TabBar: TabBarHook,
   Accordion: AccordionHook,
+  ContextMenu: ContextMenu,
   // ... (Other hooks can be copied if needed, but let's start with these)
 }
 
