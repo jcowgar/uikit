@@ -9,6 +9,64 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   alias Phoenix.LiveView.Rendered
 
   @doc """
+  Renders a container with a specified aspect ratio.
+
+  Displays content within a desired width-to-height ratio. Useful for maintaining
+  consistent proportions for images, videos, embeds, and other media.
+
+  ## Examples
+
+      <%!-- 16:9 aspect ratio (widescreen video) --%>
+      <.aspect_ratio ratio={16 / 9}>
+        <img src="/images/landscape.jpg" alt="Landscape" class="object-cover w-full h-full" />
+      </.aspect_ratio>
+
+      <%!-- 4:3 aspect ratio (classic photo) --%>
+      <.aspect_ratio ratio={4 / 3} class="rounded-lg overflow-hidden">
+        <img src="/images/photo.jpg" alt="Photo" class="object-cover w-full h-full" />
+      </.aspect_ratio>
+
+      <%!-- 1:1 aspect ratio (square) --%>
+      <.aspect_ratio ratio={1}>
+        <img src="/images/avatar.jpg" alt="Avatar" class="object-cover w-full h-full" />
+      </.aspect_ratio>
+
+      <%!-- Video embed with 16:9 ratio --%>
+      <.aspect_ratio ratio={16 / 9} class="bg-muted rounded-xl overflow-hidden">
+        <iframe
+          src="https://www.youtube.com/embed/..."
+          class="w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      </.aspect_ratio>
+
+  """
+  attr :ratio, :any,
+    default: 1.0,
+    doc: "The width-to-height ratio (e.g., 16/9, 4/3, 1). Defaults to 1:1 (square)."
+
+  attr :class, :string, default: nil
+  attr :rest, :global
+  slot :inner_block, required: true
+
+  @spec aspect_ratio(map()) :: Rendered.t()
+  def aspect_ratio(assigns) do
+    ~H"""
+    <div
+      data-slot="aspect-ratio"
+      style={"aspect-ratio: #{@ratio}"}
+      class={["relative w-full", @class]}
+      {@rest}
+    >
+      <div class="absolute inset-0">
+        {render_slot(@inner_block)}
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a card container.
 
   The card component provides a flexible container for grouping related content.

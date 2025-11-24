@@ -62,6 +62,7 @@ defmodule DemoWeb.UiBreadcrumbs do
     "/card" => {"Display & Media", "Card"},
     "/avatar" => {"Display & Media", "Avatar"},
     "/table" => {"Display & Media", "Table"},
+    "/aspect-ratio" => {"Display & Media", "Aspect Ratio"},
     # Miscellaneous
     "/miscellaneous" => {"Miscellaneous", "Components"},
     # Design System
