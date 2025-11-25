@@ -61,6 +61,8 @@ import {TabBarHook} from "../../../assets/js/hooks/tab_bar_hook"
 import AccordionHook from "../../../assets/js/hooks/accordion"
 // Context menu for right-click menus
 import {ContextMenu} from "../../../assets/js/hooks/context_menu"
+// Slider value display and filled track updates
+import {Slider, SliderFilled} from "../../../assets/js/hooks/slider"
 
 // Custom hooks for LiveView components
 const Hooks = {
@@ -112,6 +114,8 @@ const Hooks = {
   TabBar: TabBarHook,
   Accordion: AccordionHook,
   ContextMenu: ContextMenu,
+  Slider: Slider,
+  SliderFilled: SliderFilled,
   // ... (Other hooks can be copied if needed, but let's start with these)
 }
 

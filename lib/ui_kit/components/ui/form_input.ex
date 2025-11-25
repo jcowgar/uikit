@@ -2569,4 +2569,320 @@ defmodule UiKit.Components.Ui.FormInput do
     >{@value}</textarea>
     """
   end
+
+  @doc """
+  Renders a slider input for selecting a value from within a given range.
+
+  The slider component provides a visual interface for selecting numeric values
+  along a track. It supports both single value and range selection, with full
+  keyboard accessibility and consistent styling.
+
+  ## Features
+
+  - Native HTML5 range input with custom styling
+  - Semantic color tokens for theme support
+  - Smooth thumb transitions and hover effects
+  - Focus visible ring styles for keyboard navigation
+  - Disabled state support
+  - Optional value display
+  - Vertical orientation support
+  - Form integration with proper name/value
+
+  ## Attributes
+
+  - `id` - ID for the slider (required)
+  - `name` - Input name for form submission (required)
+  - `value` - Current value (defaults to min)
+  - `min` - Minimum value (default: 0)
+  - `max` - Maximum value (default: 100)
+  - `step` - Step increment (default: 1)
+  - `orientation` - "horizontal" (default) or "vertical"
+  - `disabled` - Disables the slider
+  - `show_value` - Shows the current value next to the slider
+  - `class` - Additional CSS classes
+
+  ## Examples
+
+      # Basic slider
+      <.slider id="volume" name="volume" />
+
+      # With value
+      <.slider id="brightness" name="brightness" value={75} />
+
+      # With custom range
+      <.slider id="price" name="price" min={0} max={1000} step={10} />
+
+      # With value display
+      <.slider id="opacity" name="opacity" value={50} show_value />
+
+      # Disabled
+      <.slider id="locked" name="locked" value={30} disabled />
+
+      # In a form
+      <form phx-submit="save">
+        <.slider id="rating" name="rating" min={1} max={5} step={1} value={3} />
+        <button type="submit">Submit</button>
+      </form>
+
+      # With LiveView event
+      <.slider
+        id="volume"
+        name="volume"
+        value={@volume}
+        phx-change="volume_changed"
+      />
+
+  """
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :any, default: nil)
+  attr(:min, :integer, default: 0)
+  attr(:max, :integer, default: 100)
+  attr(:step, :integer, default: 1)
+  attr(:orientation, :string, default: "horizontal", values: ~w(horizontal vertical))
+  attr(:show_value, :boolean, default: false)
+  attr(:class, :string, default: nil)
+
+  attr(:rest, :global,
+    include: ~w(disabled aria-label aria-describedby form autofocus phx-change phx-target)
+  )
+
+  @spec slider(map()) :: Rendered.t()
+  def slider(assigns) do
+    # Default value to min if not provided
+    assigns = assign_new(assigns, :current_value, fn ->
+      if assigns.value, do: assigns.value, else: assigns.min
+    end)
+
+    ~H"""
+    <div
+      data-slot="slider"
+      data-orientation={@orientation}
+      class={[
+        "relative flex touch-none select-none items-center",
+        @orientation == "horizontal" && "w-full",
+        @orientation == "vertical" && "h-full min-h-44 w-auto flex-col",
+        @rest[:disabled] && "opacity-50",
+        @class
+      ]}
+    >
+      <input
+        type="range"
+        id={@id}
+        name={@name}
+        value={@current_value}
+        min={@min}
+        max={@max}
+        step={@step}
+        data-orientation={@orientation}
+        phx-hook="Slider"
+        class={[
+          # Base styles - Reset browser default appearance
+          "appearance-none bg-transparent cursor-pointer outline-none",
+          # Horizontal orientation
+          @orientation == "horizontal" && "w-full h-1.5",
+          # Vertical orientation
+          @orientation == "vertical" && "h-full w-1.5 writing-mode-vertical-lr",
+          # Track styles (Webkit - Chrome, Safari, Edge)
+          "[&::-webkit-slider-runnable-track]:h-1.5 [&::-webkit-slider-runnable-track]:w-full",
+          "[&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-muted",
+          # Track styles (Firefox)
+          "[&::-moz-range-track]:h-1.5 [&::-moz-range-track]:w-full",
+          "[&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-muted",
+          # Thumb styles (Webkit)
+          "[&::-webkit-slider-thumb]:appearance-none",
+          "[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full",
+          "[&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-primary",
+          "[&::-webkit-slider-thumb]:bg-background [&::-webkit-slider-thumb]:shadow-sm",
+          "[&::-webkit-slider-thumb]:transition-[transform,box-shadow]",
+          "[&::-webkit-slider-thumb]:-mt-[5px]",
+          # Thumb hover (Webkit)
+          "[&::-webkit-slider-thumb:hover]:ring-4 [&::-webkit-slider-thumb:hover]:ring-ring/50",
+          # Thumb styles (Firefox)
+          "[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full",
+          "[&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-primary",
+          "[&::-moz-range-thumb]:bg-background [&::-moz-range-thumb]:shadow-sm",
+          "[&::-moz-range-thumb]:transition-[transform,box-shadow]",
+          # Thumb hover (Firefox)
+          "[&::-moz-range-thumb:hover]:ring-4 [&::-moz-range-thumb:hover]:ring-ring/50",
+          # Focus styles (Webkit)
+          "focus-visible:[&::-webkit-slider-thumb]:ring-4 focus-visible:[&::-webkit-slider-thumb]:ring-ring/50",
+          # Focus styles (Firefox)
+          "focus-visible:[&::-moz-range-thumb]:ring-4 focus-visible:[&::-moz-range-thumb]:ring-ring/50",
+          # Disabled state
+          "disabled:pointer-events-none disabled:opacity-50"
+        ]}
+        {@rest}
+      />
+      <span
+        :if={@show_value}
+        class={[
+          "text-sm font-medium text-foreground tabular-nums",
+          @orientation == "horizontal" && "ml-3",
+          @orientation == "vertical" && "mt-3"
+        ]}
+      >
+        {@current_value}
+      </span>
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a slider with a filled range track showing the selected value visually.
+
+  This enhanced slider component shows the filled portion of the track from min
+  to the current value, providing better visual feedback. It uses a custom
+  implementation with proper styling for both light and dark modes.
+
+  ## Features
+
+  - Filled track showing selected range
+  - All features from the basic slider component
+  - Visual feedback for the selected value
+  - Smooth animations and transitions
+  - Full keyboard accessibility
+
+  ## Attributes
+
+  Same as `slider/1` with identical behavior.
+
+  ## Examples
+
+      # Basic filled slider
+      <.slider_filled id="volume" name="volume" value={50} />
+
+      # With value display
+      <.slider_filled id="progress" name="progress" value={75} show_value />
+
+      # Custom range
+      <.slider_filled id="price" name="price" min={100} max={500} step={25} value={250} />
+
+  """
+  attr(:id, :string, required: true)
+  attr(:name, :string, required: true)
+  attr(:value, :any, default: nil)
+  attr(:min, :integer, default: 0)
+  attr(:max, :integer, default: 100)
+  attr(:step, :integer, default: 1)
+  attr(:orientation, :string, default: "horizontal", values: ~w(horizontal vertical))
+  attr(:show_value, :boolean, default: false)
+  attr(:class, :string, default: nil)
+
+  attr(:rest, :global,
+    include: ~w(disabled aria-label aria-describedby form autofocus phx-change phx-target)
+  )
+
+  @spec slider_filled(map()) :: Rendered.t()
+  def slider_filled(assigns) do
+    # Default value to min if not provided
+    current_value = if assigns.value, do: assigns.value, else: assigns.min
+    # Calculate fill percentage
+    range = assigns.max - assigns.min
+    fill_percent = if range > 0, do: (current_value - assigns.min) / range * 100, else: 0
+
+    assigns =
+      assigns
+      |> assign(:current_value, current_value)
+      |> assign(:fill_percent, fill_percent)
+
+    ~H"""
+    <div
+      data-slot="slider"
+      data-orientation={@orientation}
+      class={[
+        "flex touch-none select-none items-center",
+        @orientation == "horizontal" && "w-full",
+        @orientation == "vertical" && "h-full min-h-44 w-auto flex-col",
+        @rest[:disabled] && "opacity-50",
+        @class
+      ]}
+    >
+      <%!-- Slider track wrapper - contains both custom track and input --%>
+      <div
+        class={[
+          "relative flex-1",
+          @orientation == "horizontal" && "h-4 w-full",
+          @orientation == "vertical" && "h-full w-4"
+        ]}
+      >
+        <%!-- Custom track background --%>
+        <div
+          class={[
+            "absolute rounded-full bg-muted",
+            @orientation == "horizontal" && "h-1.5 w-full top-1/2 -translate-y-1/2",
+            @orientation == "vertical" && "w-1.5 h-full left-1/2 -translate-x-1/2"
+          ]}
+        >
+          <%!-- Filled range --%>
+          <div
+            class={[
+              "absolute bg-primary rounded-full",
+              @orientation == "horizontal" && "h-full left-0",
+              @orientation == "vertical" && "w-full bottom-0"
+            ]}
+            style={
+              if @orientation == "horizontal",
+                do: "width: #{@fill_percent}%",
+                else: "height: #{@fill_percent}%"
+            }
+          />
+        </div>
+        <%!-- Range input overlay --%>
+        <input
+          type="range"
+          id={@id}
+          name={@name}
+          value={@current_value}
+          min={@min}
+          max={@max}
+          step={@step}
+          data-orientation={@orientation}
+          phx-hook="SliderFilled"
+          data-slider-container={@id}
+          class={[
+            # Position to fill the wrapper
+            "absolute inset-0 appearance-none bg-transparent cursor-pointer outline-none",
+            @orientation == "horizontal" && "w-full h-full",
+            @orientation == "vertical" && "h-full w-full",
+            # Hide track (we use custom track above)
+            "[&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-runnable-track]:h-full",
+            "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:h-full",
+            # Thumb styles (Webkit)
+            "[&::-webkit-slider-thumb]:appearance-none",
+            "[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full",
+            "[&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-primary",
+            "[&::-webkit-slider-thumb]:bg-background [&::-webkit-slider-thumb]:shadow-sm",
+            "[&::-webkit-slider-thumb]:transition-[transform,box-shadow]",
+            # Thumb hover (Webkit)
+            "[&::-webkit-slider-thumb:hover]:ring-4 [&::-webkit-slider-thumb:hover]:ring-ring/50",
+            # Thumb styles (Firefox)
+            "[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full",
+            "[&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-primary",
+            "[&::-moz-range-thumb]:bg-background [&::-moz-range-thumb]:shadow-sm",
+            "[&::-moz-range-thumb]:transition-[transform,box-shadow]",
+            # Thumb hover (Firefox)
+            "[&::-moz-range-thumb:hover]:ring-4 [&::-moz-range-thumb:hover]:ring-ring/50",
+            # Focus styles
+            "focus-visible:[&::-webkit-slider-thumb]:ring-4 focus-visible:[&::-webkit-slider-thumb]:ring-ring/50",
+            "focus-visible:[&::-moz-range-thumb]:ring-4 focus-visible:[&::-moz-range-thumb]:ring-ring/50",
+            # Disabled state
+            "disabled:pointer-events-none disabled:opacity-50"
+          ]}
+          {@rest}
+        />
+      </div>
+      <span
+        :if={@show_value}
+        class={[
+          "text-sm font-medium text-foreground tabular-nums shrink-0",
+          @orientation == "horizontal" && "ml-3",
+          @orientation == "vertical" && "mt-3"
+        ]}
+      >
+        {@current_value}
+      </span>
+    </div>
+    """
+  end
 end

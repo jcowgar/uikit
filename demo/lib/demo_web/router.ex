@@ -39,6 +39,7 @@ defmodule DemoWeb.Router do
       live "/select", Ui.SelectLive
       live "/combobox", Ui.ComboboxLive
       live "/chip-input", Ui.ChipInputLive
+      live "/slider", Ui.SliderLive
       live "/form", Ui.FormLive
       live "/alert", Ui.AlertLive
       live "/separator", Ui.SeparatorLive
