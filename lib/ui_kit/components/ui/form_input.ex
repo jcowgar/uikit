@@ -157,6 +157,81 @@ defmodule UiKit.Components.Ui.FormInput do
   defp button_size("icon-lg"), do: "size-10"
 
   @doc """
+  Renders a button-styled label for file uploads.
+
+  This component wraps a file input (typically `Phoenix.Component.live_file_input/1`)
+  in a label styled as a button. The actual file input should be passed as the
+  inner block and will be visually hidden while remaining accessible.
+
+  ## Features
+
+  - Button-styled clickable area for file selection
+  - Supports all button variants and sizes
+  - Visually hides the file input while keeping it accessible
+  - Works with Phoenix LiveView's `live_file_input`
+
+  ## Examples
+
+      # Basic file upload button
+      <.file_upload_button>
+        <.live_file_input upload={@uploads.avatar} />
+      </.file_upload_button>
+
+      # With custom label text
+      <.file_upload_button label="Choose Image">
+        <.live_file_input upload={@uploads.photo} />
+      </.file_upload_button>
+
+      # Different variant and size
+      <.file_upload_button variant="default" size="lg" label="Upload Document">
+        <.live_file_input upload={@uploads.document} />
+      </.file_upload_button>
+
+      # Without icon
+      <.file_upload_button icon={false}>
+        <.live_file_input upload={@uploads.file} />
+      </.file_upload_button>
+
+  """
+  attr :variant, :string,
+    default: "outline",
+    values: ~w(default destructive outline secondary ghost)
+
+  attr :size, :string, default: "default", values: ~w(default sm lg)
+  attr :label, :string, default: "Choose File"
+  attr :icon, :boolean, default: true, doc: "Whether to show the upload icon"
+  attr :class, :string, default: nil
+  attr :rest, :global
+  slot :inner_block, required: true, doc: "The file input element (e.g., live_file_input)"
+
+  @spec file_upload_button(map()) :: Rendered.t()
+  def file_upload_button(assigns) do
+    ~H"""
+    <label
+      class={[
+        # Base styles (same as button)
+        "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all",
+        "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
+        "outline-none focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px]",
+        # Variant styles
+        button_variant(@variant),
+        # Size styles
+        button_size(@size),
+        # Hide the file input visually
+        "[&_input[type=file]]:sr-only",
+        # Custom classes
+        @class
+      ]}
+      {@rest}
+    >
+      <span :if={@icon} class="hero-arrow-up-tray size-4" />
+      {@label}
+      {render_slot(@inner_block)}
+    </label>
+    """
+  end
+
+  @doc """
   Renders a shadcn-style input field with consistent styling and accessibility features.
 
   This is the base input component from shadcn/ui. It supports all standard HTML input
