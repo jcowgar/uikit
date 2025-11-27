@@ -293,7 +293,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       data-slot="avatar-image"
       src={@src}
       alt={@alt}
-      class={["aspect-square size-full", @class]}
+      class={["aspect-square size-full relative z-10", @class]}
       {@rest}
     />
     """
@@ -321,7 +321,8 @@ defmodule UiKit.Components.Ui.DisplayMedia do
     <div
       data-slot="avatar-fallback"
       class={[
-        "bg-muted flex size-full items-center justify-center rounded-full",
+        "bg-muted flex size-full items-center justify-center rounded-[inherit]",
+        "absolute inset-0 z-0",
         @class
       ]}
       {@rest}
