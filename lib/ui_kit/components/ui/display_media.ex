@@ -273,16 +273,16 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @doc """
   Renders an avatar image.
 
-  Displays the user's profile image. If the image fails to load,
+  Displays the user's profile image. If the image fails to load or `src` is nil,
   the avatar_fallback will be shown instead.
 
   ## Attributes
 
-  - `src` - Image URL (required)
-  - `alt` - Alternative text for accessibility (required)
+  - `src` - Image URL. If nil or empty, the image is not rendered.
+  - `alt` - Alternative text for accessibility.
   """
-  attr(:src, :string, required: true)
-  attr(:alt, :string, required: true)
+  attr(:src, :string, default: nil)
+  attr(:alt, :string, default: nil)
   attr(:class, :string, default: nil)
   attr(:rest, :global)
 
@@ -290,6 +290,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   def avatar_image(assigns) do
     ~H"""
     <img
+      :if={@src}
       data-slot="avatar-image"
       src={@src}
       alt={@alt}
