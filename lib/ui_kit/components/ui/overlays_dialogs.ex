@@ -3810,4 +3810,188 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
     </div>
     """
   end
+
+  # Tooltip Component
+  # ==========================================
+
+  @doc """
+  Renders a tooltip that displays information when hovering over or focusing on an element.
+
+  A tooltip is a popup that displays informational text related to an element
+  when the element receives keyboard focus or the mouse hovers over it.
+
+  ## Features
+
+  - Pure CSS hover-based show/hide (no JavaScript required)
+  - Keyboard accessible (shows on focus)
+  - Multiple positioning options (top, bottom, left, right)
+  - Smooth fade animations
+  - Arrow indicator pointing to trigger
+  - Semantic color tokens
+
+  ## Examples
+
+      # Basic tooltip
+      <.tooltip>
+        <:trigger>
+          <.button variant="outline">Hover me</.button>
+        </:trigger>
+        <:content>
+          <p>Add to library</p>
+        </:content>
+      </.tooltip>
+
+      # Tooltip with different positions
+      <.tooltip side="top">
+        <:trigger>
+          <.button>Top</.button>
+        </:trigger>
+        <:content>This appears above</:content>
+      </.tooltip>
+
+      <.tooltip side="right">
+        <:trigger>
+          <.button>Right</.button>
+        </:trigger>
+        <:content>This appears to the right</:content>
+      </.tooltip>
+
+      # Tooltip with custom delay (via CSS custom property)
+      <.tooltip class="[--tooltip-delay:500ms]">
+        <:trigger>
+          <span class="underline decoration-dotted cursor-help">What is this?</span>
+        </:trigger>
+        <:content>
+          <p>Detailed explanation here</p>
+        </:content>
+      </.tooltip>
+
+  """
+  attr(:id, :string, default: nil)
+  attr(:side, :string, default: "top", values: ~w(top bottom left right))
+  attr(:align, :string, default: "center", values: ~w(start center end))
+  attr(:delay, :integer, default: 0, doc: "Delay in milliseconds before showing tooltip")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:trigger, required: true, doc: "Element that triggers the tooltip")
+  slot(:content, required: true, doc: "Tooltip content")
+
+  @spec tooltip(map()) :: Rendered.t()
+  def tooltip(assigns) do
+    assigns =
+      assign_new(assigns, :tooltip_id, fn ->
+        assigns[:id] || "tooltip-#{:erlang.phash2(make_ref())}"
+      end)
+
+    ~H"""
+    <div
+      id={@tooltip_id}
+      data-slot="tooltip"
+      class={["group/tooltip relative inline-flex", @class]}
+      {@rest}
+    >
+      <%!-- Trigger --%>
+      <div
+        data-slot="tooltip-trigger"
+        tabindex="0"
+        aria-describedby={"#{@tooltip_id}-content"}
+        class="inline-flex focus:outline-hidden"
+      >
+        {render_slot(@trigger)}
+      </div>
+
+      <%!-- Tooltip content --%>
+      <div
+        id={"#{@tooltip_id}-content"}
+        role="tooltip"
+        data-slot="tooltip-content"
+        data-side={@side}
+        data-align={@align}
+        style={if @delay > 0, do: "--tooltip-delay: #{@delay}ms;", else: nil}
+        class={tooltip_content_classes(@side, @align)}
+      >
+        {render_slot(@content)}
+        <%!-- Arrow --%>
+        <div class={tooltip_arrow_classes(@side)} data-slot="tooltip-arrow" />
+      </div>
+    </div>
+    """
+  end
+
+  # Base classes for tooltip content
+  defp tooltip_content_base_classes do
+    [
+      # Visibility & positioning
+      "invisible opacity-0 absolute z-50",
+      # Show on hover/focus with delay
+      "group-hover/tooltip:visible group-hover/tooltip:opacity-100",
+      "group-focus-within/tooltip:visible group-focus-within/tooltip:opacity-100",
+      # Base styling
+      "w-max max-w-xs rounded-md px-3 py-1.5 text-xs",
+      "bg-foreground text-background",
+      # Animation
+      "transition-all duration-150",
+      "delay-[var(--tooltip-delay,0ms)]"
+    ]
+  end
+
+  # Generate position and alignment classes for tooltip content
+  defp tooltip_content_classes(side, align) do
+    [
+      tooltip_content_base_classes(),
+      tooltip_position_classes(side, align)
+    ]
+  end
+
+  # Position classes based on side and alignment
+  defp tooltip_position_classes("top", "start"), do: "bottom-full left-0 mb-2"
+  defp tooltip_position_classes("top", "center"), do: "bottom-full left-1/2 -translate-x-1/2 mb-2"
+  defp tooltip_position_classes("top", "end"), do: "bottom-full right-0 mb-2"
+  defp tooltip_position_classes("bottom", "start"), do: "top-full left-0 mt-2"
+  defp tooltip_position_classes("bottom", "center"), do: "top-full left-1/2 -translate-x-1/2 mt-2"
+  defp tooltip_position_classes("bottom", "end"), do: "top-full right-0 mt-2"
+  defp tooltip_position_classes("left", "start"), do: "right-full top-0 mr-2"
+  defp tooltip_position_classes("left", "center"), do: "right-full top-1/2 -translate-y-1/2 mr-2"
+  defp tooltip_position_classes("left", "end"), do: "right-full bottom-0 mr-2"
+  defp tooltip_position_classes("right", "start"), do: "left-full top-0 ml-2"
+  defp tooltip_position_classes("right", "center"), do: "left-full top-1/2 -translate-y-1/2 ml-2"
+  defp tooltip_position_classes("right", "end"), do: "left-full bottom-0 ml-2"
+  defp tooltip_position_classes(_side, _align), do: "bottom-full left-1/2 -translate-x-1/2 mb-2"
+
+  # Arrow classes based on side
+  defp tooltip_arrow_classes("top") do
+    [
+      "absolute left-1/2 -translate-x-1/2 top-full",
+      "size-2 rotate-45 -mt-1",
+      "bg-foreground"
+    ]
+  end
+
+  defp tooltip_arrow_classes("bottom") do
+    [
+      "absolute left-1/2 -translate-x-1/2 bottom-full",
+      "size-2 rotate-45 -mb-1",
+      "bg-foreground"
+    ]
+  end
+
+  defp tooltip_arrow_classes("left") do
+    [
+      "absolute top-1/2 -translate-y-1/2 left-full",
+      "size-2 rotate-45 -ml-1",
+      "bg-foreground"
+    ]
+  end
+
+  defp tooltip_arrow_classes("right") do
+    [
+      "absolute top-1/2 -translate-y-1/2 right-full",
+      "size-2 rotate-45 -mr-1",
+      "bg-foreground"
+    ]
+  end
+
+  defp tooltip_arrow_classes(_side) do
+    tooltip_arrow_classes("top")
+  end
 end
