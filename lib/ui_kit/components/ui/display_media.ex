@@ -249,6 +249,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   """
   attr(:aria_label, :string, default: nil, doc: "Accessible label for screen readers")
+  attr(:size, :string, default: "default", doc: "Size variant: sm, default, lg, full")
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
@@ -260,7 +261,8 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       data-slot="avatar"
       aria-label={@aria_label}
       class={[
-        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
+        "relative flex shrink-0 overflow-hidden rounded-full",
+        avatar_size_class(@size),
         @class
       ]}
       {@rest}
@@ -269,6 +271,11 @@ defmodule UiKit.Components.Ui.DisplayMedia do
     </div>
     """
   end
+
+  defp avatar_size_class("sm"), do: "size-6"
+  defp avatar_size_class("lg"), do: "size-12"
+  defp avatar_size_class("full"), do: "h-full aspect-square"
+  defp avatar_size_class(_), do: "size-8"
 
   @doc """
   Renders an avatar image.
