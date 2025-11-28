@@ -50,8 +50,8 @@ defmodule UiKit.Components.Ui.ChipInput do
   """
   use Phoenix.Component
 
-  import UiKit.Components.CoreComponents, only: [icon: 1]
   import UiKit.Components.Ui.FeedbackStatus, only: [badge: 1]
+  import UiKit.Components.Ui.FormInput, only: [close_button: 1]
 
   alias Phoenix.LiveView.JS
   alias Phoenix.LiveView.Rendered
@@ -164,15 +164,13 @@ defmodule UiKit.Components.Ui.ChipInput do
         <%= for value <- @initial_values do %>
           <.badge variant="secondary" class="gap-1 pl-2 pr-1" data-chip-value={value}>
             {value}
-            <button
-              type="button"
+            <.close_button
+              variant="chip"
+              size="sm"
+              sr_text={"Remove #{value}"}
               data-chip-remove
               phx-click={if @server_mode, do: build_remove_event(@on_remove, @id, value), else: nil}
-              class="ml-1 rounded-sm hover:bg-secondary-foreground/20 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
-              aria-label={"Remove #{value}"}
-            >
-              <.icon name="hero-x-mark" class="size-3" />
-            </button>
+            />
           </.badge>
         <% end %>
 

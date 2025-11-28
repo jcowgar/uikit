@@ -78,8 +78,8 @@ These use `<button>` because they ARE buttons with special form semantics:
 | `form_input.ex` | `radio_group_item` | Radio button semantics - OK |
 | `form_input.ex` | `range_slider` | Slider semantics - OK |
 | `form_input.ex` | `stepper` | +/- stepper buttons - OK |
-| `combobox.ex` | Chip remove button | Could use close_button - Deferred |
-| `chip_input.ex` | Chip remove button | Could use close_button - Deferred |
+| `combobox.ex` | Chip remove button | [x] Uses `<.close_button variant="chip">` |
+| `chip_input.ex` | Chip remove button | [x] Uses `<.close_button variant="chip">` |
 | `kanban.ex` | Column collapse button | Kanban-specific - OK |
 
 ---
@@ -138,7 +138,7 @@ Most of these are in docstring examples or have specific wrapping requirements t
 ## Notes
 
 ### New Components Created
-- `<.close_button>` - Reusable close button with variants (`default`, `ghost`) and sizes (`sm`, `default`, `lg`)
+- `<.close_button>` - Reusable close button with variants (`default`, `ghost`, `chip`) and sizes (`sm`, `default`, `lg`)
 
 ### Button Component Enhancements
 - Added `variant="unstyled"` - Renders a button with no default styling, allowing full customization
@@ -173,3 +173,5 @@ Some raw elements remain acceptable:
   - Updated all close buttons to use `<.close_button>`
   - Updated all action/cancel buttons to use `<.button>`
   - Updated all trigger components to use `<.button variant="unstyled">`
+  - Added `variant="chip"` to `<.close_button>` for chip/badge remove buttons
+  - Updated `combobox.ex` and `chip_input.ex` chip remove buttons to use `<.close_button variant="chip">`

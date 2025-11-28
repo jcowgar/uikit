@@ -165,10 +165,11 @@ defmodule UiKit.Components.Ui.FormInput do
 
   - `default` - Standard close button with opacity transition
   - `ghost` - Minimal styling that blends into the background
+  - `chip` - Compact styling for use inside badges/chips
 
   ## Sizes
 
-  - `sm` - Small close button (size-4 icon)
+  - `sm` - Small close button (size-3 icon)
   - `default` - Standard close button (size-4 icon)
   - `lg` - Large close button (size-5 icon)
 
@@ -186,12 +187,17 @@ defmodule UiKit.Components.Ui.FormInput do
       <%!-- Ghost variant for subtle appearance --%>
       <.close_button variant="ghost" phx-click="close" />
 
+      <%!-- Chip variant for use in badges --%>
+      <.close_button variant="chip" size="sm" phx-click="remove_chip" />
+
   """
-  attr :variant, :string, default: "default", values: ~w(default ghost)
+  attr :variant, :string, default: "default", values: ~w(default ghost chip)
   attr :size, :string, default: "default", values: ~w(sm default lg)
   attr :sr_text, :string, default: "Close", doc: "Screen reader text for accessibility"
   attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(phx-click aria-label disabled)
+  attr :rest, :global,
+    include:
+      ~w(phx-click aria-label disabled data-combobox-remove data-remove-value data-combobox-id data-event-name data-chip-remove)
 
   @spec close_button(map()) :: Rendered.t()
   def close_button(assigns) do
@@ -200,8 +206,7 @@ defmodule UiKit.Components.Ui.FormInput do
       type="button"
       aria-label={@sr_text}
       class={[
-        close_button_base(),
-        close_button_variant(@variant),
+        close_button_classes(@variant),
         close_button_size(@size),
         @class
       ]}
@@ -213,21 +218,30 @@ defmodule UiKit.Components.Ui.FormInput do
     """
   end
 
-  defp close_button_base do
+  defp close_button_classes("default") do
     [
       "rounded-md opacity-70 transition-opacity",
       "hover:opacity-100 focus:opacity-100",
+      "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ring-offset-background",
+      "disabled:pointer-events-none"
+    ]
+  end
+
+  defp close_button_classes("ghost") do
+    [
+      "rounded-md opacity-70 transition-opacity",
+      "hover:opacity-100 focus:opacity-100 hover:bg-accent hover:text-accent-foreground",
       "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
       "disabled:pointer-events-none"
     ]
   end
 
-  defp close_button_variant("default") do
-    "ring-offset-background"
-  end
-
-  defp close_button_variant("ghost") do
-    "hover:bg-accent hover:text-accent-foreground"
+  defp close_button_classes("chip") do
+    [
+      "ml-1 rounded-sm",
+      "hover:bg-secondary-foreground/20",
+      "focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
+    ]
   end
 
   defp close_button_size("sm"), do: "p-0.5"

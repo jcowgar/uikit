@@ -194,33 +194,51 @@ export const ChipInput = {
   },
 
   addChipToDOM(value) {
-    // Create badge element
+    // Create badge element matching <.badge variant="secondary" class="gap-1 pl-2 pr-1">
+    // Classes must exactly match the server-rendered badge component
     const badge = document.createElement('span')
-    badge.className = 'inline-flex items-center justify-center rounded-full border border-border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:size-3 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] transition-[color,box-shadow] overflow-hidden bg-secondary text-secondary-foreground hover:bg-secondary/80 gap-1 pl-2 pr-1'
+    badge.className = [
+      // Badge base styles (from feedback_status.ex lines 63-67)
+      'inline-flex items-center justify-center rounded-md border px-2 py-0.5',
+      'text-xs font-medium w-fit whitespace-nowrap shrink-0',
+      '[&>svg]:size-3 gap-1 [&>svg]:pointer-events-none',
+      'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+      'transition-[color,box-shadow] overflow-hidden',
+      // Badge variant="secondary" styles (from feedback_status.ex lines 85-87)
+      'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90 [a_&]:hover:bg-secondary/90',
+      // Custom class passed to badge in chip_input.ex
+      'gap-1 pl-2 pr-1'
+    ].join(' ')
     badge.setAttribute('data-chip-value', value)
     badge.textContent = value
 
-    // Create remove button
+    // Create remove button matching <.close_button variant="chip" size="sm">
+    // Classes must exactly match the close_button component (from form_input.ex)
     const button = document.createElement('button')
     button.type = 'button'
-    button.className = 'ml-1 rounded-sm hover:bg-secondary-foreground/20 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring'
+    button.className = [
+      // close_button_classes("chip") (from form_input.ex lines 237-242)
+      'ml-1 rounded-sm',
+      'hover:bg-secondary-foreground/20',
+      'focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring',
+      // close_button_size("sm") (from form_input.ex line 245)
+      'p-0.5'
+    ].join(' ')
     button.setAttribute('aria-label', `Remove ${value}`)
     button.setAttribute('data-chip-remove', '')
     button.dataset.handlerAttached = 'true' // Mark as having handler
 
-    // Create X icon
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    svg.setAttribute('class', 'size-3')
-    svg.setAttribute('viewBox', '0 0 24 24')
-    svg.setAttribute('fill', 'none')
-    svg.setAttribute('stroke', 'currentColor')
-    svg.setAttribute('stroke-width', '1.5')
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-    path.setAttribute('stroke-linecap', 'round')
-    path.setAttribute('stroke-linejoin', 'round')
-    path.setAttribute('d', 'M6 18L18 6M6 6l12 12')
-    svg.appendChild(path)
-    button.appendChild(svg)
+    // Create X icon matching <.icon name="hero-x-mark" class="size-3" />
+    // The icon component renders as: <span class="hero-x-mark size-3" />
+    const icon = document.createElement('span')
+    icon.className = 'hero-x-mark size-3'
+    button.appendChild(icon)
+
+    // Add sr-only span for accessibility (matching close_button component)
+    const srSpan = document.createElement('span')
+    srSpan.className = 'sr-only'
+    srSpan.textContent = `Remove ${value}`
+    button.appendChild(srSpan)
 
     // Handle remove click
     button.addEventListener('click', (e) => {

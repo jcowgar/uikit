@@ -60,6 +60,7 @@ defmodule UiKit.Components.Ui.Combobox do
   import UiKit.Components.CoreComponents, only: [icon: 1]
   import UiKit.Components.Ui.Command
   import UiKit.Components.Ui.FeedbackStatus, only: [badge: 1]
+  import UiKit.Components.Ui.FormInput, only: [close_button: 1]
   import UiKit.Components.Ui.OverlaysDialogs, only: [popover: 1]
 
   alias Phoenix.LiveView.JS
@@ -136,17 +137,15 @@ defmodule UiKit.Components.Ui.Combobox do
                 <%= if option do %>
                   <.badge variant="secondary" class="gap-1 pl-2 pr-1" data-chip-value={value}>
                     {option.label}
-                    <button
-                      type="button"
+                    <.close_button
+                      variant="chip"
+                      size="sm"
+                      sr_text={"Remove #{option.label}"}
                       data-combobox-remove
                       data-remove-value={value}
                       data-combobox-id={@id}
                       data-event-name={Map.get(@rest, :"phx-change")}
-                      class="ml-1 rounded-sm hover:bg-secondary-foreground/20 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
-                      aria-label={"Remove #{option.label}"}
-                    >
-                      <.icon name="hero-x-mark" class="size-3" />
-                    </button>
+                    />
                   </.badge>
                 <% end %>
               <% end %>
