@@ -6,7 +6,7 @@ defmodule UiKit.Components.Ui.FormInput do
   """
   use Phoenix.Component
 
-  import UiKit.Components.CoreComponents, only: [translate_error: 1]
+  import UiKit.Components.CoreComponents, only: [translate_error: 1, icon: 1]
 
   alias Phoenix.HTML.FormField
   alias Phoenix.LiveView.JS
@@ -33,6 +33,7 @@ defmodule UiKit.Components.Ui.FormInput do
   - `secondary` - Alternative button style
   - `ghost` - Minimal styling, often for secondary actions
   - `link` - Styled to appear as a clickable link
+  - `unstyled` - No styling applied, useful for building custom trigger components
 
   ## Sizes
 
@@ -62,15 +63,23 @@ defmodule UiKit.Components.Ui.FormInput do
         <.icon name="hero-bars-3" />
       </.button>
 
+      <%!-- Unstyled for custom trigger components --%>
+      <.button variant="unstyled" type="button" role="tab" aria-selected="true" class="my-tab-styles">
+        Tab 1
+      </.button>
+
   """
   attr(:variant, :string,
     default: "default",
-    values: ~w(default destructive outline secondary ghost link)
+    values: ~w(default destructive outline secondary ghost link unstyled)
   )
 
   attr(:size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg))
-  attr(:class, :string, default: nil)
-  attr(:rest, :global, include: ~w(disabled type form name value aria-label navigate patch href phx-click phx-value-val))
+  attr(:class, :any, default: nil, doc: "Additional CSS classes (string or list)")
+  attr(:rest, :global,
+    include:
+      ~w(disabled type form name value navigate patch href phx-click phx-value-val role aria-label aria-expanded aria-controls aria-pressed aria-haspopup aria-describedby)
+  )
   slot(:inner_block, required: true)
 
   @spec button(map()) :: Rendered.t()
@@ -87,21 +96,7 @@ defmodule UiKit.Components.Ui.FormInput do
     ~H"""
     <.link
       :if={@is_link}
-      class={
-        [
-          # Base styles
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all",
-          "disabled:pointer-events-none disabled:opacity-50",
-          "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
-          "outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-          # Variant styles
-          button_variant(@variant),
-          # Size styles
-          button_size(@size),
-          # Custom classes
-          @class
-        ]
-      }
+      class={button_classes(@variant, @size, @class)}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -109,26 +104,30 @@ defmodule UiKit.Components.Ui.FormInput do
     <button
       :if={!@is_link}
       type={@rest[:type] || "submit"}
-      class={
-        [
-          # Base styles
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all",
-          "disabled:pointer-events-none disabled:opacity-50",
-          "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
-          "outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-          # Variant styles
-          button_variant(@variant),
-          # Size styles
-          button_size(@size),
-          # Custom classes
-          @class
-        ]
-      }
+      class={button_classes(@variant, @size, @class)}
       {@rest}
     >
       {render_slot(@inner_block)}
     </button>
     """
+  end
+
+  defp button_classes("unstyled", _size, class), do: class
+
+  defp button_classes(variant, size, class) do
+    [
+      # Base styles
+      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all",
+      "disabled:pointer-events-none disabled:opacity-50",
+      "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
+      "outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+      # Variant styles
+      button_variant(variant),
+      # Size styles
+      button_size(size),
+      # Custom classes
+      class
+    ]
   end
 
   defp button_variant("default"), do: "bg-primary text-primary-foreground hover:bg-primary/90"
@@ -155,6 +154,89 @@ defmodule UiKit.Components.Ui.FormInput do
   defp button_size("icon"), do: "size-9"
   defp button_size("icon-sm"), do: "size-8"
   defp button_size("icon-lg"), do: "size-10"
+
+  @doc """
+  Renders a close button, typically used for dismissing modals, dialogs, sheets, and toasts.
+
+  This component provides a consistent close button pattern with an X icon,
+  proper accessibility attributes, and hover/focus states.
+
+  ## Variants
+
+  - `default` - Standard close button with opacity transition
+  - `ghost` - Minimal styling that blends into the background
+
+  ## Sizes
+
+  - `sm` - Small close button (size-4 icon)
+  - `default` - Standard close button (size-4 icon)
+  - `lg` - Large close button (size-5 icon)
+
+  ## Examples
+
+      <%!-- Basic close button --%>
+      <.close_button phx-click="close" />
+
+      <%!-- With screen reader text --%>
+      <.close_button phx-click={hide_modal("my-modal")} sr_text="Close dialog" />
+
+      <%!-- Absolutely positioned (common for modals) --%>
+      <.close_button phx-click="close" class="absolute top-4 right-4" />
+
+      <%!-- Ghost variant for subtle appearance --%>
+      <.close_button variant="ghost" phx-click="close" />
+
+  """
+  attr :variant, :string, default: "default", values: ~w(default ghost)
+  attr :size, :string, default: "default", values: ~w(sm default lg)
+  attr :sr_text, :string, default: "Close", doc: "Screen reader text for accessibility"
+  attr :class, :string, default: nil
+  attr :rest, :global, include: ~w(phx-click aria-label disabled)
+
+  @spec close_button(map()) :: Rendered.t()
+  def close_button(assigns) do
+    ~H"""
+    <button
+      type="button"
+      aria-label={@sr_text}
+      class={[
+        close_button_base(),
+        close_button_variant(@variant),
+        close_button_size(@size),
+        @class
+      ]}
+      {@rest}
+    >
+      <.icon name="hero-x-mark" class={close_button_icon_size(@size)} />
+      <span class="sr-only">{@sr_text}</span>
+    </button>
+    """
+  end
+
+  defp close_button_base do
+    [
+      "rounded-md opacity-70 transition-opacity",
+      "hover:opacity-100 focus:opacity-100",
+      "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+      "disabled:pointer-events-none"
+    ]
+  end
+
+  defp close_button_variant("default") do
+    "ring-offset-background"
+  end
+
+  defp close_button_variant("ghost") do
+    "hover:bg-accent hover:text-accent-foreground"
+  end
+
+  defp close_button_size("sm"), do: "p-0.5"
+  defp close_button_size("default"), do: "p-1"
+  defp close_button_size("lg"), do: "p-1.5"
+
+  defp close_button_icon_size("sm"), do: "size-3"
+  defp close_button_icon_size("default"), do: "size-4"
+  defp close_button_icon_size("lg"), do: "size-5"
 
   @doc """
   Renders a button-styled label for file uploads.
@@ -540,7 +622,7 @@ defmodule UiKit.Components.Ui.FormInput do
       <UiKit.Components.Ui.OverlaysDialogs.popover id={"#{@for}-help-popover"}>
         <:trigger>
           <.button variant="ghost" size="sm" class="p-0 hover:bg-accent" type="button">
-            <span class="hero-question-mark-circle size-5" />
+            <.icon name="hero-question-mark-circle" class="size-5" />
           </.button>
         </:trigger>
         <:content>

@@ -7,6 +7,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   use Phoenix.Component
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
+  import UiKit.Components.Ui.FormInput, only: [button: 1]
 
   import UiKit.Components.Ui.Miscellaneous,
     only: [collapsible: 1, collapsible_trigger: 1, collapsible_content: 1]
@@ -682,7 +683,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   @spec sidebar_trigger(map()) :: Rendered.t()
   def sidebar_trigger(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       phx-hook="SidebarTrigger"
       type="button"
       data-sidebar="trigger"
@@ -709,7 +711,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
         />
         <span class="sr-only">Toggle Sidebar</span>
       <% end %>
-    </button>
+    </.button>
     """
   end
 
@@ -735,7 +737,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   @spec sidebar_rail(map()) :: Rendered.t()
   def sidebar_rail(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       type="button"
       phx-click={toggle_sidebar()}
       data-sidebar="rail"
@@ -757,7 +760,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
         @class
       ]}
       {@rest}
-    />
+    ></.button>
     """
   end
 
@@ -1062,7 +1065,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   @spec sidebar_group_action(map()) :: Rendered.t()
   def sidebar_group_action(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       type="button"
       data-slot="sidebar-group-action"
       data-sidebar="group-action"
@@ -1078,7 +1082,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -1360,8 +1364,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     >
       {render_slot(@inner_block)}
     </.link>
-    <button
+    <.button
       :if={!@is_link}
+      variant="unstyled"
       type="button"
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"
@@ -1377,7 +1382,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -1439,7 +1444,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   @spec sidebar_menu_action(map()) :: Rendered.t()
   def sidebar_menu_action(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       type="button"
       data-slot="sidebar-menu-action"
       data-sidebar="menu-action"
@@ -1461,7 +1467,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -1682,8 +1688,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     >
       {render_slot(@inner_block)}
     </.link>
-    <button
+    <.button
       :if={!@is_link}
+      variant="unstyled"
       type="button"
       data-slot="sidebar-menu-sub-button"
       data-sidebar="menu-sub-button"
@@ -1697,7 +1704,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -1934,7 +1941,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   @spec tabs_trigger(map()) :: Rendered.t()
   def tabs_trigger(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       type="button"
       role="tab"
       data-slot="tabs-trigger"
@@ -1955,7 +1963,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -2447,7 +2455,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   def accordion_trigger(assigns) do
     ~H"""
     <h3 class="flex">
-      <button
+      <.button
+        variant="unstyled"
         type="button"
         data-slot="accordion-trigger"
         data-state="closed"
@@ -2465,7 +2474,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
           name="hero-chevron-down"
           class="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200"
         />
-      </button>
+      </.button>
     </h3>
     """
   end

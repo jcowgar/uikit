@@ -7,6 +7,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   use Phoenix.Component
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
+  import UiKit.Components.Ui.FormInput, only: [button: 1, close_button: 1]
 
   alias Phoenix.LiveView.JS
   alias Phoenix.LiveView.Rendered
@@ -1711,14 +1712,10 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       {render_slot(@inner_block)}
 
       <%!-- Close button --%>
-      <button
-        type="button"
+      <.close_button
         phx-click={close_sheet(String.replace_suffix(@id, "-content", ""), @side)}
-        class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
-      >
-        <.icon name="hero-x-mark" class="size-4" />
-        <span class="sr-only">Close</span>
-      </button>
+        class="absolute top-4 right-4"
+      />
     </div>
     """
   end
@@ -2311,27 +2308,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   @spec alert_dialog_action(map()) :: Rendered.t()
   def alert_dialog_action(assigns) do
     ~H"""
-    <button
-      type="button"
-      data-slot="alert-dialog-action"
-      class={
-        [
-          # Default button styles
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors",
-          "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          "disabled:pointer-events-none disabled:opacity-50",
-          # Default variant (primary)
-          "bg-primary text-primary-foreground hover:bg-primary/90",
-          # Sizing
-          "h-10 px-4 py-2",
-          # Custom classes
-          @class
-        ]
-      }
-      {@rest}
-    >
+    <.button type="button" data-slot="alert-dialog-action" class={@class} {@rest}>
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -2364,28 +2343,16 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   @spec alert_dialog_cancel(map()) :: Rendered.t()
   def alert_dialog_cancel(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="outline"
       type="button"
       data-slot="alert-dialog-cancel"
       phx-click={close_alert_dialog(@dialog_id)}
-      class={
-        [
-          # Default button styles
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors",
-          "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          "disabled:pointer-events-none disabled:opacity-50",
-          # Outline variant
-          "border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground",
-          # Sizing
-          "h-10 px-4 py-2",
-          # Custom classes
-          @class
-        ]
-      }
+      class={@class}
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -2625,15 +2592,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       {render_slot(@inner_block)}
 
       <%!-- Close button --%>
-      <button
+      <.close_button
         :if={@show_close_button}
-        type="button"
         phx-click={close_dialog(String.replace_suffix(@id, "-content", ""))}
-        class="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-      >
-        <.icon name="hero-x-mark" class="size-4" />
-        <span class="sr-only">Close</span>
-      </button>
+        class="absolute top-4 right-4"
+      />
     </div>
     """
   end
@@ -2753,14 +2716,14 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       class={["pt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", @class]}
       {@rest}
     >
-      <button
+      <.button
         :if={@auto_cancel}
+        variant="outline"
         type="button"
         phx-click={JS.exec("phx-click", to: "##{@dialog_id}-server-close")}
-        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
       >
         {@cancel_label}
-      </button>
+      </.button>
       {render_slot(@inner_block)}
     </div>
     """
@@ -3830,22 +3793,18 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
 
         <%!-- Actions --%>
         <div class="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
-          <button
-            type="button"
-            phx-click={@on_cancel}
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
-          >
+          <.button variant="outline" type="button" phx-click={@on_cancel}>
             Cancel
-          </button>
-          <button
+          </.button>
+          <.button
             id={"#{@id}-confirm-button"}
+            variant="destructive"
             type="button"
             phx-click={@on_confirm}
             disabled
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2"
           >
             Delete
-          </button>
+          </.button>
         </div>
       </div>
     </div>

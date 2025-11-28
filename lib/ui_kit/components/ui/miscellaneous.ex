@@ -6,6 +6,8 @@ defmodule UiKit.Components.Ui.Miscellaneous do
   """
   use Phoenix.Component
 
+  import UiKit.Components.Ui.FormInput, only: [button: 1]
+
   alias Phoenix.LiveView.Rendered
 
   @doc """
@@ -98,7 +100,8 @@ defmodule UiKit.Components.Ui.Miscellaneous do
   @spec collapsible_trigger(map()) :: Rendered.t()
   def collapsible_trigger(assigns) do
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       type="button"
       data-slot="collapsible-trigger"
       role="button"
@@ -108,7 +111,7 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 
@@ -336,7 +339,8 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       |> assign(:on_value_change, on_value_change)
 
     ~H"""
-    <button
+    <.button
+      variant="unstyled"
       type="button"
       data-slot="toggle-group-item"
       data-value={@value}
@@ -359,7 +363,7 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       {@rest}
     >
       {render_slot(@inner_block)}
-    </button>
+    </.button>
     """
   end
 

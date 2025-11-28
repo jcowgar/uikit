@@ -7,6 +7,7 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   use Phoenix.Component
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
+  import UiKit.Components.Ui.FormInput, only: [close_button: 1]
 
   alias Phoenix.LiveView.JS
   alias Phoenix.LiveView.Rendered
@@ -481,14 +482,7 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       </div>
 
       <%!-- Close button --%>
-      <button
-        type="button"
-        phx-click={hide_sonner(@id)}
-        class="absolute right-2 top-2 rounded-md p-1 opacity-70 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring"
-        aria-label="Close"
-      >
-        <.icon name="hero-x-mark" class="size-4" />
-      </button>
+      <.close_button phx-click={hide_sonner(@id)} class="absolute right-2 top-2" />
     </div>
     """
   end
