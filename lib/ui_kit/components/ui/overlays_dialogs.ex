@@ -3886,6 +3886,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
     ~H"""
     <div
       id={@tooltip_id}
+      phx-hook="Tooltip"
       data-slot="tooltip"
       class={["group/tooltip relative inline-flex", @class]}
       {@rest}
