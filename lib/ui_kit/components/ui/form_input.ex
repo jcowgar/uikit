@@ -570,6 +570,7 @@ defmodule UiKit.Components.Ui.FormInput do
   - Code block support
   - Blockquote support
   - Undo/redo support
+  - Optional action buttons in toolbar
 
   ## Attributes
 
@@ -579,6 +580,10 @@ defmodule UiKit.Components.Ui.FormInput do
   - `placeholder` - Placeholder text when empty
   - `autofocus` - Focus editor on mount (default: false)
   - `class` - Additional CSS classes
+
+  ## Slots
+
+  - `actions` - Optional action buttons to display at the start of the toolbar
 
   ## Examples
 
@@ -594,10 +599,14 @@ defmodule UiKit.Components.Ui.FormInput do
       # With autofocus
       <.markdown_editor id="editor" name="content" autofocus />
 
-      # In a form
+      # In a form with toolbar actions
       <.form for={@form} phx-change="validate" phx-submit="save">
-        <.markdown_editor id="editor" name="content" value={@form[:content].value} />
-        <.button type="submit">Save</.button>
+        <.markdown_editor id="editor" name="content" value={@form[:content].value}>
+          <:actions>
+            <button type="button" phx-click="cancel">Cancel</button>
+            <button type="submit">Save</button>
+          </:actions>
+        </.markdown_editor>
       </.form>
 
   """
@@ -608,6 +617,8 @@ defmodule UiKit.Components.Ui.FormInput do
   attr :autofocus, :boolean, default: false, doc: "Focus editor on mount"
   attr :class, :string, default: nil, doc: "Additional CSS classes"
   attr :rest, :global, include: ~w(disabled required form)
+
+  slot :actions, doc: "Optional action buttons to display at the start of the toolbar"
 
   @spec markdown_editor(map()) :: Rendered.t()
   def markdown_editor(assigns) do
@@ -623,6 +634,9 @@ defmodule UiKit.Components.Ui.FormInput do
       {@rest}
     >
       <textarea id={"#{@id}-textarea"} name={@name}>{@value}</textarea>
+      <div :if={@actions != []} data-slot="toolbar-actions" style="display: none;">
+        {render_slot(@actions)}
+      </div>
     </div>
     """
   end

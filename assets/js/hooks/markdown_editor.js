@@ -120,6 +120,29 @@ export const MarkdownEditor = {
     const toolbar = document.createElement('div')
     toolbar.className = 'tiptap-toolbar'
 
+    // Check for custom action buttons from the server-rendered slot
+    const actionsContainer = this.el.querySelector('[data-slot="toolbar-actions"]')
+    if (actionsContainer) {
+      // Create a wrapper for the actions
+      const actionsWrapper = document.createElement('div')
+      actionsWrapper.className = 'tiptap-toolbar-actions'
+
+      // Move all children from the hidden container to the wrapper
+      while (actionsContainer.firstChild) {
+        actionsWrapper.appendChild(actionsContainer.firstChild)
+      }
+
+      toolbar.appendChild(actionsWrapper)
+
+      // Add separator after actions
+      const sep = document.createElement('span')
+      sep.className = 'tiptap-toolbar-separator'
+      toolbar.appendChild(sep)
+
+      // Remove the now-empty container
+      actionsContainer.remove()
+    }
+
     const buttons = [
       { command: 'bold', icon: 'bold', title: 'Bold' },
       { command: 'italic', icon: 'italic', title: 'Italic' },
