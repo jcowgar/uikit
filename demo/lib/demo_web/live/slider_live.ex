@@ -116,7 +116,14 @@ defmodule DemoWeb.Ui.SliderLive do
               <.stack gap="lg">
                 <div>
                   <.label for="temp-slider" class="mb-2 block">Temperature (60-90°F, step 1)</.label>
-                  <.slider id="temp-slider" name="temperature" min={60} max={90} value={72} show_value />
+                  <.slider
+                    id="temp-slider"
+                    name="temperature"
+                    min={60}
+                    max={90}
+                    value={72}
+                    show_value
+                  />
                 </div>
 
                 <div>
@@ -134,7 +141,15 @@ defmodule DemoWeb.Ui.SliderLive do
 
                 <div>
                   <.label for="rating-slider" class="mb-2 block">Rating (1-5 stars)</.label>
-                  <.slider id="rating-slider" name="rating" min={1} max={5} step={1} value={3} show_value />
+                  <.slider
+                    id="rating-slider"
+                    name="rating"
+                    min={1}
+                    max={5}
+                    step={1}
+                    value={3}
+                    show_value
+                  />
                 </div>
               </.stack>
             </.card_content>
@@ -160,7 +175,9 @@ defmodule DemoWeb.Ui.SliderLive do
                       class="text-sm text-muted-foreground tabular-nums"
                       data-slider-value="volume-control"
                       data-slider-suffix="%"
-                    >{@volume}%</span>
+                    >
+                      {@volume}%
+                    </span>
                   </div>
                   <.slider
                     id="volume-control"
@@ -178,7 +195,9 @@ defmodule DemoWeb.Ui.SliderLive do
                       class="text-sm text-muted-foreground tabular-nums"
                       data-slider-value="brightness-control"
                       data-slider-suffix="%"
-                    >{@brightness}%</span>
+                    >
+                      {@brightness}%
+                    </span>
                   </div>
                   <.slider
                     id="brightness-control"
@@ -196,7 +215,9 @@ defmodule DemoWeb.Ui.SliderLive do
                       class="text-sm text-muted-foreground tabular-nums"
                       data-slider-value="price-control"
                       data-slider-prefix="$"
-                    >${@price}</span>
+                    >
+                      ${@price}
+                    </span>
                   </div>
                   <.slider
                     id="price-control"
@@ -344,7 +365,12 @@ defmodule DemoWeb.Ui.SliderLive do
                   </div>
                   <div class="flex items-center gap-3">
                     <span class="hero-moon size-4 text-muted-foreground" />
-                    <.slider_filled id="icon-brightness" name="icon_brightness" value={75} class="flex-1" />
+                    <.slider_filled
+                      id="icon-brightness"
+                      name="icon_brightness"
+                      value={75}
+                      class="flex-1"
+                    />
                     <span class="hero-sun size-4 text-muted-foreground" />
                   </div>
                 </div>
@@ -367,7 +393,8 @@ defmodule DemoWeb.Ui.SliderLive do
                 </p>
                 <ul class="text-sm text-muted-foreground space-y-2 list-disc list-inside">
                   <li>
-                    Native HTML5 <code class="text-xs">input[type="range"]</code> for full keyboard support
+                    Native HTML5 <code class="text-xs">input[type="range"]</code>
+                    for full keyboard support
                   </li>
                   <li>
                     Arrow keys to increment/decrement value
@@ -380,7 +407,8 @@ defmodule DemoWeb.Ui.SliderLive do
                   </li>
                   <li>Focus visible ring styles for keyboard navigation</li>
                   <li>
-                    Support for <code class="text-xs">aria-label</code> and <code class="text-xs">aria-describedby</code>
+                    Support for <code class="text-xs">aria-label</code>
+                    and <code class="text-xs">aria-describedby</code>
                   </li>
                   <li>Disabled state prevents interaction and reduces opacity</li>
                   <li>Touch-friendly target size for mobile devices</li>

@@ -215,7 +215,12 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                         >
                           <.icon name="hero-minus" />
                         </.button>
-                        <.button size="sm" variant="outline" phx-click="increment" phx-value-bar="race5">
+                        <.button
+                          size="sm"
+                          variant="outline"
+                          phx-click="increment"
+                          phx-value-bar="race5"
+                        >
                           <.icon name="hero-plus" />
                         </.button>
                       </.flex>
@@ -253,7 +258,12 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                         >
                           <.icon name="hero-minus" />
                         </.button>
-                        <.button size="sm" variant="outline" phx-click="increment" phx-value-bar="race7">
+                        <.button
+                          size="sm"
+                          variant="outline"
+                          phx-click="increment"
+                          phx-value-bar="race7"
+                        >
                           <.icon name="hero-plus" />
                         </.button>
                       </.flex>
@@ -291,7 +301,12 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                         >
                           <.icon name="hero-minus" />
                         </.button>
-                        <.button size="sm" variant="outline" phx-click="increment" phx-value-bar="skill">
+                        <.button
+                          size="sm"
+                          variant="outline"
+                          phx-click="increment"
+                          phx-value-bar="skill"
+                        >
                           <.icon name="hero-plus" />
                         </.button>
                       </.flex>

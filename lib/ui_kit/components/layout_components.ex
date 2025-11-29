@@ -370,14 +370,15 @@ defmodule UiKit.Components.LayoutComponents do
         <p>Line 3</p>
       </.stack>
   """
-  attr :gap, :string,
+  attr(:gap, :string,
     default: "sm",
     values: ~w(none xs sm default md lg xl),
     doc: "Vertical spacing: none (0), xs (1), sm (2), default (3), md (4), lg (6), xl (8)"
+  )
 
-  attr :class, :any, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :any, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec stack(map()) :: Rendered.t()
   def stack(assigns) do

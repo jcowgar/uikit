@@ -247,9 +247,7 @@ defmodule DemoWeb.Ui.AccordionLive do
                 <div>
                   <h3 class="font-medium mb-2">Composition</h3>
                   <p class="text-sm text-muted-foreground">
-                    The accordion is composed of four components that work together:
-                    <code>accordion</code>, <code>accordion_item</code>,
-                    <code>accordion_trigger</code>, and <code>accordion_content</code>.
+                    The accordion is composed of four components that work together: <code>accordion</code>, <code>accordion_item</code>, <code>accordion_trigger</code>, and <code>accordion_content</code>.
                   </p>
                 </div>
 

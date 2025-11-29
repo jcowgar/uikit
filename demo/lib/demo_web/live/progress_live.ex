@@ -174,12 +174,10 @@ defmodule DemoWeb.Ui.ProgressLive do
                     <p class="text-sm font-medium text-foreground mb-2">Adjust by 10%</p>
                     <.flex justify="center" items="center" class="gap-2">
                       <.button size="sm" variant="outline" phx-click="decrement">
-                        <.icon name="hero-minus" />
-                        -10%
+                        <.icon name="hero-minus" /> -10%
                       </.button>
                       <.button size="sm" variant="outline" phx-click="increment">
-                        <.icon name="hero-plus" />
-                        +10%
+                        <.icon name="hero-plus" /> +10%
                       </.button>
                     </.flex>
                   </div>
@@ -187,19 +185,49 @@ defmodule DemoWeb.Ui.ProgressLive do
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">Set to specific value</p>
                     <.flex justify="center" items="center" class="gap-2 flex-wrap">
-                      <.button size="sm" variant="outline" type="button" phx-click="set_to" phx-value-val="0">
+                      <.button
+                        size="sm"
+                        variant="outline"
+                        type="button"
+                        phx-click="set_to"
+                        phx-value-val="0"
+                      >
                         0%
                       </.button>
-                      <.button size="sm" variant="outline" type="button" phx-click="set_to" phx-value-val="25">
+                      <.button
+                        size="sm"
+                        variant="outline"
+                        type="button"
+                        phx-click="set_to"
+                        phx-value-val="25"
+                      >
                         25%
                       </.button>
-                      <.button size="sm" variant="outline" type="button" phx-click="set_to" phx-value-val="50">
+                      <.button
+                        size="sm"
+                        variant="outline"
+                        type="button"
+                        phx-click="set_to"
+                        phx-value-val="50"
+                      >
                         50%
                       </.button>
-                      <.button size="sm" variant="outline" type="button" phx-click="set_to" phx-value-val="75">
+                      <.button
+                        size="sm"
+                        variant="outline"
+                        type="button"
+                        phx-click="set_to"
+                        phx-value-val="75"
+                      >
                         75%
                       </.button>
-                      <.button size="sm" variant="outline" type="button" phx-click="set_to" phx-value-val="100">
+                      <.button
+                        size="sm"
+                        variant="outline"
+                        type="button"
+                        phx-click="set_to"
+                        phx-value-val="100"
+                      >
                         100%
                       </.button>
                     </.flex>

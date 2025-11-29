@@ -149,7 +149,10 @@ defmodule DemoWeb.Ui.AspectRatioLive do
           </p>
           <.flex class="gap-4 flex-wrap">
             <div class="w-64">
-              <.aspect_ratio ratio={16 / 9} class="bg-muted rounded-lg flex items-center justify-center">
+              <.aspect_ratio
+                ratio={16 / 9}
+                class="bg-muted rounded-lg flex items-center justify-center"
+              >
                 <div class="text-center">
                   <.icon name="hero-photo" class="size-8 text-muted-foreground" />
                   <p class="text-sm text-muted-foreground mt-2">16:9 Placeholder</p>
@@ -245,19 +248,28 @@ defmodule DemoWeb.Ui.AspectRatioLive do
           </p>
           <.flex class="gap-4 flex-wrap items-end">
             <div class="w-24 text-center">
-              <.aspect_ratio ratio={1.618} class="bg-primary/10 rounded-lg flex items-center justify-center">
+              <.aspect_ratio
+                ratio={1.618}
+                class="bg-primary/10 rounded-lg flex items-center justify-center"
+              >
                 <span class="text-xs text-primary font-medium">φ</span>
               </.aspect_ratio>
               <p class="text-xs text-muted-foreground mt-2">Golden Ratio (1.618:1)</p>
             </div>
             <div class="w-24 text-center">
-              <.aspect_ratio ratio={3 / 2} class="bg-primary/10 rounded-lg flex items-center justify-center">
+              <.aspect_ratio
+                ratio={3 / 2}
+                class="bg-primary/10 rounded-lg flex items-center justify-center"
+              >
                 <span class="text-xs text-primary font-medium">3:2</span>
               </.aspect_ratio>
               <p class="text-xs text-muted-foreground mt-2">35mm Film</p>
             </div>
             <div class="w-24 text-center">
-              <.aspect_ratio ratio={2.35} class="bg-primary/10 rounded-lg flex items-center justify-center">
+              <.aspect_ratio
+                ratio={2.35}
+                class="bg-primary/10 rounded-lg flex items-center justify-center"
+              >
                 <span class="text-xs text-primary font-medium">2.35:1</span>
               </.aspect_ratio>
               <p class="text-xs text-muted-foreground mt-2">Cinemascope</p>

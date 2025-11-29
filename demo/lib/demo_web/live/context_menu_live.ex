@@ -169,7 +169,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                 <.icon name="hero-document-plus" /> Duplicate
               </.context_menu_item>
               <.context_menu_separator />
-              <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="delete">
+              <.context_menu_item
+                variant="destructive"
+                phx-click="demo-action"
+                phx-value-action="delete"
+              >
                 <.icon name="hero-trash" /> Delete
                 <.context_menu_shortcut>⌘⌫</.context_menu_shortcut>
               </.context_menu_item>
@@ -207,7 +211,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                   <.icon name="hero-information-circle" /> Get Info
                 </.context_menu_item>
                 <.context_menu_separator />
-                <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="delete">
+                <.context_menu_item
+                  variant="destructive"
+                  phx-click="demo-action"
+                  phx-value-action="delete"
+                >
                   <.icon name="hero-trash" /> Move to Trash
                 </.context_menu_item>
               </:content>
@@ -256,7 +264,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                   <.icon name="hero-document-plus" /> Duplicate
                 </.context_menu_item>
                 <.context_menu_separator />
-                <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="delete">
+                <.context_menu_item
+                  variant="destructive"
+                  phx-click="demo-action"
+                  phx-value-action="delete"
+                >
                   <.icon name="hero-trash" /> Move to Trash
                 </.context_menu_item>
               </:content>
@@ -281,7 +293,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                   <.icon name="hero-computer-desktop" /> Set as Wallpaper
                 </.context_menu_item>
                 <.context_menu_separator />
-                <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="delete">
+                <.context_menu_item
+                  variant="destructive"
+                  phx-click="demo-action"
+                  phx-value-action="delete"
+                >
                   <.icon name="hero-trash" /> Move to Trash
                 </.context_menu_item>
               </:content>
@@ -358,7 +374,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                   <.icon name="hero-envelope" /> Send Email
                 </.context_menu_item>
                 <.context_menu_separator />
-                <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="delete">
+                <.context_menu_item
+                  variant="destructive"
+                  phx-click="demo-action"
+                  phx-value-action="delete"
+                >
                   <.icon name="hero-trash" /> Delete
                 </.context_menu_item>
               </:content>
@@ -391,7 +411,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                   <.icon name="hero-check" /> Approve
                 </.context_menu_item>
                 <.context_menu_separator />
-                <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="reject">
+                <.context_menu_item
+                  variant="destructive"
+                  phx-click="demo-action"
+                  phx-value-action="reject"
+                >
                   <.icon name="hero-x-mark" /> Reject
                 </.context_menu_item>
               </:content>
@@ -424,7 +448,11 @@ defmodule DemoWeb.Ui.ContextMenuLive do
                   <.icon name="hero-arrow-path" /> Reactivate
                 </.context_menu_item>
                 <.context_menu_separator />
-                <.context_menu_item variant="destructive" phx-click="demo-action" phx-value-action="delete">
+                <.context_menu_item
+                  variant="destructive"
+                  phx-click="demo-action"
+                  phx-value-action="delete"
+                >
                   <.icon name="hero-trash" /> Delete
                 </.context_menu_item>
               </:content>

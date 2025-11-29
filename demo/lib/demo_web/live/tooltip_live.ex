@@ -150,7 +150,9 @@ defmodule DemoWeb.Ui.TooltipLive do
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Delay</h2>
           <p class="text-sm text-muted-foreground mb-4">
-            Add a delay before the tooltip appears using the <code class="text-xs bg-muted px-1 py-0.5 rounded">delay</code> attribute.
+            Add a delay before the tooltip appears using the
+            <code class="text-xs bg-muted px-1 py-0.5 rounded">delay</code>
+            attribute.
           </p>
           <.flex justify="center" items="center" class="gap-4">
             <.tooltip delay={0}>
@@ -186,8 +188,7 @@ defmodule DemoWeb.Ui.TooltipLive do
             <.tooltip>
               <:trigger>
                 <.button variant="outline">
-                  <.icon name="hero-calendar" class="size-4 mr-2" />
-                  Schedule
+                  <.icon name="hero-calendar" class="size-4 mr-2" /> Schedule
                 </.button>
               </:trigger>
               <:content>

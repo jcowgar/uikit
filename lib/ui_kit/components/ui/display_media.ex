@@ -669,16 +669,17 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   - The prose styles can be extended with `prose-lg`, `prose-sm`, etc.
 
   """
-  attr :id, :string, required: true, doc: "Unique identifier for the markdown container"
-  attr :content, :string, required: true, doc: "Raw markdown content to render"
+  attr(:id, :string, required: true, doc: "Unique identifier for the markdown container")
+  attr(:content, :string, required: true, doc: "Raw markdown content to render")
 
-  attr :variant, :string,
+  attr(:variant, :string,
     default: "default",
     values: ~w(default compact),
     doc: "Style variant: default (normal spacing) or compact (tighter spacing)"
+  )
 
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global)
 
   @spec markdown(map()) :: Rendered.t()
   def markdown(assigns) do
