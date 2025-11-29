@@ -601,7 +601,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   A markdown viewer component powered by marked.js with support for:
   - GitHub Flavored Markdown (GFM)
   - Syntax highlighting via highlight.js
-  - Mermaid diagrams (```mermaid code blocks)
+  - Mermaid diagrams (` ```mermaid ` code blocks)
   - MathJax equations ($...$ inline, $$...$$ display)
 
   ## Examples
