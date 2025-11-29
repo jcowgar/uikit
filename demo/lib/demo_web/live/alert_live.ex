@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.AlertLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Alert Component</h1>
@@ -23,7 +23,7 @@ defmodule DemoWeb.Ui.AlertLive do
         <%!-- All Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">All Variants</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.alert>
               <.alert_title>Default Alert</.alert_title>
               <.alert_description>
@@ -68,7 +68,7 @@ defmodule DemoWeb.Ui.AlertLive do
         <%!-- With Icons --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Icons</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.alert variant="info">
               <.icon name="hero-information-circle" />
               <.alert_title>Did you know?</.alert_title>
@@ -90,7 +90,7 @@ defmodule DemoWeb.Ui.AlertLive do
         <%!-- Title Only (No Description) --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Title Only</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.alert variant="info">
               <.icon name="hero-information-circle" />
               <.alert_title>Maintenance scheduled for tonight at 11 PM EST</.alert_title>
@@ -111,7 +111,7 @@ defmodule DemoWeb.Ui.AlertLive do
         <%!-- Description Only (No Title) --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Description Only</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.alert variant="info">
               <.icon name="hero-information-circle" />
               <.alert_description>
@@ -130,7 +130,7 @@ defmodule DemoWeb.Ui.AlertLive do
         <%!-- Rich Content --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Rich Content</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.alert variant="info">
               <.icon name="hero-information-circle" />
               <.alert_title>Getting Started</.alert_title>
@@ -163,7 +163,7 @@ defmodule DemoWeb.Ui.AlertLive do
         <%!-- Real-World Examples --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Real-World Examples</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <%!-- Login screen dev mode notice --%>
             <.alert variant="info">
               <.icon name="hero-information-circle" />
@@ -219,7 +219,7 @@ defmodule DemoWeb.Ui.AlertLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The alert component includes several accessibility features:
                 </p>
@@ -246,7 +246,7 @@ defmodule DemoWeb.Ui.AlertLive do
               <.card_title>When to Use Each Variant</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="font-semibold text-foreground mb-2">Default</h3>
                   <p class="text-sm text-muted-foreground">

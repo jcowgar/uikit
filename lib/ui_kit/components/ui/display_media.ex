@@ -6,6 +6,8 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   """
   use Phoenix.Component
 
+  import UiKit.Components.LayoutComponents, only: [flex: 1]
+
   alias Phoenix.LiveView.Rendered
 
   @doc """
@@ -42,13 +44,14 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       </.aspect_ratio>
 
   """
-  attr :ratio, :any,
+  attr(:ratio, :any,
     default: 1.0,
     doc: "The width-to-height ratio (e.g., 16/9, 4/3, 1). Defaults to 1:1 (square)."
+  )
 
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
 
   @spec aspect_ratio(map()) :: Rendered.t()
   def aspect_ratio(assigns) do
@@ -95,15 +98,18 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec card(map()) :: Rendered.t()
   def card(assigns) do
     ~H"""
-    <div
+    <.flex
+      direction="col"
+      items="stretch"
+      gap="lg"
       class={[
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border border-border py-6 shadow-sm",
+        "bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
         @class
       ]}
       {@rest}
     >
       {render_slot(@inner_block)}
-    </div>
+    </.flex>
     """
   end
 
@@ -222,9 +228,9 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec card_footer(map()) :: Rendered.t()
   def card_footer(assigns) do
     ~H"""
-    <div class={["flex items-center px-6", @class]} {@rest}>
+    <.flex class={["px-6", @class]} {@rest}>
       {render_slot(@inner_block)}
-    </div>
+    </.flex>
     """
   end
 
@@ -257,18 +263,18 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec avatar(map()) :: Rendered.t()
   def avatar(assigns) do
     ~H"""
-    <div
+    <.flex
       data-slot="avatar"
       aria-label={@aria_label}
       class={[
-        "relative flex shrink-0 overflow-hidden rounded-full",
+        "relative shrink-0 overflow-hidden rounded-full",
         avatar_size_class(@size),
         @class
       ]}
       {@rest}
     >
       {render_slot(@inner_block)}
-    </div>
+    </.flex>
     """
   end
 
@@ -326,17 +332,18 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec avatar_fallback(map()) :: Rendered.t()
   def avatar_fallback(assigns) do
     ~H"""
-    <div
+    <.flex
       data-slot="avatar-fallback"
+      justify="center"
       class={[
-        "bg-muted flex size-full items-center justify-center rounded-[inherit]",
+        "bg-muted size-full rounded-[inherit]",
         "absolute inset-0 z-0",
         @class
       ]}
       {@rest}
     >
       {render_slot(@inner_block)}
-    </div>
+    </.flex>
     """
   end
 

@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.TextareaLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Textarea Component</h1>
@@ -23,7 +23,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- Basic Textarea --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Textarea</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="basic-textarea" class="mb-1.5">Message</.label>
               <.textarea id="basic-textarea" placeholder="Enter your message..." />
@@ -42,7 +42,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- With Helper Text --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Helper Text</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="textarea-helper" class="mb-1.5">Bio</.label>
               <.textarea
@@ -72,7 +72,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- Disabled State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="disabled-textarea" class="mb-1.5">Disabled Textarea</.label>
               <.textarea id="disabled-textarea" placeholder="This textarea is disabled" disabled />
@@ -94,7 +94,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- Error/Invalid State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Error State</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="error-textarea" class="mb-1.5">Invalid Content</.label>
               <.textarea
@@ -128,7 +128,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- With Fixed Rows --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Fixed Rows</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="textarea-3-rows" class="mb-1.5">
                 3 Rows (No Content Sizing)
@@ -159,7 +159,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- With Custom Width --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Custom Width</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="textarea-max-w-md" class="mb-1.5">Medium Width (max-w-md)</.label>
               <.textarea
@@ -197,7 +197,7 @@ defmodule DemoWeb.Ui.TextareaLive do
             </.card_header>
             <.card_content>
               <form>
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <.label for="form-name" class="mb-1.5">Name</.label>
                     <.input
@@ -242,7 +242,7 @@ defmodule DemoWeb.Ui.TextareaLive do
         <%!-- Character Counter Example --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Character Counter</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="textarea-counter" class="mb-1.5">Description</.label>
               <.textarea
@@ -266,7 +266,7 @@ defmodule DemoWeb.Ui.TextareaLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The textarea component includes several accessibility features:
                 </p>

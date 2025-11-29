@@ -57,7 +57,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Segmented Progress Bar</h1>
@@ -69,7 +69,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
         <%!-- Basic Examples --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Examples</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">2 of 5 segments filled</p>
               <.segmented_progress_bar total={5} filled={2} />
@@ -90,7 +90,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
         <%!-- Size Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Size Variants</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">Small (h-1)</p>
               <.segmented_progress_bar total={5} filled={2} class="h-1" />
@@ -116,7 +116,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
         <%!-- Gap Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Gap Variants</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">No gap (gap-0)</p>
               <.segmented_progress_bar total={5} filled={2} gap={0} />
@@ -142,7 +142,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
         <%!-- Color Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Color Variants</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">Primary (default)</p>
               <.segmented_progress_bar total={5} filled={3} />
@@ -193,20 +193,20 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
         <%!-- Interactive Examples --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Interactive Examples</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.card>
               <.card_header>
                 <.card_title>Pool Game - Race to 5</.card_title>
                 <.card_description>Track wins in a race-to-5 format</.card_description>
               </.card_header>
               <.card_content>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="space-y-2">
-                    <.flex align="center" class="justify-between">
+                    <.flex justify="center" items="center" class="justify-between">
                       <span class="text-sm font-medium text-foreground">
                         Games Won: {@race_to_5} / 5
                       </span>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <.button
                           size="sm"
                           variant="outline"
@@ -238,13 +238,13 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                 <.card_description>Track wins in a race-to-7 format</.card_description>
               </.card_header>
               <.card_content>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="space-y-2">
-                    <.flex align="center" class="justify-between">
+                    <.flex justify="center" items="center" class="justify-between">
                       <span class="text-sm font-medium text-foreground">
                         Games Won: {@race_to_7} / 7
                       </span>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <.button
                           size="sm"
                           variant="outline"
@@ -276,13 +276,13 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                 <.card_description>Visual skill progression indicator</.card_description>
               </.card_header>
               <.card_content>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="space-y-2">
-                    <.flex align="center" class="justify-between">
+                    <.flex justify="center" items="center" class="justify-between">
                       <span class="text-sm font-medium text-foreground">
                         Level {@skill_level} / 5
                       </span>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <.button
                           size="sm"
                           variant="outline"
@@ -320,7 +320,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                 <.card_description>Current leader</.card_description>
               </.card_header>
               <.card_content>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="space-y-1">
                     <span class="text-2xl font-bold text-foreground">3</span>
                     <p class="text-xs text-muted-foreground">Games won</p>
@@ -342,7 +342,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
                 <.card_description>Trailing</.card_description>
               </.card_header>
               <.card_content>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="space-y-1">
                     <span class="text-2xl font-bold text-foreground">1</span>
                     <p class="text-xs text-muted-foreground">Games won</p>
@@ -363,7 +363,7 @@ defmodule DemoWeb.Ui.SegmentedProgressBarLive do
         <%!-- Edge Cases --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Edge Cases</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">Empty (0 of 5)</p>
               <.segmented_progress_bar total={5} filled={0} />

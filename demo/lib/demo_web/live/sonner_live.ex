@@ -86,7 +86,7 @@ defmodule DemoWeb.Ui.SonnerLive do
     </div>
 
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Sonner Component</h1>
@@ -153,7 +153,7 @@ defmodule DemoWeb.Ui.SonnerLive do
               <.card_title>How to Use Sonner</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   <strong>1. Add to Layout:</strong>
                   The Sonner component is already added to the app layout, so it will automatically display flash messages as toasts.
@@ -229,7 +229,7 @@ defmodule DemoWeb.Ui.SonnerLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The Sonner component includes several accessibility features:
                 </p>

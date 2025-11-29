@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Input Group Component</h1>
@@ -23,7 +23,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Search Input with Icon --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Search Input</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="search-1" class="mb-1.5">Search with Icon</.label>
               <.input_group>
@@ -52,7 +52,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- URL Input --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">URL Input</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="url-1" class="mb-1.5">Website URL</.label>
               <.input_group>
@@ -83,7 +83,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Currency Input --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Currency Input</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="currency-1" class="mb-1.5">Price</.label>
               <.input_group>
@@ -112,7 +112,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Email Input --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Email Input</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="email-1" class="mb-1.5">Email with Icon</.label>
               <.input_group>
@@ -138,7 +138,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Input with Buttons --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Input with Buttons</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="password-1" class="mb-1.5">Password with Show Button</.label>
               <.input_group>
@@ -176,7 +176,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Textarea with Actions --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Textarea with Actions</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="message-1" class="mb-1.5">Message with Send Button</.label>
               <.input_group>
@@ -228,7 +228,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Error State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Error State</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="error-email" class="mb-1.5">Invalid Email</.label>
               <.input_group>
@@ -252,7 +252,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
         <%!-- Disabled State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled State</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="disabled-1" class="mb-1.5">Disabled Input</.label>
               <.input_group disabled>
@@ -275,7 +275,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
             </.card_header>
             <.card_content>
               <form>
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <.label for="login-email" class="mb-1.5">Email</.label>
                     <.input_group>
@@ -330,7 +330,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
             </.card_header>
             <.card_content>
               <form>
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <.label for="product-name" class="mb-1.5">Product Name</.label>
                     <.input_group>
@@ -393,7 +393,7 @@ defmodule DemoWeb.Ui.InputGroupLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The Input Group component includes several accessibility features:
                 </p>

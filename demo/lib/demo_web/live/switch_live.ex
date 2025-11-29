@@ -56,7 +56,7 @@ defmodule DemoWeb.Ui.SwitchLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Switch Component</h1>
@@ -68,7 +68,7 @@ defmodule DemoWeb.Ui.SwitchLive do
         <%!-- Basic Switch --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Usage</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center gap-3">
               <.switch id="basic-off" name="basic_off" />
               <.label for="basic-off" class="cursor-pointer">Unchecked</.label>
@@ -92,7 +92,7 @@ defmodule DemoWeb.Ui.SwitchLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
                     <.label for="airplane-toggle" class="cursor-pointer">
@@ -185,7 +185,7 @@ defmodule DemoWeb.Ui.SwitchLive do
         <%!-- With Labels --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Labels</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center gap-3">
               <.switch id="marketing-emails" name="marketing_emails" />
               <.label for="marketing-emails" class="cursor-pointer">
@@ -212,7 +212,7 @@ defmodule DemoWeb.Ui.SwitchLive do
         <%!-- Disabled State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center gap-3">
               <.switch id="disabled-off" name="disabled_off" disabled />
               <.label for="disabled-off">Disabled unchecked</.label>
@@ -228,7 +228,7 @@ defmodule DemoWeb.Ui.SwitchLive do
         <%!-- With Description --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Description</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center justify-between max-w-md">
               <div class="flex-1">
                 <.label for="analytics" class="cursor-pointer">
@@ -271,7 +271,7 @@ defmodule DemoWeb.Ui.SwitchLive do
             </.card_header>
             <.card_content>
               <form phx-submit="save_settings">
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div class="flex items-center justify-between">
                     <.label for="form-analytics" class="cursor-pointer flex-1">
                       Analytics
@@ -328,7 +328,7 @@ defmodule DemoWeb.Ui.SwitchLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The switch component includes several accessibility features:
                 </p>

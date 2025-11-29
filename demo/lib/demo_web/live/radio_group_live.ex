@@ -55,7 +55,7 @@ defmodule DemoWeb.Ui.RadioGroupLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Radio Group Component</h1>
@@ -285,7 +285,7 @@ defmodule DemoWeb.Ui.RadioGroupLive do
             </.card_header>
             <.card_content>
               <form phx-submit="save_preferences">
-                <.stack size="medium">
+                <.stack gap="lg">
                   <%!-- Plan Selection --%>
                   <div>
                     <.label class="mb-3 block">Choose your plan</.label>
@@ -421,7 +421,7 @@ defmodule DemoWeb.Ui.RadioGroupLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The radio group component includes several accessibility features:
                 </p>

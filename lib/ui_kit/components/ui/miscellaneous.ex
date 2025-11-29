@@ -7,6 +7,7 @@ defmodule UiKit.Components.Ui.Miscellaneous do
   use Phoenix.Component
 
   import UiKit.Components.Ui.FormInput, only: [button: 1]
+  import UiKit.Components.LayoutComponents, only: [flex: 1]
 
   alias Phoenix.LiveView.Rendered
 
@@ -25,10 +26,10 @@ defmodule UiKit.Components.Ui.Miscellaneous do
 
       <.collapsible id="features-collapsible">
         <.collapsible_trigger>
-          <div class="flex items-center justify-between rounded-md border border-border px-4 py-3 hover:bg-accent">
+          <.flex justify="between" class="rounded-md border border-border px-4 py-3 hover:bg-accent">
             <span class="text-sm font-medium">Show Features</span>
             <.icon name="hero-chevron-down" class="size-4 transition-transform duration-200" data-collapsible-icon />
-          </div>
+          </.flex>
         </.collapsible_trigger>
         <.collapsible_content>
           <div class="p-4 text-sm text-muted-foreground">
@@ -82,9 +83,11 @@ defmodule UiKit.Components.Ui.Miscellaneous do
         <button type="button">Toggle Content</button>
       </.collapsible_trigger>
 
-      <.collapsible_trigger class="flex items-center gap-2">
-        <.icon name="hero-information-circle" />
-        <span>Click to expand</span>
+      <.collapsible_trigger>
+        <.flex gap="sm">
+          <.icon name="hero-information-circle" />
+          <span>Click to expand</span>
+        </.flex>
       </.collapsible_trigger>
 
   """
@@ -243,7 +246,7 @@ defmodule UiKit.Components.Ui.Miscellaneous do
     assigns = assign(assigns, :normalized_value, normalized_value)
 
     ~H"""
-    <div
+    <.flex
       id={@id}
       data-slot="toggle-group"
       data-type={@type}
@@ -251,8 +254,9 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       data-size={@size}
       data-spacing={@spacing}
       phx-hook={if @on_value_change, do: "ToggleGroup", else: nil}
+      gap="none"
       class={[
-        "group/toggle-group flex w-fit items-center rounded-md",
+        "group/toggle-group w-fit rounded-md",
         spacing_class(@spacing),
         @spacing == 0 && @variant == "outline" && "shadow-xs",
         @class
@@ -268,7 +272,7 @@ defmodule UiKit.Components.Ui.Miscellaneous do
         disabled: @disabled,
         on_value_change: @on_value_change
       })}
-    </div>
+    </.flex>
     """
   end
 
@@ -439,21 +443,21 @@ defmodule UiKit.Components.Ui.Miscellaneous do
           <a href="#" class="text-primary underline">@nextjs</a>
         </.hover_card_trigger>
         <.hover_card_content class="w-80">
-          <div class="flex gap-4">
+          <.flex gap="md" items="start">
             <.avatar size="md">
               <.avatar_image src="/avatar.jpg" alt="Next.js" />
               <.avatar_fallback>NJ</.avatar_fallback>
             </.avatar>
-            <div class="space-y-1">
+            <.stack gap="xs">
               <h4 class="text-sm font-semibold">@nextjs</h4>
               <p class="text-sm text-muted-foreground">
                 The React Framework - created and maintained by @vercel.
               </p>
-              <div class="flex items-center pt-2">
+              <.flex class="pt-2">
                 <span class="text-xs text-muted-foreground">Joined December 2021</span>
-              </div>
-            </div>
-          </div>
+              </.flex>
+            </.stack>
+          </.flex>
         </.hover_card_content>
       </.hover_card>
 
@@ -533,12 +537,12 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       </.hover_card_content>
 
       <.hover_card_content align="start" class="w-96">
-        <div class="space-y-2">
+        <.stack gap="sm">
           <h4 class="font-semibold">Rich Content</h4>
           <p class="text-sm text-muted-foreground">
             More detailed information displayed on hover.
           </p>
-        </div>
+        </.stack>
       </.hover_card_content>
 
   """

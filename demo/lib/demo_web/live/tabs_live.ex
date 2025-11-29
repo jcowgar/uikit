@@ -16,7 +16,7 @@ defmodule DemoWeb.Ui.TabsLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Tabs Component</h1>
@@ -108,7 +108,7 @@ defmodule DemoWeb.Ui.TabsLive do
                       </.card_description>
                     </.card_header>
                     <.card_content>
-                      <.stack size="medium">
+                      <.stack gap="lg">
                         <div>
                           <label class="text-sm font-medium text-foreground">Username</label>
                           <p class="text-sm text-muted-foreground mt-1">john_doe</p>
@@ -131,7 +131,7 @@ defmodule DemoWeb.Ui.TabsLive do
                       </.card_description>
                     </.card_header>
                     <.card_content>
-                      <.stack size="medium">
+                      <.stack gap="lg">
                         <div>
                           <label class="text-sm font-medium text-foreground">
                             Current Password
@@ -162,7 +162,7 @@ defmodule DemoWeb.Ui.TabsLive do
                       </.card_description>
                     </.card_header>
                     <.card_content>
-                      <.stack size="medium">
+                      <.stack gap="lg">
                         <div class="flex items-center justify-between">
                           <div>
                             <p class="text-sm font-medium text-foreground">Email Notifications</p>
@@ -277,7 +277,7 @@ defmodule DemoWeb.Ui.TabsLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Features</h2>
           <.card class="max-w-2xl">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div class="flex items-start gap-3">
                   <.icon name="hero-check-circle" class="w-5 h-5 text-success mt-0.5" />
                   <div>

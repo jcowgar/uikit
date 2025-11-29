@@ -44,7 +44,7 @@ defmodule DemoWeb.Ui.FormLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Form Components</h1>
@@ -64,7 +64,7 @@ defmodule DemoWeb.Ui.FormLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <.form_item>
                   <.form_label for="basic-email">Email</.form_label>
                   <.input type="email" id="basic-email" name="email" placeholder="john@example.com" />
@@ -175,7 +175,7 @@ defmodule DemoWeb.Ui.FormLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <.form_item>
                   <.form_label for="error-email" error>Email</.form_label>
                   <.input
@@ -264,7 +264,7 @@ defmodule DemoWeb.Ui.FormLive do
                   </.form_description>
                 </.form_item>
 
-                <.flex align="between">
+                <.flex justify="between" items="center">
                   <div class="flex items-center gap-3">
                     <.checkbox id="subscribe" name="subscribe" />
                     <.label for="subscribe" class="cursor-pointer">
@@ -286,7 +286,7 @@ defmodule DemoWeb.Ui.FormLive do
               <.card_title>Available Components</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="font-semibold text-foreground mb-2">Composition Components</h3>
                   <ul class="text-sm text-muted-foreground space-y-1 list-disc list-inside">

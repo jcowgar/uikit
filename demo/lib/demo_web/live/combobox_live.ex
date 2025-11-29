@@ -53,7 +53,7 @@ defmodule DemoWeb.Ui.ComboboxLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Combobox Component</h1>
@@ -65,7 +65,7 @@ defmodule DemoWeb.Ui.ComboboxLive do
         <%!-- Single Selection --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Single Selection</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="framework-select" class="mb-1.5">Select Framework</.label>
               <.combobox
@@ -116,7 +116,7 @@ defmodule DemoWeb.Ui.ComboboxLive do
         <%!-- Multiple Selection --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Multiple Selection</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="tags-select" class="mb-1.5">Select Tags</.label>
               <.combobox
@@ -174,7 +174,7 @@ defmodule DemoWeb.Ui.ComboboxLive do
               <.card_description>Assign task to team members</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="task-name" class="mb-1.5">Task Name</.label>
                   <.input id="task-name" name="name" placeholder="Enter task name" />

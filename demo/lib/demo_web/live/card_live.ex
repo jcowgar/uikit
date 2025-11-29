@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.CardLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Card Component</h1>
@@ -125,7 +125,7 @@ defmodule DemoWeb.Ui.CardLive do
               <.card_description>Enter your details to get started</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <label class="text-sm font-medium text-foreground">Email</label>
                   <input

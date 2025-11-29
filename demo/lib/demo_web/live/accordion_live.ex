@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.AccordionLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Accordion</h1>
@@ -243,7 +243,7 @@ defmodule DemoWeb.Ui.AccordionLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Usage Notes</h2>
           <.card class="max-w-2xl">
             <.card_content class="pt-6">
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="font-medium mb-2">Composition</h3>
                   <p class="text-sm text-muted-foreground">

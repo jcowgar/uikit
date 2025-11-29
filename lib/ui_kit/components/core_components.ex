@@ -38,6 +38,8 @@ defmodule UiKit.Components.CoreComponents do
   use Phoenix.Component
   use Gettext, backend: UiKit.Gettext
 
+  import UiKit.Components.LayoutComponents, only: [flex: 1]
+
   alias Phoenix.LiveView.JS
 
   @doc """
@@ -95,7 +97,20 @@ defmodule UiKit.Components.CoreComponents do
 
   def header(assigns) do
     ~H"""
-    <header class={[@actions != [] && "flex items-center justify-between gap-6", "pb-4"]}>
+    <header :if={@actions != []} class="pb-4">
+      <.flex justify="between" items="center" gap="lg">
+        <div>
+          <h1 class="text-lg font-semibold leading-8 text-foreground">
+            {render_slot(@inner_block)}
+          </h1>
+          <p :if={@subtitle != []} class="text-sm text-muted-foreground">
+            {render_slot(@subtitle)}
+          </p>
+        </div>
+        <div class="flex-none">{render_slot(@actions)}</div>
+      </.flex>
+    </header>
+    <header :if={@actions == []} class="pb-4">
       <div>
         <h1 class="text-lg font-semibold leading-8 text-foreground">
           {render_slot(@inner_block)}
@@ -104,7 +119,6 @@ defmodule UiKit.Components.CoreComponents do
           {render_slot(@subtitle)}
         </p>
       </div>
-      <div class="flex-none">{render_slot(@actions)}</div>
     </header>
     """
   end
@@ -118,6 +132,13 @@ defmodule UiKit.Components.CoreComponents do
         <:item title="Title">{@post.title}</:item>
         <:item title="Views">{@post.views}</:item>
       </.list>
+
+  Each item is displayed with the title and content in a vertical layout:
+
+      <.flex direction="col" gap="xs">
+        <div class="font-semibold text-foreground">{item.title}</div>
+        <div class="text-sm text-muted-foreground">{render_slot(item)}</div>
+      </.flex>
   """
   slot :item, required: true do
     attr(:title, :string, required: true)
@@ -127,10 +148,10 @@ defmodule UiKit.Components.CoreComponents do
     ~H"""
     <ul class="divide-y divide-border">
       <li :for={item <- @item} class="py-4">
-        <div class="flex flex-col gap-1">
+        <.flex direction="col" gap="xs">
           <div class="font-semibold text-foreground">{item.title}</div>
           <div class="text-sm text-muted-foreground">{render_slot(item)}</div>
-        </div>
+        </.flex>
       </li>
     </ul>
     """

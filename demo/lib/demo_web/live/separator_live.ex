@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Separator Component</h1>
@@ -25,7 +25,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Horizontal Separator</h2>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <h3 class="font-semibold text-foreground">Section 1</h3>
                   <p class="text-sm text-muted-foreground">
@@ -124,11 +124,11 @@ defmodule DemoWeb.Ui.SeparatorLive do
             </.card_header>
             <.card_content>
               <form>
-                <.stack size="medium">
+                <.stack gap="lg">
                   <%!-- Personal Information --%>
                   <div>
                     <h3 class="font-medium text-foreground mb-3">Personal Information</h3>
-                    <.stack size="small">
+                    <.stack gap="md">
                       <.form_item>
                         <.form_label for="form-name">Name</.form_label>
                         <.input type="text" id="form-name" name="name" placeholder="John Doe" />
@@ -151,7 +151,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
                   <%!-- Security --%>
                   <div>
                     <h3 class="font-medium text-foreground mb-3">Security</h3>
-                    <.stack size="small">
+                    <.stack gap="md">
                       <.form_item>
                         <.form_label for="form-current-password">Current Password</.form_label>
                         <.input
@@ -179,7 +179,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
                   <%!-- Preferences --%>
                   <div>
                     <h3 class="font-medium text-foreground mb-3">Preferences</h3>
-                    <.stack size="small">
+                    <.stack gap="md">
                       <div class="flex items-center gap-3">
                         <.checkbox id="pref-newsletter" name="newsletter" />
                         <.label for="pref-newsletter" class="cursor-pointer">
@@ -212,12 +212,12 @@ defmodule DemoWeb.Ui.SeparatorLive do
               <.card_description>Choose your preferred sign in method</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <%!-- Magic Link --%>
                 <div>
                   <h3 class="font-medium text-foreground mb-3">Magic Link</h3>
                   <form>
-                    <.stack size="small">
+                    <.stack gap="md">
                       <.form_item>
                         <.form_label for="magic-email">Email</.form_label>
                         <.input
@@ -238,7 +238,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
                 <div>
                   <h3 class="font-medium text-foreground mb-3">Password</h3>
                   <form>
-                    <.stack size="small">
+                    <.stack gap="md">
                       <.form_item>
                         <.form_label for="pass-email">Email</.form_label>
                         <.input
@@ -276,7 +276,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The separator component includes several accessibility features:
                 </p>
@@ -311,7 +311,7 @@ defmodule DemoWeb.Ui.SeparatorLive do
               <.card_title>When to Use</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="font-semibold text-foreground mb-2">Horizontal Separators</h3>
                   <p class="text-sm text-muted-foreground">

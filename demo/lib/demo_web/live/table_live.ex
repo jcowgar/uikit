@@ -17,7 +17,7 @@ defmodule DemoWeb.Ui.TableLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Table Component</h1>
@@ -221,7 +221,7 @@ defmodule DemoWeb.Ui.TableLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">User Management Example</h2>
           <.card>
             <.card_header>
-              <.flex align="between">
+              <.flex justify="between" items="center">
                 <div>
                   <.card_title>Team Members</.card_title>
                   <.card_description>
@@ -252,7 +252,7 @@ defmodule DemoWeb.Ui.TableLive do
                       <.badge>Owner</.badge>
                     </DisplayMedia.table_cell>
                     <DisplayMedia.table_cell>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <span class="size-2 rounded-full bg-success"></span>
                         <span class="text-sm">Active</span>
                       </.flex>
@@ -270,7 +270,7 @@ defmodule DemoWeb.Ui.TableLive do
                       <.badge variant="secondary">Admin</.badge>
                     </DisplayMedia.table_cell>
                     <DisplayMedia.table_cell>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <span class="size-2 rounded-full bg-success"></span>
                         <span class="text-sm">Active</span>
                       </.flex>
@@ -288,7 +288,7 @@ defmodule DemoWeb.Ui.TableLive do
                       <.badge variant="outline">Member</.badge>
                     </DisplayMedia.table_cell>
                     <DisplayMedia.table_cell>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <span class="size-2 rounded-full bg-warning"></span>
                         <span class="text-sm">Away</span>
                       </.flex>
@@ -306,7 +306,7 @@ defmodule DemoWeb.Ui.TableLive do
                       <.badge variant="outline">Member</.badge>
                     </DisplayMedia.table_cell>
                     <DisplayMedia.table_cell>
-                      <.flex align="center" class="gap-2">
+                      <.flex justify="center" items="center" class="gap-2">
                         <span class="size-2 rounded-full bg-muted-foreground"></span>
                         <span class="text-sm">Offline</span>
                       </.flex>

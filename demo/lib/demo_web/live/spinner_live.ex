@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.SpinnerLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Spinner Component</h1>
@@ -50,7 +50,7 @@ defmodule DemoWeb.Ui.SpinnerLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div class="flex items-center gap-4">
                   <.spinner class="size-3" />
                   <code class="text-xs">size-3</code>
@@ -97,7 +97,7 @@ defmodule DemoWeb.Ui.SpinnerLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div class="flex items-center gap-4">
                   <.spinner class="size-6 text-primary" />
                   <code class="text-xs">text-primary</code>
@@ -144,10 +144,10 @@ defmodule DemoWeb.Ui.SpinnerLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <h3 class="text-sm font-medium mb-2">In Buttons</h3>
-                  <.flex align="start">
+                  <.flex justify="start" items="start">
                     <.button disabled>
                       <.spinner class="size-4" /> Loading...
                     </.button>
@@ -166,7 +166,7 @@ defmodule DemoWeb.Ui.SpinnerLive do
 
                 <div>
                   <h3 class="text-sm font-medium mb-2">In Badges</h3>
-                  <.flex align="start">
+                  <.flex justify="start" items="start">
                     <.badge>
                       <.spinner class="size-3" /> Syncing
                     </.badge>
@@ -205,7 +205,7 @@ defmodule DemoWeb.Ui.SpinnerLive do
               <.card_title>Common Patterns</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="text-sm font-medium mb-2">Basic Spinner</h3>
                   <code class="text-xs block bg-muted p-2 rounded">
@@ -281,7 +281,7 @@ defmodule DemoWeb.Ui.SpinnerLive do
               <.card_title>Design Decisions</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   <strong>Icon Choice:</strong>
                   Uses <code class="text-xs">hero-arrow-path</code>

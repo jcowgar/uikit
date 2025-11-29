@@ -8,6 +8,7 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
   import UiKit.Components.Ui.FormInput, only: [close_button: 1]
+  import UiKit.Components.LayoutComponents, only: [flex: 1]
 
   alias Phoenix.LiveView.JS
   alias Phoenix.LiveView.Rendered
@@ -474,12 +475,12 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       {@rest}
     >
       <%!-- Icon --%>
-      <div class="flex shrink-0 items-center gap-3 min-w-0 flex-1">
+      <.flex gap="default" class="shrink-0 min-w-0 flex-1">
         <.sonner_icon kind={@kind} class="shrink-0" />
         <div class="grid gap-1 text-sm font-medium min-w-0 break-words">
           {render_slot(@inner_block)}
         </div>
-      </div>
+      </.flex>
 
       <%!-- Close button --%>
       <.close_button phx-click={hide_sonner(@id)} class="absolute right-2 top-2" />
@@ -607,9 +608,9 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       </.badge>
 
       # Centered in a container
-      <div class="flex items-center justify-center h-screen">
+      <.flex justify="center" class="h-screen">
         <.spinner class="size-8 text-primary" />
-      </div>
+      </.flex>
 
   ## Accessibility
 
@@ -668,35 +669,35 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       <.skeleton class="h-12 w-12 rounded-full" />
 
   **Text line placeholders:**
-      <div class="space-y-2">
+      <.stack gap="sm">
         <.skeleton class="h-4 w-[250px]" />
         <.skeleton class="h-4 w-[200px]" />
-      </div>
+      </.stack>
 
   **Card placeholder:**
-      <div class="flex flex-col space-y-3">
+      <.flex direction="col" gap="default">
         <.skeleton class="h-[125px] w-[250px] rounded-xl" />
-        <div class="space-y-2">
+        <.stack gap="sm">
           <.skeleton class="h-4 w-[250px]" />
           <.skeleton class="h-4 w-[200px]" />
-        </div>
-      </div>
+        </.stack>
+      </.flex>
 
   **Profile with avatar:**
-      <div class="flex items-center space-x-4">
+      <.flex gap="md">
         <.skeleton class="h-12 w-12 rounded-full" />
-        <div class="space-y-2">
+        <.stack gap="sm">
           <.skeleton class="h-4 w-[250px]" />
           <.skeleton class="h-4 w-[200px]" />
-        </div>
-      </div>
+        </.stack>
+      </.flex>
 
   **Table row placeholder:**
-      <div class="space-y-2">
+      <.stack gap="sm">
         <.skeleton class="h-12 w-full" />
         <.skeleton class="h-12 w-full" />
         <.skeleton class="h-12 w-full" />
-      </div>
+      </.stack>
 
   ## Sizing
 
@@ -938,13 +939,13 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
       <.progress value={100} />
 
       # In a card with label
-      <div class="space-y-2">
-        <div class="flex justify-between text-sm">
+      <.stack gap="sm">
+        <.flex justify="between" class="text-sm">
           <span>Loading...</span>
           <span>66%</span>
-        </div>
+        </.flex>
         <.progress value={66} />
-      </div>
+      </.stack>
 
       # Custom styling
       <.progress value={75} class="h-3 w-full" />
@@ -963,9 +964,9 @@ defmodule UiKit.Components.Ui.FeedbackStatus do
   - `aria-valuemin` and `aria-valuemax` for range context
 
   """
-  attr :value, :integer, default: 0, doc: "Progress value from 0 to 100"
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global, doc: "Additional HTML attributes"
+  attr(:value, :integer, default: 0, doc: "Progress value from 0 to 100")
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global, doc: "Additional HTML attributes")
 
   @spec progress(map()) :: Rendered.t()
   def progress(assigns) do

@@ -55,7 +55,7 @@ defmodule DemoWeb.Ui.ScrollAreaLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Scroll Area Component</h1>
@@ -316,7 +316,7 @@ defmodule DemoWeb.Ui.ScrollAreaLive do
               <.card_title>Component Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <ul class="text-sm text-muted-foreground space-y-2 list-disc list-inside">
                   <li>Cross-browser consistent scrollbar styling</li>
                   <li>Hides native scrollbars while maintaining scroll functionality</li>
@@ -347,7 +347,7 @@ defmodule DemoWeb.Ui.ScrollAreaLive do
               <.card_title>When to Use</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="font-semibold text-foreground mb-2">Vertical Scrolling</h3>
                   <p class="text-sm text-muted-foreground">

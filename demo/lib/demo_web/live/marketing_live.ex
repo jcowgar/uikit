@@ -15,7 +15,7 @@ defmodule DemoWeb.Ui.MarketingLive do
   def render(assigns) do
     ~H"""
     <.container class="!py-12">
-      <.stack size="xl">
+      <.stack gap="xl">
         <h1 class="text-4xl font-bold tracking-tight text-foreground">Marketing Components</h1>
         <p class="mt-4 text-lg text-muted-foreground">
           Showcase of Hero and Call-to-Action components for landing pages.

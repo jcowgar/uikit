@@ -16,7 +16,7 @@ defmodule DemoWeb.Ui.SidebarLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Sidebar Component</h1>
@@ -374,7 +374,7 @@ defmodule DemoWeb.Ui.SidebarLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Features</h2>
           <.card>
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div class="flex items-start gap-3">
                   <.icon name="hero-check-circle" class="size-5 text-success mt-0.5" />
                   <div>
@@ -464,7 +464,7 @@ defmodule DemoWeb.Ui.SidebarLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Component Architecture</h2>
           <.card>
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <p class="text-sm text-muted-foreground mb-3">
                     The sidebar system is composed of multiple layers:

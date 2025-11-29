@@ -50,7 +50,7 @@ defmodule DemoWeb.Ui.DropdownMenuLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Dropdown Menu Component</h1>
@@ -132,7 +132,7 @@ defmodule DemoWeb.Ui.DropdownMenuLive do
         <%!-- Checkbox Items --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Checkboxes</h2>
-          <.flex align="start" class="gap-4">
+          <.flex justify="start" items="start" class="gap-4">
             <.dropdown_menu id="checkboxes-menu">
               <:trigger>
                 <.button variant="outline">
@@ -179,7 +179,7 @@ defmodule DemoWeb.Ui.DropdownMenuLive do
         <%!-- Radio Groups --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Radio Groups</h2>
-          <.flex align="start" class="gap-4">
+          <.flex justify="start" items="start" class="gap-4">
             <.dropdown_menu id="radio-menu">
               <:trigger>
                 <.button variant="outline">
@@ -346,7 +346,7 @@ defmodule DemoWeb.Ui.DropdownMenuLive do
         <%!-- Alignment Options --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Menu Alignment</h2>
-          <.flex align="start" class="gap-4">
+          <.flex justify="start" items="start" class="gap-4">
             <.dropdown_menu id="align-start-menu">
               <:trigger>
                 <.button variant="outline">Align Start</.button>

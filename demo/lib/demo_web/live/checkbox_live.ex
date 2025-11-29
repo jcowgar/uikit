@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Checkbox Component</h1>
@@ -23,7 +23,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
         <%!-- Basic Checkbox --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Usage</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center gap-3">
               <.checkbox id="basic" name="basic" />
               <.label for="basic" class="cursor-pointer">Unchecked</.label>
@@ -39,7 +39,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
         <%!-- With Labels --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Labels</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center gap-3">
               <.checkbox id="terms" name="terms" />
               <.label for="terms" class="cursor-pointer">
@@ -66,7 +66,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
         <%!-- Disabled State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-center gap-3">
               <.checkbox id="disabled-unchecked" name="disabled-unchecked" disabled />
               <.label for="disabled-unchecked">Disabled unchecked</.label>
@@ -82,7 +82,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
         <%!-- With Description --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Description</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="flex items-start gap-3">
               <.checkbox id="mobile" name="mobile" class="mt-0.5" />
               <div class="space-y-1">
@@ -121,7 +121,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
             </.card_header>
             <.card_content>
               <form>
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div class="flex items-center gap-3">
                     <.checkbox id="pref-newsletter" name="preferences[newsletter]" checked />
                     <.label for="pref-newsletter" class="cursor-pointer">
@@ -163,7 +163,7 @@ defmodule DemoWeb.Ui.CheckboxLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The checkbox component includes several accessibility features:
                 </p>

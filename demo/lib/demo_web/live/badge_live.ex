@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.BadgeLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Badge Component</h1>
@@ -23,7 +23,7 @@ defmodule DemoWeb.Ui.BadgeLive do
         <%!-- Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Variants</h2>
-          <.flex align="center" class="gap-3 flex-wrap">
+          <.flex justify="center" items="center" class="gap-3 flex-wrap">
             <.badge>Default</.badge>
             <.badge variant="secondary">Secondary</.badge>
             <.badge variant="destructive">Destructive</.badge>
@@ -34,7 +34,7 @@ defmodule DemoWeb.Ui.BadgeLive do
         <%!-- With Icons --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Icons</h2>
-          <.flex align="center" class="gap-3 flex-wrap">
+          <.flex justify="center" items="center" class="gap-3 flex-wrap">
             <.badge>
               <.icon name="hero-check" /> Success
             </.badge>
@@ -53,7 +53,7 @@ defmodule DemoWeb.Ui.BadgeLive do
         <%!-- Icon Only --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Icon Only</h2>
-          <.flex align="center" class="gap-3 flex-wrap">
+          <.flex justify="center" items="center" class="gap-3 flex-wrap">
             <.badge>
               <.icon name="hero-heart" />
             </.badge>
@@ -72,10 +72,10 @@ defmodule DemoWeb.Ui.BadgeLive do
         <%!-- Status Indicators --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Status Indicators</h2>
-          <.flex align="start" class="gap-6 flex-wrap">
+          <.flex justify="start" items="start" class="gap-6 flex-wrap">
             <div class="space-y-2">
               <h3 class="text-sm font-medium text-foreground">System Status</h3>
-              <.flex align="center" class="gap-2">
+              <.flex justify="center" items="center" class="gap-2">
                 <.badge>
                   <.icon name="hero-check-circle" /> Online
                 </.badge>
@@ -85,7 +85,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <div class="space-y-2">
               <h3 class="text-sm font-medium text-foreground">Build Status</h3>
-              <.flex align="center" class="gap-2">
+              <.flex justify="center" items="center" class="gap-2">
                 <.badge variant="secondary">
                   <.icon name="hero-arrow-path" class="animate-spin" /> Building
                 </.badge>
@@ -95,7 +95,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <div class="space-y-2">
               <h3 class="text-sm font-medium text-foreground">Alert Status</h3>
-              <.flex align="center" class="gap-2">
+              <.flex justify="center" items="center" class="gap-2">
                 <.badge variant="destructive">
                   <.icon name="hero-exclamation-triangle" /> Critical
                 </.badge>
@@ -111,7 +111,7 @@ defmodule DemoWeb.Ui.BadgeLive do
           <.grid cols={3}>
             <.card>
               <.card_header>
-                <.flex align="center" class="justify-between">
+                <.flex justify="center" items="center" class="justify-between">
                   <.card_title>Active</.card_title>
                   <.badge>Live</.badge>
                 </.flex>
@@ -124,7 +124,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <.card>
               <.card_header>
-                <.flex align="center" class="justify-between">
+                <.flex justify="center" items="center" class="justify-between">
                   <.card_title>Pending</.card_title>
                   <.badge variant="secondary">Waiting</.badge>
                 </.flex>
@@ -137,7 +137,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <.card>
               <.card_header>
-                <.flex align="center" class="justify-between">
+                <.flex justify="center" items="center" class="justify-between">
                   <.card_title>Failed</.card_title>
                   <.badge variant="destructive">Error</.badge>
                 </.flex>
@@ -162,7 +162,7 @@ defmodule DemoWeb.Ui.BadgeLive do
               <p class="text-sm text-foreground mb-4">
                 This is a sample article demonstrating how badges can be used for categorization and tagging.
               </p>
-              <.flex align="center" class="gap-2 flex-wrap">
+              <.flex justify="center" items="center" class="gap-2 flex-wrap">
                 <.badge variant="outline">JavaScript</.badge>
                 <.badge variant="outline">Phoenix</.badge>
                 <.badge variant="outline">LiveView</.badge>
@@ -176,7 +176,7 @@ defmodule DemoWeb.Ui.BadgeLive do
         <%!-- Notification Counts --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Notification Counts</h2>
-          <.flex align="start" class="gap-6 flex-wrap">
+          <.flex justify="start" items="start" class="gap-6 flex-wrap">
             <.button variant="ghost">
               <.icon name="hero-envelope" /> Messages
               <.badge class="ml-2">12</.badge>
@@ -197,10 +197,10 @@ defmodule DemoWeb.Ui.BadgeLive do
         <%!-- All Variants Matrix --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Complete Variant Matrix</h2>
-          <.stack size="small">
+          <.stack gap="md">
             <div>
               <h3 class="text-sm font-medium text-muted-foreground mb-3">Default</h3>
-              <.flex align="center" class="gap-2 flex-wrap">
+              <.flex justify="center" items="center" class="gap-2 flex-wrap">
                 <.badge>Badge</.badge>
                 <.badge>
                   <.icon name="hero-star" /> With Icon
@@ -214,7 +214,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <div>
               <h3 class="text-sm font-medium text-muted-foreground mb-3">Secondary</h3>
-              <.flex align="center" class="gap-2 flex-wrap">
+              <.flex justify="center" items="center" class="gap-2 flex-wrap">
                 <.badge variant="secondary">Badge</.badge>
                 <.badge variant="secondary">
                   <.icon name="hero-star" /> With Icon
@@ -228,7 +228,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <div>
               <h3 class="text-sm font-medium text-muted-foreground mb-3">Destructive</h3>
-              <.flex align="center" class="gap-2 flex-wrap">
+              <.flex justify="center" items="center" class="gap-2 flex-wrap">
                 <.badge variant="destructive">Badge</.badge>
                 <.badge variant="destructive">
                   <.icon name="hero-star" /> With Icon
@@ -242,7 +242,7 @@ defmodule DemoWeb.Ui.BadgeLive do
 
             <div>
               <h3 class="text-sm font-medium text-muted-foreground mb-3">Outline</h3>
-              <.flex align="center" class="gap-2 flex-wrap">
+              <.flex justify="center" items="center" class="gap-2 flex-wrap">
                 <.badge variant="outline">Badge</.badge>
                 <.badge variant="outline">
                   <.icon name="hero-star" /> With Icon

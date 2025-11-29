@@ -58,7 +58,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Chip Input Component</h1>
@@ -70,7 +70,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
         <%!-- Client-Side Mode (No Server Events) --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Client-Side Mode</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="client-tags" class="mb-1.5">Blog Post Tags</.label>
               <.chip_input
@@ -92,7 +92,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
         <%!-- Server-Side Mode (LiveView Events) --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Server-Side Mode</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="tags-chip" class="mb-1.5">Project Tags</.label>
               <.chip_input
@@ -117,7 +117,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
         <%!-- With Suggestions --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Suggestions</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="skills-chip" class="mb-1.5">Skills</.label>
               <.chip_input
@@ -162,7 +162,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
               <.card_description>Send a message to multiple recipients</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="email-chip" class="mb-1.5">To:</.label>
                   <.chip_input
@@ -193,7 +193,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
                   />
                 </div>
 
-                <.flex align="end">
+                <.flex justify="end" items="end">
                   <.button>Send Email</.button>
                 </.flex>
               </.stack>
@@ -204,7 +204,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
         <%!-- Customization --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Customization</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="keywords-chip" class="mb-1.5">
                 Custom Placeholder & Allow Duplicates
@@ -300,7 +300,7 @@ defmodule DemoWeb.Ui.ChipInputLive do
               <.card_description>All available keyboard interactions</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div class="flex items-center justify-between py-2 border-b border-border">
                   <span class="text-sm text-foreground font-medium">Add chip</span>
                   <div class="flex gap-2">

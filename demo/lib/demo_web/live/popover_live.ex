@@ -22,7 +22,7 @@ defmodule DemoWeb.Ui.PopoverLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Popover Component</h1>
@@ -39,7 +39,7 @@ defmodule DemoWeb.Ui.PopoverLive do
               <.button variant="outline">Open Popover</.button>
             </:trigger>
             <:content>
-              <.stack size="small">
+              <.stack gap="md">
                 <h4 class="font-medium leading-none">Popover Content</h4>
                 <p class="text-sm text-muted-foreground">
                   This is a basic popover with some simple content.
@@ -57,14 +57,14 @@ defmodule DemoWeb.Ui.PopoverLive do
               <.button variant="outline">Open Settings</.button>
             </:trigger>
             <:content>
-              <.stack size="medium">
-                <.stack size="small">
+              <.stack gap="lg">
+                <.stack gap="md">
                   <h4 class="font-medium leading-none">Dimensions</h4>
                   <p class="text-sm text-muted-foreground">
                     Set the dimensions for the layer.
                   </p>
                 </.stack>
-                <.stack size="small">
+                <.stack gap="md">
                   <.grid cols={3} class="items-center">
                     <label for="width" class="text-sm">Width</label>
                     <input
@@ -113,7 +113,7 @@ defmodule DemoWeb.Ui.PopoverLive do
               </.button>
             </:trigger>
             <:content>
-              <.stack size="small">
+              <.stack gap="md">
                 <h4 class="font-medium leading-none">Information</h4>
                 <p class="text-sm text-muted-foreground">
                   This is additional contextual information that appears when you click the info icon.
@@ -126,7 +126,7 @@ defmodule DemoWeb.Ui.PopoverLive do
         <%!-- Alignment Options --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Alignment Options</h2>
-          <.flex align="start" class="gap-4">
+          <.flex justify="start" items="start" class="gap-4">
             <.popover id="align-start-popover">
               <:trigger>
                 <.button variant="outline">Align Start</.button>
@@ -159,7 +159,7 @@ defmodule DemoWeb.Ui.PopoverLive do
         <%!-- Side Options --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Position Options</h2>
-          <.flex align="center" class="gap-4">
+          <.flex justify="center" items="center" class="gap-4">
             <.popover id="side-top-popover">
               <:trigger>
                 <.button variant="outline">Top</.button>
@@ -206,7 +206,7 @@ defmodule DemoWeb.Ui.PopoverLive do
               <.button variant="outline">Quick Actions</.button>
             </:trigger>
             <:content>
-              <.stack size="small">
+              <.stack gap="md">
                 <h4 class="font-medium leading-none">Actions</h4>
                 <.button
                   variant="ghost"
@@ -260,18 +260,18 @@ defmodule DemoWeb.Ui.PopoverLive do
               </.button>
             </:trigger>
             <:content>
-              <.stack size="medium">
-                <.stack size="small">
+              <.stack gap="lg">
+                <.stack gap="md">
                   <h4 class="font-medium leading-none">User Profile</h4>
                   <p class="text-sm text-muted-foreground">
                     Detailed information about the user
                   </p>
                 </.stack>
-                <.flex align="center" class="gap-3">
+                <.flex justify="center" items="center" class="gap-3">
                   <div class="size-10 rounded-full bg-accent flex items-center justify-center">
                     <.icon name="hero-user" class="size-5 text-accent-foreground" />
                   </div>
-                  <.stack size="xs">
+                  <.stack gap="sm">
                     <p class="text-sm font-medium">John Doe</p>
                     <p class="text-xs text-muted-foreground">john@example.com</p>
                   </.stack>
@@ -303,7 +303,7 @@ defmodule DemoWeb.Ui.PopoverLive do
         <%!-- Custom Width --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Custom Width</h2>
-          <.flex align="start" class="gap-4">
+          <.flex justify="start" items="start" class="gap-4">
             <.popover id="narrow-popover">
               <:trigger>
                 <.button variant="outline">Narrow</.button>
@@ -318,7 +318,7 @@ defmodule DemoWeb.Ui.PopoverLive do
                 <.button variant="outline">Wide</.button>
               </:trigger>
               <:content class="w-96">
-                <.stack size="small">
+                <.stack gap="md">
                   <h4 class="font-medium">Wide Popover</h4>
                   <p class="text-sm text-muted-foreground">
                     This popover has a custom wide width (w-96) to accommodate more content.
@@ -339,7 +339,7 @@ defmodule DemoWeb.Ui.PopoverLive do
           </p>
           <.card>
             <.card_content class="pt-6">
-              <.stack size="small">
+              <.stack gap="md">
                 <.label
                   for="email"
                   help_title="Email Format"

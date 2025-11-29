@@ -76,6 +76,7 @@ defmodule UiKit.Components.Ui.Kanban do
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
   import UiKit.Components.Ui.DisplayMedia, only: [card: 1, card_header: 1, card_content: 1]
+  import UiKit.Components.LayoutComponents, only: [flex: 1, stack: 1]
 
   alias Phoenix.LiveView.Rendered
 
@@ -116,9 +117,9 @@ defmodule UiKit.Components.Ui.Kanban do
       {@rest}
     >
       <%= if @headers != [] do %>
-        <div class="kanban-column-headers flex gap-6 px-4 py-4 sticky top-0 bg-background z-20 items-center border-b border-border">
+        <.flex gap="lg" class="kanban-column-headers px-4 py-4 sticky top-0 bg-background z-20 border-b border-border">
           {render_slot(@headers)}
-        </div>
+        </.flex>
       <% end %>
       {render_slot(@inner_block)}
     </div>
@@ -223,11 +224,12 @@ defmodule UiKit.Components.Ui.Kanban do
     >
       <div class="inline-flex flex-col min-w-full">
         <div class={[
-          "kanban-swimlane-header flex items-center gap-4 py-2 px-4 w-full border-t border-border",
+          "kanban-swimlane-header py-2 px-4 w-full border-t border-border",
           @collapsed && "border-b"
         ]}>
-          <div class="flex items-center gap-2 sticky left-4 bg-background z-10">
-            <button
+          <.flex gap="md" class="w-full">
+            <.flex gap="sm" class="sticky left-4 bg-background z-10">
+              <button
               type="button"
               data-swimlane-toggle
               phx-click={@server_collapse && "toggle-swimlane"}
@@ -251,24 +253,26 @@ defmodule UiKit.Components.Ui.Kanban do
                 {@title}
               </span>
             <% end %>
-          </div>
+            </.flex>
 
-          <%= if @actions != [] do %>
-            <div class="flex items-center gap-2 sticky right-4 bg-background z-10 ml-auto">
-              {render_slot(@actions)}
-            </div>
-          <% end %>
+            <%= if @actions != [] do %>
+              <.flex gap="sm" class="sticky right-4 bg-background z-10 ml-auto">
+                {render_slot(@actions)}
+              </.flex>
+            <% end %>
+          </.flex>
         </div>
 
-        <div
+        <.flex
           data-swimlane-content
+          gap="lg"
           class={[
-            "flex gap-6 px-4 pt-4 pb-4 w-full border-b border-border",
+            "px-4 pt-4 pb-4 w-full border-b border-border",
             @collapsed && "hidden"
           ]}
         >
           {render_slot(@inner_block)}
-        </div>
+        </.flex>
       </div>
     </div>
     """
@@ -318,27 +322,28 @@ defmodule UiKit.Components.Ui.Kanban do
           </div>
         <% else %>
           <div class="mb-4 flex-shrink-0">
-            <div class="flex items-center gap-2">
+            <.flex gap="sm">
               <h3 class="font-semibold text-foreground">{@title}</h3>
               <%= if @count do %>
                 <span class="inline-flex items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
                   {@count}
                 </span>
               <% end %>
-            </div>
+            </.flex>
           </div>
         <% end %>
       <% end %>
-      <div
+      <.stack
+        gap="default"
+        class="flex-1 overflow-y-auto"
         id={@id}
         phx-hook="Sortable"
         data-group="kanban-cards"
         data-handle=".kanban-drag-handle"
-        class="space-y-3 flex-1 overflow-y-auto"
         style={"min-height: #{@min_height}"}
       >
         {render_slot(@inner_block)}
-      </div>
+      </.stack>
     </div>
     """
   end
@@ -442,9 +447,9 @@ defmodule UiKit.Components.Ui.Kanban do
         <% end %>
 
         <%= if @footer != [] do %>
-          <div class="flex items-center gap-2 px-6 pb-0">
+          <.flex gap="sm" class="px-6 pb-0">
             {render_slot(@footer)}
-          </div>
+          </.flex>
         <% end %>
 
         <%= if @inner_block != [] do %>
@@ -480,14 +485,14 @@ defmodule UiKit.Components.Ui.Kanban do
   def kanban_column_header(assigns) do
     ~H"""
     <div class={["flex-shrink-0", @width, @class]}>
-      <div class="flex items-center gap-2">
+      <.flex gap="sm">
         <h3 class="font-semibold text-foreground">{@title}</h3>
         <%= if @count do %>
           <span class="inline-flex items-center justify-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
             {@count}
           </span>
         <% end %>
-      </div>
+      </.flex>
     </div>
     """
   end

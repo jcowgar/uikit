@@ -56,7 +56,7 @@ defmodule DemoWeb.Ui.DialogLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Dialog Component</h1>

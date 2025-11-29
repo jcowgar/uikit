@@ -44,10 +44,10 @@ defmodule UiKit.Components.Ui.LayoutNavigationTest do
       # <.link ... class="... data-[active=true]:text-primary ...">
       # There is NO server-side logic in `tab_bar_item` to set `data-active="true"`.
       # It relies ENTIRELY on the JS hook `TabBarHook` to set `data-active="true"`.
-      
+
       # So I cannot test the visual active state in a static render test easily, 
       # unless I check for the `data-active-path` attribute on the container.
-      
+
       assert html =~ "data-active-path=\"/settings\""
     end
 
@@ -64,19 +64,20 @@ defmodule UiKit.Components.Ui.LayoutNavigationTest do
       assert html =~ "bg-red-500"
       assert html =~ "5"
     end
-    
+
     test "renders correct link attributes" do
       assigns = %{active_path: "/"}
-       html =
+
+      html =
         rendered_to_string(~H"""
         <.tab_bar active_path={@active_path}>
           <.tab_bar_item navigate="/link" label="Link" />
         </.tab_bar>
         """)
-        
+
       assert html =~ "href=\"/link\""
       assert html =~ "data-phx-link=\"redirect\""
-      assert html =~ "data-phx-link-state=\"push\"" 
+      assert html =~ "data-phx-link-state=\"push\""
     end
   end
 end

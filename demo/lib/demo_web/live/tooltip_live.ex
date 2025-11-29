@@ -15,7 +15,7 @@ defmodule DemoWeb.Ui.TooltipLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Tooltip Component</h1>
@@ -40,7 +40,7 @@ defmodule DemoWeb.Ui.TooltipLive do
         <%!-- Position Options --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Position Options</h2>
-          <.flex align="center" class="gap-4 flex-wrap">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap">
             <.tooltip side="top">
               <:trigger>
                 <.button variant="outline">Top</.button>
@@ -77,7 +77,7 @@ defmodule DemoWeb.Ui.TooltipLive do
           <p class="text-sm text-muted-foreground mb-4">
             Control how the tooltip aligns relative to the trigger element.
           </p>
-          <.flex align="center" class="gap-4 flex-wrap">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap">
             <.tooltip side="bottom" align="start">
               <:trigger>
                 <.button variant="outline">Align Start</.button>
@@ -107,7 +107,7 @@ defmodule DemoWeb.Ui.TooltipLive do
           <p class="text-sm text-muted-foreground mb-4">
             Tooltips work great with icon buttons to provide accessible labels.
           </p>
-          <.flex align="center" class="gap-2">
+          <.flex justify="center" items="center" class="gap-2">
             <.tooltip>
               <:trigger>
                 <.button variant="ghost" size="icon">
@@ -152,7 +152,7 @@ defmodule DemoWeb.Ui.TooltipLive do
           <p class="text-sm text-muted-foreground mb-4">
             Add a delay before the tooltip appears using the <code class="text-xs bg-muted px-1 py-0.5 rounded">delay</code> attribute.
           </p>
-          <.flex align="center" class="gap-4">
+          <.flex justify="center" items="center" class="gap-4">
             <.tooltip delay={0}>
               <:trigger>
                 <.button variant="outline">No delay</.button>
@@ -182,7 +182,7 @@ defmodule DemoWeb.Ui.TooltipLive do
           <p class="text-sm text-muted-foreground mb-4">
             Tooltips can contain rich content including multiple lines of text.
           </p>
-          <.flex align="center" class="gap-4">
+          <.flex justify="center" items="center" class="gap-4">
             <.tooltip>
               <:trigger>
                 <.button variant="outline">
@@ -215,7 +215,7 @@ defmodule DemoWeb.Ui.TooltipLive do
           <p class="text-sm text-muted-foreground mb-4">
             Tooltips appear when elements receive keyboard focus. Try tabbing to the buttons below.
           </p>
-          <.flex align="center" class="gap-4">
+          <.flex justify="center" items="center" class="gap-4">
             <.tooltip>
               <:trigger>
                 <.button variant="outline">Tab to me</.button>
@@ -258,7 +258,7 @@ defmodule DemoWeb.Ui.TooltipLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Usage Notes</h2>
           <.card>
             <.card_content class="pt-6">
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   <strong class="text-foreground">Pure CSS Implementation:</strong>
                   This tooltip uses CSS hover/focus states and requires no JavaScript hooks.

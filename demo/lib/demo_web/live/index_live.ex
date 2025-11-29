@@ -18,7 +18,7 @@ defmodule DemoWeb.Ui.IndexLive do
   def render(assigns) do
     ~H"""
     <.container class="!py-12">
-      <.stack size="xl">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div class="text-center">
           <h1 class="text-4xl font-bold tracking-tight text-foreground">
@@ -71,7 +71,7 @@ defmodule DemoWeb.Ui.IndexLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="small">
+            <.stack gap="md">
               <div class="flex items-start gap-3">
                 <div class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                   1

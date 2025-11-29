@@ -7,6 +7,7 @@ defmodule UiKit.Components.Ui.FormInput do
   use Phoenix.Component
 
   import UiKit.Components.CoreComponents, only: [translate_error: 1, icon: 1]
+  import UiKit.Components.LayoutComponents, only: [flex: 1, stack: 1]
 
   alias Phoenix.HTML.FormField
   alias Phoenix.LiveView.JS
@@ -76,10 +77,12 @@ defmodule UiKit.Components.Ui.FormInput do
 
   attr(:size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg))
   attr(:class, :any, default: nil, doc: "Additional CSS classes (string or list)")
+
   attr(:rest, :global,
     include:
       ~w(disabled type form name value navigate patch href phx-click phx-value-val role aria-label aria-expanded aria-controls aria-pressed aria-haspopup aria-describedby)
   )
+
   slot(:inner_block, required: true)
 
   @spec button(map()) :: Rendered.t()
@@ -191,13 +194,15 @@ defmodule UiKit.Components.Ui.FormInput do
       <.close_button variant="chip" size="sm" phx-click="remove_chip" />
 
   """
-  attr :variant, :string, default: "default", values: ~w(default ghost chip)
-  attr :size, :string, default: "default", values: ~w(sm default lg)
-  attr :sr_text, :string, default: "Close", doc: "Screen reader text for accessibility"
-  attr :class, :string, default: nil
-  attr :rest, :global,
+  attr(:variant, :string, default: "default", values: ~w(default ghost chip))
+  attr(:size, :string, default: "default", values: ~w(sm default lg))
+  attr(:sr_text, :string, default: "Close", doc: "Screen reader text for accessibility")
+  attr(:class, :string, default: nil)
+
+  attr(:rest, :global,
     include:
       ~w(phx-click aria-label disabled data-combobox-remove data-remove-value data-combobox-id data-event-name data-chip-remove)
+  )
 
   @spec close_button(map()) :: Rendered.t()
   def close_button(assigns) do
@@ -289,16 +294,17 @@ defmodule UiKit.Components.Ui.FormInput do
       </.file_upload_button>
 
   """
-  attr :variant, :string,
+  attr(:variant, :string,
     default: "outline",
     values: ~w(default destructive outline secondary ghost)
+  )
 
-  attr :size, :string, default: "default", values: ~w(default sm lg)
-  attr :label, :string, default: "Choose File"
-  attr :icon, :boolean, default: true, doc: "Whether to show the upload icon"
-  attr :class, :string, default: nil
-  attr :rest, :global
-  slot :inner_block, required: true, doc: "The file input element (e.g., live_file_input)"
+  attr(:size, :string, default: "default", values: ~w(default sm lg))
+  attr(:label, :string, default: "Choose File")
+  attr(:icon, :boolean, default: true, doc: "Whether to show the upload icon")
+  attr(:class, :string, default: nil)
+  attr(:rest, :global)
+  slot(:inner_block, required: true, doc: "The file input element (e.g., live_file_input)")
 
   @spec file_upload_button(map()) :: Rendered.t()
   def file_upload_button(assigns) do
@@ -640,10 +646,10 @@ defmodule UiKit.Components.Ui.FormInput do
           </.button>
         </:trigger>
         <:content>
-          <div class="space-y-2">
+          <.stack gap="sm">
             <h4 :if={@help_title} class="text-sm font-medium">{@help_title}</h4>
             <p :if={@help_text} class="text-xs text-muted-foreground">{@help_text}</p>
-          </div>
+          </.stack>
         </:content>
       </UiKit.Components.Ui.OverlaysDialogs.popover>
     </div>
@@ -702,10 +708,10 @@ defmodule UiKit.Components.Ui.FormInput do
       <.checkbox id="terms" name="terms" />
 
       # With label
-      <div class="flex items-center gap-3">
+      <.flex gap="default">
         <.checkbox id="terms" name="terms" />
         <.label for="terms">Accept terms and conditions</.label>
-      </div>
+      </.flex>
 
       # Checked by default
       <.checkbox id="newsletter" name="newsletter" checked />
@@ -1216,10 +1222,10 @@ defmodule UiKit.Components.Ui.FormInput do
       <.switch id="dark-mode" name="dark_mode" phx-click="toggle_dark_mode" />
 
       # With label
-      <div class="flex items-center gap-3">
+      <.flex gap="default">
         <.switch id="airplane-mode" name="airplane_mode" />
         <.label for="airplane-mode">Airplane Mode</.label>
-      </div>
+      </.flex>
 
   """
   attr(:id, :string, required: true)
@@ -1339,31 +1345,31 @@ defmodule UiKit.Components.Ui.FormInput do
 
       # Basic radio group
       <.radio_group name="notification_method" value="email">
-        <div class="flex items-center gap-3">
+        <.flex gap="default">
           <.radio_group_item value="email" id="email" name="notification_method" />
           <.label for="email">Email</.label>
-        </div>
-        <div class="flex items-center gap-3">
+        </.flex>
+        <.flex gap="default">
           <.radio_group_item value="sms" id="sms" name="notification_method" />
           <.label for="sms">SMS</.label>
-        </div>
-        <div class="flex items-center gap-3">
+        </.flex>
+        <.flex gap="default">
           <.radio_group_item value="push" id="push" name="notification_method" />
           <.label for="push">Push Notification</.label>
-        </div>
+        </.flex>
       </.radio_group>
 
       # In a form
       <.form for={@form} phx-submit="save">
         <.radio_group name="plan" value={@form[:plan].value}>
-          <div class="flex items-center gap-3">
+          <.flex gap="default">
             <.radio_group_item value="free" id="plan-free" name="plan" />
             <.label for="plan-free">Free Plan</.label>
-          </div>
-          <div class="flex items-center gap-3">
+          </.flex>
+          <.flex gap="default">
             <.radio_group_item value="pro" id="plan-pro" name="plan" />
             <.label for="plan-pro">Pro Plan</.label>
-          </div>
+          </.flex>
         </.radio_group>
       </.form>
 
@@ -1442,14 +1448,14 @@ defmodule UiKit.Components.Ui.FormInput do
       # In a form (no phx-click needed - recommended)
       <form phx-submit="save_settings">
         <.radio_group name="plan" value="free">
-          <div class="flex items-center gap-3">
+          <.flex gap="default">
             <.radio_group_item value="free" id="plan-free" name="plan" checked />
             <.label for="plan-free">Free</.label>
-          </div>
-          <div class="flex items-center gap-3">
+          </.flex>
+          <.flex gap="default">
             <.radio_group_item value="pro" id="plan-pro" name="plan" />
             <.label for="plan-pro">Pro</.label>
-          </div>
+          </.flex>
         </.radio_group>
         <button type="submit">Save</button>
       </form>
@@ -1602,16 +1608,16 @@ defmodule UiKit.Components.Ui.FormInput do
 
       # Completely custom content layout
       <.radio_card value="pro" id="plan-pro" name="plan">
-        <div class="flex items-start gap-4">
-          <div class="flex size-12 items-center justify-center rounded-full bg-primary/10">
+        <.flex items="start" gap="md">
+          <.flex justify="center" class="size-12 rounded-full bg-primary/10">
             <.icon name="hero-star" class="size-6" />
-          </div>
+          </.flex>
           <div class="flex-1">
             <h3 class="font-semibold">Pro Plan</h3>
             <p class="text-sm text-muted-foreground">For professionals</p>
             <div class="mt-2 text-2xl font-bold">$29/mo</div>
           </div>
-        </div>
+        </.flex>
       </.radio_card>
 
   """
@@ -1668,14 +1674,14 @@ defmodule UiKit.Components.Ui.FormInput do
 
       <%= if @has_structured_content do %>
         <%!-- Structured layout with convenience slots --%>
-        <div class="flex flex-1 flex-col gap-2">
+        <.flex direction="col" items="start" gap="sm" class="flex-1">
           <%= if @visual != [] do %>
             <div class="flex-shrink-0">
               {render_slot(@visual)}
             </div>
           <% end %>
 
-          <div class="flex-1 space-y-1">
+          <.stack gap="xs" class="flex-1">
             <%= if @title != [] do %>
               <div class="font-medium text-sm leading-none">
                 {render_slot(@title)}
@@ -1687,14 +1693,14 @@ defmodule UiKit.Components.Ui.FormInput do
                 {render_slot(@description)}
               </p>
             <% end %>
-          </div>
+          </.stack>
 
           <%= if @content != [] do %>
             <div class="mt-2">
               {render_slot(@content)}
             </div>
           <% end %>
-        </div>
+        </.flex>
       <% else %>
         <%!-- Fully custom content via inner_block --%>
         <div class="flex-1">
@@ -2821,9 +2827,10 @@ defmodule UiKit.Components.Ui.FormInput do
   @spec slider(map()) :: Rendered.t()
   def slider(assigns) do
     # Default value to min if not provided
-    assigns = assign_new(assigns, :current_value, fn ->
-      if assigns.value, do: assigns.value, else: assigns.min
-    end)
+    assigns =
+      assign_new(assigns, :current_value, fn ->
+        if assigns.value, do: assigns.value, else: assigns.min
+      end)
 
     ~H"""
     <div

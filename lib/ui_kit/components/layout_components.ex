@@ -166,7 +166,7 @@ defmodule UiKit.Components.LayoutComponents do
       </.grid>
 
       # Two column grid with larger gap
-      <.grid cols={2} gap="large">
+      <.grid cols={2} gap="xl">
         <.card>Left</.card>
         <.card>Right</.card>
       </.grid>
@@ -182,9 +182,9 @@ defmodule UiKit.Components.LayoutComponents do
   attr(:cols, :integer, default: 3, doc: "Number of columns (1-6)")
 
   attr(:gap, :string,
-    default: "medium",
-    values: ~w(xs small medium large xl),
-    doc: "Gap size: xs, small, medium (default), large, xl"
+    default: "lg",
+    values: ~w(none xs sm default md lg xl),
+    doc: "Gap size: none (0), xs (1), sm (2), default (3), md (4), lg (6, default), xl (8)"
   )
 
   attr(:class, :string, default: nil, doc: "Additional CSS classes")
@@ -203,32 +203,10 @@ defmodule UiKit.Components.LayoutComponents do
         invalid -> raise ArgumentError, "invalid cols value: #{inspect(invalid)}. Expected 1-6"
       end
 
-    gap_class =
-      case assigns.gap do
-        "xs" ->
-          "gap-2"
-
-        "small" ->
-          "gap-4"
-
-        "medium" ->
-          "gap-6"
-
-        "large" ->
-          "gap-8"
-
-        "xl" ->
-          "gap-12"
-
-        invalid ->
-          raise ArgumentError,
-                "invalid gap value: #{inspect(invalid)}. Expected xs, small, medium, large, or xl"
-      end
-
     assigns =
       assigns
       |> assign(:col_classes, col_classes)
-      |> assign(:gap_class, gap_class)
+      |> assign(:gap_class, grid_gap(assigns.gap))
 
     ~H"""
     <div class={["grid", @col_classes, @gap_class, @class]}>
@@ -237,129 +215,139 @@ defmodule UiKit.Components.LayoutComponents do
     """
   end
 
+  defp grid_gap("none"), do: nil
+  defp grid_gap("xs"), do: "gap-1"
+  defp grid_gap("sm"), do: "gap-2"
+  defp grid_gap("default"), do: "gap-3"
+  defp grid_gap("md"), do: "gap-4"
+  defp grid_gap("lg"), do: "gap-6"
+  defp grid_gap("xl"), do: "gap-8"
+
   @doc """
   Flex container for common alignment patterns.
 
   Provides simple props for the most common flex layouts without
   needing to remember Tailwind flex classes.
 
+  ## Attributes
+
+  - `direction` - Flex direction: `"row"` (default) or `"col"`
+  - `justify` - Main axis alignment: `"start"` (default), `"center"`, `"end"`, `"between"`
+  - `items` - Cross axis alignment: `"start"`, `"center"` (default), `"end"`, `"stretch"`, `"baseline"`
+  - `gap` - Gap between items: `"none"`, `"xs"`, `"sm"`, `"md"` (default), `"lg"`, `"xl"`
+  - `wrap` - Whether items wrap: `true` or `false` (default)
+
   ## Examples
 
-      # Horizontal row, items centered
-      <.flex align="center">
+      # Horizontal row with centered items (most common pattern)
+      <.flex items="center" gap="sm">
         <.icon name="hero-check" />
         <span>Success!</span>
       </.flex>
 
-      # Horizontal row, space between (common for headers)
-      <.flex align="between">
+      # Space between with centered items (common for headers)
+      <.flex justify="between" items="center">
         <h1>Title</h1>
         <.button>Action</.button>
       </.flex>
 
-      # Vertical column, centered
-      <.flex direction="col" align="center">
+      # Vertical column, all centered
+      <.flex direction="col" justify="center" items="center">
         <.icon name="hero-inbox" class="size-12" />
         <p>No items yet</p>
       </.flex>
 
-      # Horizontal with tight spacing
-      <.flex gap="small">
-        <.badge>New</.badge>
-        <.badge>Featured</.badge>
+      # Wrapping flex container
+      <.flex wrap={true} gap="sm">
+        <.badge>Tag 1</.badge>
+        <.badge>Tag 2</.badge>
+        <.badge>Tag 3</.badge>
       </.flex>
   """
   attr(:direction, :string,
     default: "row",
-    values: ~w(row col),
-    doc: "Flex direction: row (horizontal) or col (vertical)"
+    values: ~w(row col row-reverse col-reverse),
+    doc: "Flex direction"
   )
 
-  attr(:align, :string,
+  attr(:justify, :string,
     default: "start",
-    values: ~w(start center end between),
-    doc: "Alignment: start, center, end, or between (space-between)"
+    values: ~w(start center end between around evenly),
+    doc: "Main axis alignment (justify-content)"
+  )
+
+  attr(:items, :string,
+    default: "center",
+    values: ~w(start center end stretch baseline),
+    doc: "Cross axis alignment (align-items)"
   )
 
   attr(:gap, :string,
-    default: "medium",
-    values: ~w(xs small medium large),
-    doc: "Gap size: xs, small, medium (default), large"
+    default: "md",
+    values: ~w(none xs sm default md lg xl),
+    doc: "Gap between items: none (0), xs (1), sm (2), default (3), md (4), lg (6), xl (8)"
   )
 
-  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:wrap, :boolean,
+    default: false,
+    doc: "Whether flex items should wrap"
+  )
+
+  attr(:class, :any, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global)
   slot(:inner_block, required: true)
 
   @spec flex(map()) :: Rendered.t()
   def flex(assigns) do
-    direction_class =
-      case assigns.direction do
-        "row" ->
-          "flex-row"
-
-        "col" ->
-          "flex-col"
-
-        invalid ->
-          raise ArgumentError, "invalid direction value: #{inspect(invalid)}. Expected row or col"
-      end
-
-    align_class =
-      case assigns.align do
-        "start" ->
-          "justify-start items-start"
-
-        "center" ->
-          "justify-center items-center"
-
-        "end" ->
-          "justify-end items-end"
-
-        "between" ->
-          "justify-between items-center"
-
-        invalid ->
-          raise ArgumentError,
-                "invalid align value: #{inspect(invalid)}. Expected start, center, end, or between"
-      end
-
-    gap_class =
-      case assigns.gap do
-        "xs" ->
-          "gap-1"
-
-        "small" ->
-          "gap-2"
-
-        "medium" ->
-          "gap-4"
-
-        "large" ->
-          "gap-6"
-
-        invalid ->
-          raise ArgumentError,
-                "invalid gap value: #{inspect(invalid)}. Expected xs, small, medium, or large"
-      end
-
-    assigns =
-      assigns
-      |> assign(:direction_class, direction_class)
-      |> assign(:align_class, align_class)
-      |> assign(:gap_class, gap_class)
-
     ~H"""
-    <div class={["flex", @direction_class, @align_class, @gap_class, @class]}>
+    <div
+      class={[
+        "flex",
+        flex_direction(@direction),
+        flex_justify(@justify),
+        flex_items(@items),
+        flex_gap(@gap),
+        @wrap && "flex-wrap",
+        @class
+      ]}
+      {@rest}
+    >
       {render_slot(@inner_block)}
     </div>
     """
   end
 
+  defp flex_direction("row"), do: nil
+  defp flex_direction("col"), do: "flex-col"
+  defp flex_direction("row-reverse"), do: "flex-row-reverse"
+  defp flex_direction("col-reverse"), do: "flex-col-reverse"
+
+  defp flex_justify("start"), do: nil
+  defp flex_justify("center"), do: "justify-center"
+  defp flex_justify("end"), do: "justify-end"
+  defp flex_justify("between"), do: "justify-between"
+  defp flex_justify("around"), do: "justify-around"
+  defp flex_justify("evenly"), do: "justify-evenly"
+
+  defp flex_items("start"), do: "items-start"
+  defp flex_items("center"), do: "items-center"
+  defp flex_items("end"), do: "items-end"
+  defp flex_items("stretch"), do: "items-stretch"
+  defp flex_items("baseline"), do: "items-baseline"
+
+  defp flex_gap("none"), do: nil
+  defp flex_gap("xs"), do: "gap-1"
+  defp flex_gap("sm"), do: "gap-2"
+  defp flex_gap("default"), do: "gap-3"
+  defp flex_gap("md"), do: "gap-4"
+  defp flex_gap("lg"), do: "gap-6"
+  defp flex_gap("xl"), do: "gap-8"
+
   @doc """
   Vertical stack with consistent spacing between children.
 
   Use this instead of manually adding margins between elements.
-  Creates consistent vertical rhythm.
+  Creates consistent vertical rhythm using `space-y-*` classes.
 
   ## Examples
 
@@ -370,62 +358,43 @@ defmodule UiKit.Components.LayoutComponents do
       </.stack>
 
       # Larger spacing for major sections
-      <.stack size="xl">
+      <.stack gap="lg">
         <section>Section 1</section>
         <section>Section 2</section>
       </.stack>
 
       # Tighter spacing for related items
-      <.stack size="small">
+      <.stack gap="xs">
         <p>Line 1</p>
         <p>Line 2</p>
         <p>Line 3</p>
       </.stack>
   """
-  attr(:size, :string,
-    default: "medium",
-    values: ~w(xs small medium large xl xxl),
-    doc: "Vertical spacing size: xs, small, medium (default), large, xl, xxl"
-  )
+  attr :gap, :string,
+    default: "sm",
+    values: ~w(none xs sm default md lg xl),
+    doc: "Vertical spacing: none (0), xs (1), sm (2), default (3), md (4), lg (6), xl (8)"
 
-  attr(:class, :string, default: nil, doc: "Additional CSS classes")
-  slot(:inner_block, required: true)
+  attr :class, :any, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global
+  slot :inner_block, required: true
 
   @spec stack(map()) :: Rendered.t()
   def stack(assigns) do
-    size_class =
-      case assigns.size do
-        "xs" ->
-          "space-y-2"
-
-        "small" ->
-          "space-y-4"
-
-        "medium" ->
-          "space-y-6"
-
-        "large" ->
-          "space-y-8"
-
-        "xl" ->
-          "space-y-12"
-
-        "xxl" ->
-          "space-y-16"
-
-        invalid ->
-          raise ArgumentError,
-                "invalid size value: #{inspect(invalid)}. Expected xs, small, medium, large, xl, or xxl"
-      end
-
-    assigns = assign(assigns, :size_class, size_class)
-
     ~H"""
-    <div class={[@size_class, @class]}>
+    <div class={[stack_gap(@gap), @class]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
   end
+
+  defp stack_gap("none"), do: nil
+  defp stack_gap("xs"), do: "space-y-1"
+  defp stack_gap("sm"), do: "space-y-2"
+  defp stack_gap("default"), do: "space-y-3"
+  defp stack_gap("md"), do: "space-y-4"
+  defp stack_gap("lg"), do: "space-y-6"
+  defp stack_gap("xl"), do: "space-y-8"
 
   @doc """
   Two-column layout with sidebar and main content.

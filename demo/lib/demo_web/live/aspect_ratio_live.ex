@@ -16,7 +16,7 @@ defmodule DemoWeb.Ui.AspectRatioLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Aspect Ratio Component</h1>

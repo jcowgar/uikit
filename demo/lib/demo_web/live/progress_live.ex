@@ -54,7 +54,7 @@ defmodule DemoWeb.Ui.ProgressLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Progress</h1>
@@ -66,7 +66,7 @@ defmodule DemoWeb.Ui.ProgressLive do
         <%!-- Basic Examples --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Examples</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">33% complete</p>
               <.progress value={33} />
@@ -87,7 +87,7 @@ defmodule DemoWeb.Ui.ProgressLive do
         <%!-- Size Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Size Variants</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">Small (h-1)</p>
               <.progress value={60} class="h-1" />
@@ -113,7 +113,7 @@ defmodule DemoWeb.Ui.ProgressLive do
         <%!-- Width Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Width Variants</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">Full width (default)</p>
               <.progress value={60} />
@@ -141,7 +141,7 @@ defmodule DemoWeb.Ui.ProgressLive do
             </.card_header>
             <.card_content>
               <div class="space-y-2">
-                <.flex align="center" class="justify-between">
+                <.flex justify="center" items="center" class="justify-between">
                   <span class="text-sm font-medium text-foreground">Loading...</span>
                   <span class="text-sm text-muted-foreground">{@loading_value}%</span>
                 </.flex>
@@ -160,9 +160,9 @@ defmodule DemoWeb.Ui.ProgressLive do
               <.card_description>Use the buttons to change the progress value</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div class="space-y-2">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">Progress</span>
                     <span class="text-sm text-muted-foreground">{@progress_value}%</span>
                   </.flex>
@@ -172,7 +172,7 @@ defmodule DemoWeb.Ui.ProgressLive do
                 <div class="space-y-3">
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">Adjust by 10%</p>
-                    <.flex align="center" class="gap-2">
+                    <.flex justify="center" items="center" class="gap-2">
                       <.button size="sm" variant="outline" phx-click="decrement">
                         <.icon name="hero-minus" />
                         -10%
@@ -186,7 +186,7 @@ defmodule DemoWeb.Ui.ProgressLive do
 
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">Set to specific value</p>
-                    <.flex align="center" class="gap-2 flex-wrap">
+                    <.flex justify="center" items="center" class="gap-2 flex-wrap">
                       <.button size="sm" variant="outline" type="button" phx-click="set_to" phx-value-val="0">
                         0%
                       </.button>
@@ -213,7 +213,7 @@ defmodule DemoWeb.Ui.ProgressLive do
         <%!-- With Labels --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Labels</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <.card>
               <.card_header>
                 <.card_title>File Upload</.card_title>
@@ -221,7 +221,7 @@ defmodule DemoWeb.Ui.ProgressLive do
               </.card_header>
               <.card_content>
                 <div class="space-y-2">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">Uploading...</span>
                     <span class="text-sm text-muted-foreground">75%</span>
                   </.flex>
@@ -237,7 +237,7 @@ defmodule DemoWeb.Ui.ProgressLive do
               </.card_header>
               <.card_content>
                 <div class="space-y-2">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">4 of 6 steps completed</span>
                     <span class="text-sm text-muted-foreground">66%</span>
                   </.flex>
@@ -260,9 +260,9 @@ defmodule DemoWeb.Ui.ProgressLive do
               <.card_description>Track progress across multiple areas</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div class="space-y-1">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">Design</span>
                     <span class="text-xs text-muted-foreground">90%</span>
                   </.flex>
@@ -270,7 +270,7 @@ defmodule DemoWeb.Ui.ProgressLive do
                 </div>
 
                 <div class="space-y-1">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">Development</span>
                     <span class="text-xs text-muted-foreground">45%</span>
                   </.flex>
@@ -278,7 +278,7 @@ defmodule DemoWeb.Ui.ProgressLive do
                 </div>
 
                 <div class="space-y-1">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">Testing</span>
                     <span class="text-xs text-muted-foreground">20%</span>
                   </.flex>
@@ -286,7 +286,7 @@ defmodule DemoWeb.Ui.ProgressLive do
                 </div>
 
                 <div class="space-y-1">
-                  <.flex align="center" class="justify-between">
+                  <.flex justify="center" items="center" class="justify-between">
                     <span class="text-sm font-medium text-foreground">Documentation</span>
                     <span class="text-xs text-muted-foreground">10%</span>
                   </.flex>
@@ -300,7 +300,7 @@ defmodule DemoWeb.Ui.ProgressLive do
         <%!-- Edge Cases --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Edge Cases</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div class="space-y-2">
               <p class="text-sm text-muted-foreground">Empty (0%)</p>
               <.progress value={0} />

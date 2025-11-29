@@ -49,13 +49,13 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       <.separator class="my-4" />
 
       # Vertical separator for inline content
-      <div class="flex items-center gap-4">
+      <.flex gap="md">
         <span>Item 1</span>
         <.separator orientation="vertical" class="h-4" />
         <span>Item 2</span>
         <.separator orientation="vertical" class="h-4" />
         <span>Item 3</span>
-      </div>
+      </.flex>
 
       # Semantic separator (not decorative)
       <.separator decorative={false} />
@@ -227,7 +227,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     <ol
       data-slot="breadcrumb-list"
       class={[
-        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5",
+        "text-muted-foreground flex flex-wrap items-center text-sm break-words gap-1.5 sm:gap-2.5",
         @class
       ]}
       {@rest}
@@ -424,7 +424,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       aria-hidden="true"
-      class={["flex size-9 items-center justify-center", @class]}
+      class={["flex items-center justify-center size-9", @class]}
       {@rest}
     >
       <.icon name="hero-ellipsis-horizontal" class="w-4 h-4" />
@@ -505,7 +505,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-wrapper"
       style={@style_list}
       class={[
-        "group/sidebar-wrapper flex h-svh max-h-svh w-full",
+        "group/sidebar-wrapper flex w-full h-svh max-h-svh",
         "has-[[data-variant=inset]]:bg-sidebar",
         @class
       ]}
@@ -690,7 +690,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       class={[
-        "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all",
+        "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all gap-2",
         "disabled:pointer-events-none disabled:opacity-50",
         "text-foreground hover:bg-accent hover:text-accent-foreground",
         "size-7",
@@ -837,10 +837,10 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_header>
 
       <.sidebar_header class="border-b border-sidebar-border">
-        <div class="flex items-center gap-2">
+        <.flex gap="sm">
           <img src="/logo.png" class="w-8 h-8" />
           <span class="font-bold">Brand</span>
-        </div>
+        </.flex>
       </.sidebar_header>
 
   """
@@ -855,7 +855,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-header"
       data-sidebar="header"
       class={[
-        "flex h-16 flex-col gap-2 p-2 border-b border-border transition-[height] ease-linear",
+        "flex flex-col h-16 p-2 gap-2 border-b border-border transition-[height] ease-linear",
         "group-has-data-[collapsible=icon]/sidebar-wrapper:h-12",
         @class
       ]}
@@ -874,13 +874,13 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   ## Examples
 
       <.sidebar_footer>
-        <div class="flex items-center gap-2">
+        <.flex gap="sm">
           <img src="/avatar.jpg" class="w-8 h-8 rounded-full" />
-          <div class="flex flex-col">
+          <.flex direction="col" gap="none">
             <span class="text-sm font-medium">John Doe</span>
             <span class="text-xs text-muted-foreground">john@example.com</span>
-          </div>
-        </div>
+          </.flex>
+        </.flex>
       </.sidebar_footer>
 
   """
@@ -894,7 +894,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      class={["flex flex-col gap-2 p-2 border-t border-border", @class]}
+      class={["flex flex-col p-2 gap-2 border-t border-border", @class]}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -957,7 +957,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-content"
       data-sidebar="content"
       class={[
-        "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "flex flex-col flex-1 min-h-0 gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
         @class
       ]}
       {@rest}
@@ -994,7 +994,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-group"
       data-sidebar="group"
       class={[
-        "relative flex w-full min-w-0 flex-col px-2 py-2",
+        "relative flex flex-col w-full min-w-0 px-2 py-2",
         @class
       ]}
       {@rest}
@@ -1030,7 +1030,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
       class={[
-        "text-sidebar-foreground/70 ring-sidebar-ring flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium",
+        "text-sidebar-foreground/70 ring-sidebar-ring flex items-center h-8 shrink-0 rounded-md px-2 text-xs font-medium",
         "outline-none transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2",
         "[&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
@@ -1072,7 +1072,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-sidebar="group-action"
       class={[
         "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-        "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0",
+        "absolute top-3.5 right-3 flex items-center justify-center aspect-square w-5 rounded-md p-0",
         "outline-none transition-transform focus-visible:ring-2",
         "[&>svg]:size-4 [&>svg]:shrink-0",
         "after:absolute after:-inset-2 md:after:hidden",
@@ -1144,7 +1144,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     <ul
       data-slot="sidebar-menu"
       data-sidebar="menu"
-      class={["flex w-full min-w-0 flex-col gap-0", @class]}
+      class={["flex flex-col w-full min-w-0 gap-0", @class]}
       {@rest}
     >
       {render_slot(@inner_block)}
@@ -1238,7 +1238,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
                 data-sidebar="menu-button"
                 title={@tooltip}
                 class={[
-                  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm",
+                  "peer/menu-button flex items-center w-full overflow-hidden rounded-md p-2 text-left text-sm gap-2",
                   "outline-none ring-sidebar-ring transition-[width,height,padding]",
                   "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                   "focus-visible:ring-2",
@@ -1388,7 +1388,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
 
   defp sidebar_menu_button_base do
     [
-      "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md px-2 py-1.5 text-left text-sm",
+      "peer/menu-button flex items-center w-full overflow-hidden rounded-md px-2 py-1.5 text-left text-sm gap-2",
       "outline-none ring-sidebar-ring transition-[width,height,padding]",
       "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
       "focus-visible:ring-2",
@@ -1452,7 +1452,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       class={[
         "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
         "peer-hover/menu-button:text-sidebar-accent-foreground",
-        "absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0",
+        "absolute top-1.5 right-1 flex items-center justify-center aspect-square w-5 rounded-md p-0",
         "outline-none transition-transform focus-visible:ring-2",
         "[&>svg]:size-4 [&>svg]:shrink-0",
         "after:absolute after:-inset-2 md:after:hidden",
@@ -1496,7 +1496,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-menu-badge"
       data-sidebar="menu-badge"
       class={[
-        "text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center",
+        "text-sidebar-foreground pointer-events-none absolute right-1 flex items-center justify-center h-5 min-w-5",
         "rounded-md px-1 text-xs font-medium tabular-nums select-none",
         "peer-hover/menu-button:text-sidebar-accent-foreground",
         "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground",
@@ -1545,7 +1545,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     <div
       data-slot="sidebar-menu-skeleton"
       data-sidebar="menu-skeleton"
-      class={["flex h-8 items-center gap-2 rounded-md px-2", @class]}
+      class={["flex items-center h-8 rounded-md px-2 gap-2", @class]}
       {@rest}
     >
       <%= if @show_icon do %>
@@ -1591,7 +1591,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-menu-sub"
       data-sidebar="menu-sub"
       class={[
-        "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-0.5 border-l px-2.5 py-0.5",
+        "border-sidebar-border mx-3.5 flex flex-col min-w-0 translate-x-px border-l px-2.5 py-0.5 gap-0.5",
         "group-data-[collapsible=icon]:hidden",
         @class
       ]}
@@ -1713,7 +1713,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
       "active:bg-sidebar-accent active:text-sidebar-accent-foreground",
       "[&>svg]:text-sidebar-accent-foreground",
-      "flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2",
+      "flex items-center h-7 min-w-0 -translate-x-px overflow-hidden rounded-md px-2 gap-2",
       "outline-none focus-visible:ring-2",
       "disabled:pointer-events-none disabled:opacity-50",
       "aria-disabled:pointer-events-none aria-disabled:opacity-50",
@@ -1898,7 +1898,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
     <div
       data-slot="tabs-list"
       class={[
-        "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
+        "bg-muted text-muted-foreground inline-flex items-center justify-center h-9 w-fit rounded-lg p-[3px]",
         @class
       ]}
       {@rest}
@@ -1949,7 +1949,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-value={@value}
       disabled={@disabled}
       class={[
-        "inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1",
+        "inline-flex items-center justify-center h-[calc(100%-1px)] flex-1 rounded-md border border-transparent px-2 py-1 gap-1.5",
         "text-sm font-medium whitespace-nowrap transition-[color,box-shadow]",
         "text-foreground dark:text-muted-foreground",
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring",
@@ -2048,11 +2048,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
 
       # Basic vertical scrolling (default)
       <.scroll_area class="h-[200px] w-[350px] rounded-md border p-4">
-        <div class="space-y-4">
+        <.stack gap="md">
           <%= for item <- @items do %>
             <div>{item.name}</div>
           <% end %>
-        </div>
+        </.stack>
       </.scroll_area>
 
       # Horizontal scrolling
@@ -2166,8 +2166,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-orientation={@orientation}
       class={[
         "flex touch-none select-none p-px transition-colors",
-        @orientation == "vertical" && "h-full w-2.5 border-l border-l-transparent",
-        @orientation == "horizontal" && "h-2.5 flex-col border-t border-t-transparent",
+        @orientation == "vertical" && "w-2.5 h-full border-l border-l-transparent",
+        @orientation == "horizontal" && "flex-col h-2.5 border-t border-t-transparent",
         @class
       ]}
       {@rest}
@@ -2236,8 +2236,8 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="tab-bar"
       data-active-path={@active_path}
       class={[
-        "fixed inset-x-0 bottom-0 z-40 block h-16 bg-background shadow-md md:hidden",
-        "border-t border-border flex items-stretch justify-around",
+        "fixed inset-x-0 bottom-0 z-40 block bg-background shadow-md md:hidden h-16",
+        "flex items-stretch justify-around border-t border-border",
         @class
       ]}
       {@rest}
@@ -2282,7 +2282,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       navigate={@navigate}
       data-slot="tab-bar-item"
       class={[
-        "flex flex-1 flex-col items-center justify-center gap-0.5 relative py-1 px-2",
+        "flex flex-col flex-1 items-center justify-center relative py-1 px-2 gap-0.5",
         "text-muted-foreground transition-colors duration-200",
         "active:text-primary active:bg-primary-foreground",
         "data-[active=true]:text-primary data-[active=true]:font-medium",
@@ -2363,11 +2363,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   - Follows WAI-ARIA Accordion pattern
 
   """
-  attr :id, :string, required: true, doc: "Unique identifier for the accordion"
-  attr :type, :string, default: "single", values: ~w(single multiple), doc: "Accordion type"
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global, doc: "Additional HTML attributes"
-  slot :inner_block, required: true, doc: "Accordion items"
+  attr(:id, :string, required: true, doc: "Unique identifier for the accordion")
+  attr(:type, :string, default: "single", values: ~w(single multiple), doc: "Accordion type")
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global, doc: "Additional HTML attributes")
+  slot(:inner_block, required: true, doc: "Accordion items")
 
   @spec accordion(map()) :: Rendered.t()
   def accordion(assigns) do
@@ -2401,10 +2401,10 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.accordion_item>
 
   """
-  attr :value, :string, required: true, doc: "Unique identifier for this accordion item"
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global, doc: "Additional HTML attributes"
-  slot :inner_block, required: true, doc: "Accordion trigger and content"
+  attr(:value, :string, required: true, doc: "Unique identifier for this accordion item")
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global, doc: "Additional HTML attributes")
+  slot(:inner_block, required: true, doc: "Accordion trigger and content")
 
   @spec accordion_item(map()) :: Rendered.t()
   def accordion_item(assigns) do
@@ -2447,9 +2447,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.accordion_trigger>
 
   """
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global, include: ~w(phx-click), doc: "Additional HTML attributes"
-  slot :inner_block, required: true, doc: "Trigger content (usually text)"
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global, include: ~w(phx-click), doc: "Additional HTML attributes")
+  slot(:inner_block, required: true, doc: "Trigger content (usually text)")
 
   @spec accordion_trigger(map()) :: Rendered.t()
   def accordion_trigger(assigns) do
@@ -2461,7 +2461,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
         data-slot="accordion-trigger"
         data-state="closed"
         class={[
-          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50",
+          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 gap-4",
           "[&[data-state=open]>span.shrink-0]:rotate-180",
           @class
         ]}
@@ -2505,9 +2505,9 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.accordion_content>
 
   """
-  attr :class, :string, default: nil, doc: "Additional CSS classes"
-  attr :rest, :global, doc: "Additional HTML attributes"
-  slot :inner_block, required: true, doc: "Content to display when expanded"
+  attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global, doc: "Additional HTML attributes")
+  slot(:inner_block, required: true, doc: "Content to display when expanded")
 
   @spec accordion_content(map()) :: Rendered.t()
   def accordion_content(assigns) do

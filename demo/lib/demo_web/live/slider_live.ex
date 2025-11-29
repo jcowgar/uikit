@@ -54,7 +54,7 @@ defmodule DemoWeb.Ui.SliderLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Slider Component</h1>
@@ -68,7 +68,7 @@ defmodule DemoWeb.Ui.SliderLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Usage</h2>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="basic-slider" class="mb-2 block">Default slider</.label>
                   <.slider id="basic-slider" name="basic" />
@@ -93,7 +93,7 @@ defmodule DemoWeb.Ui.SliderLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">With Value Display</h2>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="value-slider" class="mb-2 block">Shows current value</.label>
                   <.slider id="value-slider" name="with_value" value={50} show_value />
@@ -113,7 +113,7 @@ defmodule DemoWeb.Ui.SliderLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Custom Range & Step</h2>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="temp-slider" class="mb-2 block">Temperature (60-90°F, step 1)</.label>
                   <.slider id="temp-slider" name="temperature" min={60} max={90} value={72} show_value />
@@ -152,7 +152,7 @@ defmodule DemoWeb.Ui.SliderLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="large">
+              <.stack gap="xl">
                 <div>
                   <div class="flex items-center justify-between mb-2">
                     <.label for="volume-control">Volume</.label>
@@ -222,7 +222,7 @@ defmodule DemoWeb.Ui.SliderLive do
           </p>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="filled-25" class="mb-2 block">25% filled</.label>
                   <.slider_filled id="filled-25" name="filled_25" value={25} />
@@ -252,7 +252,7 @@ defmodule DemoWeb.Ui.SliderLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled State</h2>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <.label for="disabled-slider" class="mb-2 block">Disabled slider</.label>
                   <.slider id="disabled-slider" name="disabled" value={50} disabled />
@@ -283,7 +283,7 @@ defmodule DemoWeb.Ui.SliderLive do
             </.card_header>
             <.card_content>
               <form phx-submit="save_audio_settings">
-                <.stack size="large">
+                <.stack gap="xl">
                   <div>
                     <.label for="form-volume" class="mb-2 block">Volume</.label>
                     <.slider_filled id="form-volume" name="audio[volume]" value={70} show_value />
@@ -324,7 +324,7 @@ defmodule DemoWeb.Ui.SliderLive do
           <h2 class="text-xl font-semibold text-foreground mb-4">With Labels and Icons</h2>
           <.card class="max-w-md">
             <.card_content class="pt-6">
-              <.stack size="large">
+              <.stack gap="xl">
                 <div>
                   <div class="flex items-center gap-2 mb-2">
                     <span class="hero-speaker-wave size-4 text-muted-foreground" />
@@ -361,7 +361,7 @@ defmodule DemoWeb.Ui.SliderLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The slider component includes several accessibility features:
                 </p>

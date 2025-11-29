@@ -39,7 +39,7 @@ defmodule DemoWeb.Ui.MiscellaneousLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Miscellaneous Components</h1>

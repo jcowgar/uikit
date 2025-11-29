@@ -31,7 +31,7 @@ defmodule DemoWeb.Ui.KanbanLive do
   def render(assigns) do
     ~H"""
     <.container max_width="full" padding="small">
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Kanban Component</h1>
@@ -140,8 +140,8 @@ defmodule DemoWeb.Ui.KanbanLive do
           <.kanban id="custom-header-board">
             <.kanban_column title="Projects" id="projects-custom">
               <:header>
-                <.flex align="between" class="mb-0">
-                  <.flex align="center" class="gap-2">
+                <.flex justify="between" items="center" class="mb-0">
+                  <.flex justify="center" items="center" class="gap-2">
                     <h3 class="font-semibold text-foreground">Projects</h3>
                     <.badge variant="secondary">{length(@projects)}</.badge>
                   </.flex>
@@ -163,8 +163,8 @@ defmodule DemoWeb.Ui.KanbanLive do
 
             <.kanban_column title="Archived" id="archived-custom">
               <:header>
-                <.flex align="between" class="mb-0">
-                  <.flex align="center" class="gap-2">
+                <.flex justify="between" items="center" class="mb-0">
+                  <.flex justify="center" items="center" class="gap-2">
                     <.icon name="hero-archive-box" class="h-5 w-5 text-muted-foreground" />
                     <h3 class="font-semibold text-foreground">Archived</h3>
                   </.flex>
@@ -190,14 +190,14 @@ defmodule DemoWeb.Ui.KanbanLive do
           <.kanban id="custom-content-board">
             <.kanban_column title="Team Members" id="team-members">
               <.kanban_card id="member-1">
-                <.flex align="start" class="gap-3">
+                <.flex justify="start" items="start" class="gap-3">
                   <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold">
                     JD
                   </div>
                   <div class="flex-1">
                     <p class="font-semibold text-foreground">John Doe</p>
                     <p class="text-sm text-muted-foreground">john@example.com</p>
-                    <.flex align="start" class="gap-2 mt-2">
+                    <.flex justify="start" items="start" class="gap-2 mt-2">
                       <.badge variant="success">Active</.badge>
                       <.badge variant="outline">Admin</.badge>
                     </.flex>
@@ -206,14 +206,14 @@ defmodule DemoWeb.Ui.KanbanLive do
               </.kanban_card>
 
               <.kanban_card id="member-2">
-                <.flex align="start" class="gap-3">
+                <.flex justify="start" items="start" class="gap-3">
                   <div class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-secondary-foreground font-semibold">
                     SK
                   </div>
                   <div class="flex-1">
                     <p class="font-semibold text-foreground">Sarah Kim</p>
                     <p class="text-sm text-muted-foreground">sarah@example.com</p>
-                    <.flex align="start" class="gap-2 mt-2">
+                    <.flex justify="start" items="start" class="gap-2 mt-2">
                       <.badge variant="success">Active</.badge>
                       <.badge variant="outline">Developer</.badge>
                     </.flex>
@@ -224,7 +224,7 @@ defmodule DemoWeb.Ui.KanbanLive do
 
             <.kanban_column title="Pending Invites" id="pending-invites" count={1}>
               <.kanban_card id="invite-1">
-                <.flex align="start" class="gap-3">
+                <.flex justify="start" items="start" class="gap-3">
                   <div class="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground font-semibold">
                     ?
                   </div>
@@ -408,7 +408,7 @@ defmodule DemoWeb.Ui.KanbanLive do
 
             <.kanban_swimlane title="High Priority" id="priority-high">
               <:header>
-                <.flex align="center" class="gap-2">
+                <.flex justify="center" items="center" class="gap-2">
                   <.icon name="hero-exclamation-triangle" class="h-3.5 w-3.5 text-destructive" />
                   <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     High Priority
@@ -449,7 +449,7 @@ defmodule DemoWeb.Ui.KanbanLive do
 
             <.kanban_swimlane title="Normal Priority" id="priority-normal">
               <:header>
-                <.flex align="center" class="gap-2">
+                <.flex justify="center" items="center" class="gap-2">
                   <.icon name="hero-minus-circle" class="h-3.5 w-3.5 text-muted-foreground" />
                   <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Normal Priority

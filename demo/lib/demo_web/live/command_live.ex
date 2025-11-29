@@ -63,7 +63,7 @@ defmodule DemoWeb.Ui.CommandLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Command Component</h1>

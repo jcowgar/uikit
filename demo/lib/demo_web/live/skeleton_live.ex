@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.SkeletonLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Skeleton Component</h1>
@@ -47,7 +47,7 @@ defmodule DemoWeb.Ui.SkeletonLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <h3 class="text-sm font-medium mb-2">Default (rounded-md)</h3>
                   <.skeleton class="h-12 w-full" />
@@ -166,7 +166,7 @@ defmodule DemoWeb.Ui.SkeletonLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <h3 class="text-sm font-medium mb-2">Small Text Line</h3>
                   <.skeleton class="h-3 w-[200px]" />
@@ -212,7 +212,7 @@ defmodule DemoWeb.Ui.SkeletonLive do
               </.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <%!-- Header with avatar --%>
                 <div class="flex items-center space-x-4">
                   <.skeleton class="h-10 w-10 rounded-full" />
@@ -255,7 +255,7 @@ defmodule DemoWeb.Ui.SkeletonLive do
               <.card_title>Code Examples</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <div>
                   <h3 class="text-sm font-medium mb-2">Basic Skeleton</h3>
                   <code class="text-xs block bg-muted p-2 rounded">
@@ -344,7 +344,7 @@ defmodule DemoWeb.Ui.SkeletonLive do
               <.card_title>Design Decisions</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   <strong>Color Choice:</strong>
                   Uses <code class="text-xs">bg-accent</code>

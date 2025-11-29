@@ -39,7 +39,7 @@ defmodule DemoWeb.Ui.DrawerLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Drawer Component</h1>
@@ -52,7 +52,7 @@ defmodule DemoWeb.Ui.DrawerLive do
         <%!-- Direction Variants --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Slide-in Directions</h2>
-          <.flex align="start" class="gap-4 flex-wrap">
+          <.flex justify="start" items="start" class="gap-4 flex-wrap">
             <%!-- Bottom (default, mobile-friendly) --%>
             <.drawer id="drawer-bottom">
               <:trigger>

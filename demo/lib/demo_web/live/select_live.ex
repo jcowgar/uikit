@@ -38,7 +38,7 @@ defmodule DemoWeb.Ui.SelectLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Select Component</h1>
@@ -50,7 +50,7 @@ defmodule DemoWeb.Ui.SelectLive do
         <%!-- Basic Select --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Select</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="country-select" class="mb-1.5">Country</.label>
               <.select
@@ -129,7 +129,7 @@ defmodule DemoWeb.Ui.SelectLive do
         <%!-- Disabled State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="disabled-select" class="mb-1.5">Disabled Select</.label>
               <.select
@@ -149,7 +149,7 @@ defmodule DemoWeb.Ui.SelectLive do
         <%!-- Error/Invalid State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Error State</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="error-select" class="mb-1.5">Invalid Selection</.label>
               <.select
@@ -181,7 +181,7 @@ defmodule DemoWeb.Ui.SelectLive do
             </.card_header>
             <.card_content>
               <form phx-submit="save_preferences">
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <.label for="language" class="mb-1.5">Language</.label>
                     <.select
@@ -268,7 +268,7 @@ defmodule DemoWeb.Ui.SelectLive do
               <.card_title>Component Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="medium">
+              <.stack gap="lg">
                 <div>
                   <h3 class="text-sm font-semibold text-foreground mb-2">Theming</h3>
                   <p class="text-sm text-muted-foreground mb-2">

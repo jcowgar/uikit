@@ -16,7 +16,7 @@ defmodule DemoWeb.Ui.ChartLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <div>
           <h1 class="text-3xl font-bold text-foreground">Chart</h1>
           <p class="text-muted-foreground mt-2">

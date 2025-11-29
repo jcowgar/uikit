@@ -13,7 +13,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="xxl">
+      <.stack gap="xl">
         <%!-- Page Header --%>
         <div>
           <h1 class="text-3xl font-bold">Button Group</h1>
@@ -65,7 +65,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="small">
+            <.stack gap="md">
               <%!-- Horizontal group with vertical separator --%>
               <div>
                 <p class="text-sm text-muted-foreground mb-2">Editing Tools</p>
@@ -102,7 +102,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="small">
+            <.stack gap="md">
               <.button_group>
                 <.button_group_text>Format:</.button_group_text>
                 <.button variant="outline">
@@ -169,7 +169,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="small">
+            <.stack gap="md">
               <.button_group>
                 <.button variant="default">Primary</.button>
                 <.button variant="secondary">Secondary</.button>
@@ -193,7 +193,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="small">
+            <.stack gap="md">
               <.button_group>
                 <.input type="text" placeholder="Search..." class="w-64" />
                 <.button variant="outline">
@@ -223,7 +223,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="small">
+            <.stack gap="md">
               <div>
                 <p class="text-sm text-muted-foreground mb-2">Small</p>
                 <.button_group>
@@ -263,7 +263,7 @@ defmodule DemoWeb.Ui.ButtonGroupLive do
             </.card_description>
           </.card_header>
           <.card_content>
-            <.stack size="medium">
+            <.stack gap="lg">
               <%!-- Alignment controls --%>
               <div>
                 <p class="text-sm text-muted-foreground mb-2">Text Alignment</p>

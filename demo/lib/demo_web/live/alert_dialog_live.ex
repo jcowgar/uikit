@@ -71,7 +71,7 @@ defmodule DemoWeb.Ui.AlertDialogLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Alert Dialog Component</h1>
@@ -115,7 +115,7 @@ defmodule DemoWeb.Ui.AlertDialogLive do
           <p class="text-sm text-muted-foreground mb-4">
             Use for actions that can't be undone, like deleting data.
           </p>
-          <.flex align="start" class="gap-4">
+          <.flex justify="start" items="start" class="gap-4">
             <%!-- Delete Account --%>
             <.alert_dialog id="delete-account">
               <:trigger>

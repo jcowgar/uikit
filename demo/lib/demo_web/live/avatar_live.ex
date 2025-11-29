@@ -16,7 +16,7 @@ defmodule DemoWeb.Ui.AvatarLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Avatar Component</h1>
@@ -28,7 +28,7 @@ defmodule DemoWeb.Ui.AvatarLive do
         <%!-- Basic Usage --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Basic Usage</h2>
-          <.flex align="center" class="gap-4 flex-wrap">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap">
             <.avatar>
               <.avatar_image
                 src="https://github.com/shadcn.png"
@@ -61,7 +61,7 @@ defmodule DemoWeb.Ui.AvatarLive do
           <p class="text-sm text-muted-foreground mb-4">
             When no image is provided or the image fails to load, the fallback is displayed.
           </p>
-          <.flex align="center" class="gap-4 flex-wrap">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap">
             <.avatar>
               <.avatar_fallback>JD</.avatar_fallback>
             </.avatar>
@@ -85,7 +85,7 @@ defmodule DemoWeb.Ui.AvatarLive do
         <%!-- Sizes --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Sizes</h2>
-          <.flex align="center" class="gap-4 flex-wrap items-end">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap items-end">
             <div class="text-center">
               <.avatar class="size-6">
                 <.avatar_image
@@ -149,7 +149,7 @@ defmodule DemoWeb.Ui.AvatarLive do
           <p class="text-sm text-muted-foreground mb-4">
             Use rounded corners instead of circular for company logos or similar use cases.
           </p>
-          <.flex align="center" class="gap-4 flex-wrap">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap">
             <.avatar class="rounded-lg">
               <.avatar_image
                 src="https://github.com/vercel.png"
@@ -178,7 +178,7 @@ defmodule DemoWeb.Ui.AvatarLive do
           <p class="text-sm text-muted-foreground mb-4">
             Display multiple avatars overlapping to show group membership or participants.
           </p>
-          <.flex align="start" class="gap-8 flex-wrap">
+          <.flex justify="start" items="start" class="gap-8 flex-wrap">
             <div>
               <p class="text-sm font-medium text-foreground mb-3">Team Members (4)</p>
               <div class="flex -space-x-2">
@@ -256,7 +256,7 @@ defmodule DemoWeb.Ui.AvatarLive do
         <%!-- With Status Indicators --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">With Status Indicators</h2>
-          <.flex align="center" class="gap-6 flex-wrap">
+          <.flex justify="center" items="center" class="gap-6 flex-wrap">
             <div class="relative">
               <.avatar class="size-12">
                 <.avatar_image
@@ -293,7 +293,7 @@ defmodule DemoWeb.Ui.AvatarLive do
           <.grid cols={2}>
             <.card>
               <.card_header>
-                <.flex align="center" class="gap-4">
+                <.flex justify="center" items="center" class="gap-4">
                   <.avatar class="size-12">
                     <.avatar_image
                       src="https://github.com/shadcn.png"
@@ -316,7 +316,7 @@ defmodule DemoWeb.Ui.AvatarLive do
 
             <.card>
               <.card_header>
-                <.flex align="center" class="gap-4">
+                <.flex justify="center" items="center" class="gap-4">
                   <.avatar class="size-12 rounded-lg">
                     <.avatar_image
                       src="https://github.com/vercel.png"
@@ -348,9 +348,9 @@ defmodule DemoWeb.Ui.AvatarLive do
               <.card_description>Manage your team members and their roles.</.card_description>
             </.card_header>
             <.card_content>
-              <.stack size="small">
-                <.flex align="center" class="justify-between">
-                  <.flex align="center" class="gap-3">
+              <.stack gap="md">
+                <.flex justify="center" items="center" class="justify-between">
+                  <.flex justify="center" items="center" class="gap-3">
                     <.avatar>
                       <.avatar_image
                         src="https://github.com/shadcn.png"
@@ -366,8 +366,8 @@ defmodule DemoWeb.Ui.AvatarLive do
                   <.badge>Owner</.badge>
                 </.flex>
 
-                <.flex align="center" class="justify-between">
-                  <.flex align="center" class="gap-3">
+                <.flex justify="center" items="center" class="justify-between">
+                  <.flex justify="center" items="center" class="gap-3">
                     <.avatar>
                       <.avatar_fallback>JL</.avatar_fallback>
                     </.avatar>
@@ -379,8 +379,8 @@ defmodule DemoWeb.Ui.AvatarLive do
                   <.badge variant="secondary">Member</.badge>
                 </.flex>
 
-                <.flex align="center" class="justify-between">
-                  <.flex align="center" class="gap-3">
+                <.flex justify="center" items="center" class="justify-between">
+                  <.flex justify="center" items="center" class="gap-3">
                     <.avatar>
                       <.avatar_fallback>IM</.avatar_fallback>
                     </.avatar>
@@ -399,7 +399,7 @@ defmodule DemoWeb.Ui.AvatarLive do
         <%!-- Custom Fallback Colors --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Custom Fallback Colors</h2>
-          <.flex align="center" class="gap-4 flex-wrap">
+          <.flex justify="center" items="center" class="gap-4 flex-wrap">
             <.avatar>
               <.avatar_fallback class="bg-primary text-primary-foreground">
                 AP

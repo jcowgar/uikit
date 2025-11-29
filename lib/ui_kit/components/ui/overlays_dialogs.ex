@@ -8,6 +8,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
 
   import UiKit.Components.CoreComponents, only: [icon: 1]
   import UiKit.Components.Ui.FormInput, only: [button: 1, close_button: 1]
+  import UiKit.Components.LayoutComponents, only: [flex: 1]
 
   alias Phoenix.LiveView.JS
   alias Phoenix.LiveView.Rendered
@@ -3406,19 +3407,19 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
         </:trigger>
         <:content>
           <div class="grid gap-4">
-            <div class="space-y-2">
+            <.stack gap="sm">
               <h4 class="font-medium leading-none">Dimensions</h4>
               <p class="text-sm text-muted-foreground">
                 Set the dimensions for the layer.
               </p>
-            </div>
+            </.stack>
             <div class="grid gap-2">
               <div class="grid grid-cols-3 items-center gap-4">
-                <label for="width">Width</label>
+                <.label for="width">Width</.label>
                 <input id="width" class="col-span-2 h-8" value="100%" />
               </div>
               <div class="grid grid-cols-3 items-center gap-4">
-                <label for="height">Height</label>
+                <.label for="height">Height</.label>
                 <input id="height" class="col-span-2 h-8" value="25px" />
               </div>
             </div>
@@ -3446,11 +3447,11 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
           <.button variant="outline">Actions</.button>
         </:trigger>
         <:content align="end">
-          <div class="flex flex-col gap-2">
+          <.flex direction="col" gap="sm">
             <.button variant="ghost" size="sm">Action 1</.button>
             <.button variant="ghost" size="sm">Action 2</.button>
             <.button variant="ghost" size="sm">Action 3</.button>
-          </div>
+          </.flex>
         </:content>
       </.popover>
 
@@ -3749,8 +3750,8 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
         class="fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border-2 border-destructive bg-background p-6 shadow-lg animate-in fade-in-0 zoom-in-95 sm:max-w-lg"
       >
         <%!-- Header --%>
-        <div class="flex flex-col gap-2">
-          <div class="flex items-start gap-3">
+        <.flex direction="col" gap="sm">
+          <.flex items="start" gap="default">
             <.icon
               name="hero-exclamation-triangle"
               class="h-6 w-6 text-destructive flex-shrink-0 mt-0.5"
@@ -3761,17 +3762,17 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
             >
               {@title}
             </h2>
-          </div>
+          </.flex>
           <p
             id={"#{@id}-description"}
             class="text-sm text-muted-foreground"
           >
             {@message}
           </p>
-        </div>
+        </.flex>
 
         <%!-- Confirmation Input --%>
-        <div class="flex flex-col gap-2">
+        <.flex direction="col" gap="sm">
           <label
             for={"#{@id}-confirmation-input"}
             class="text-sm font-medium text-foreground"
@@ -3789,7 +3790,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
             autocomplete="off"
             spellcheck="false"
           />
-        </div>
+        </.flex>
 
         <%!-- Actions --%>
         <div class="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">

@@ -22,21 +22,21 @@ defmodule DemoWeb.Ui.LayoutLive do
           <:subtitle>Visual guide to grids, stacks, flex, and spacing</:subtitle>
         </.header>
 
-        <.stack size="xl" class="mt-8">
+        <.stack gap="xl" class="mt-8">
           <%!-- Grid Component --%>
           <section>
             <h2 class="text-2xl font-bold text-foreground mb-6 pb-2 border-b border-border">
               Grid Layouts
             </h2>
 
-            <.stack size="large">
+            <.stack gap="xl">
               <%!-- 3 Column Grid with different gaps --%>
               <div>
                 <h3 class="text-lg font-semibold text-foreground mb-4">
                   3 Columns with Different Gap Sizes
                 </h3>
 
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
                       <code>gap="xs"</code> - Very tight spacing
@@ -56,9 +56,9 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>gap="small"</code> - Compact spacing
+                      <code>gap="sm"</code> - Compact spacing
                     </p>
-                    <.grid cols={3} gap="small">
+                    <.grid cols={3} gap="sm">
                       <div class="bg-card border border-border rounded-lg p-4">
                         <p class="text-sm text-foreground">Card 1</p>
                       </div>
@@ -73,9 +73,9 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>gap="medium"</code> - Standard spacing (default)
+                      <code>gap="md"</code> - Standard spacing (default)
                     </p>
-                    <.grid cols={3} gap="medium">
+                    <.grid cols={3} gap="md">
                       <div class="bg-card border border-border rounded-lg p-4">
                         <p class="text-sm text-foreground">Card 1</p>
                       </div>
@@ -90,9 +90,9 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>gap="large"</code> - Generous spacing
+                      <code>gap="lg"</code> - Generous spacing
                     </p>
-                    <.grid cols={3} gap="large">
+                    <.grid cols={3} gap="lg">
                       <div class="bg-card border border-border rounded-lg p-4">
                         <p class="text-sm text-foreground">Card 1</p>
                       </div>
@@ -130,7 +130,7 @@ defmodule DemoWeb.Ui.LayoutLive do
                   Responsive Column Patterns
                 </h3>
 
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
                       <code>cols={2}</code> - 1 → 2 columns (mobile → desktop)
@@ -179,19 +179,19 @@ defmodule DemoWeb.Ui.LayoutLive do
               Use <code>&lt;.stack&gt;</code> for consistent vertical spacing between elements.
             </p>
 
-            <.grid cols={2} gap="large">
+            <.grid cols={2} gap="lg">
               <div class="bg-card border border-border rounded-lg p-6">
                 <h3 class="text-base font-semibold text-foreground mb-4">
                   Tight Spacing Sizes
                 </h3>
 
-                <.stack size="large">
+                <.stack gap="xl">
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">
-                      size="xs" <span class="text-muted-foreground">(0.5rem)</span>
+                      gap="xs" <span class="text-muted-foreground">(0.25rem)</span>
                     </p>
                     <div class="bg-muted rounded-lg p-3">
-                      <.stack size="xs">
+                      <.stack gap="sm">
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 1</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 2</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 3</div>
@@ -201,10 +201,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">
-                      size="small" <span class="text-muted-foreground">(1rem)</span>
+                      gap="sm" <span class="text-muted-foreground">(0.5rem)</span>
                     </p>
                     <div class="bg-muted rounded-lg p-3">
-                      <.stack size="small">
+                      <.stack gap="md">
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 1</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 2</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 3</div>
@@ -214,10 +214,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">
-                      size="medium" <span class="text-muted-foreground">(1.5rem, default)</span>
+                      gap="default" <span class="text-muted-foreground">(0.75rem)</span>
                     </p>
                     <div class="bg-muted rounded-lg p-3">
-                      <.stack size="medium">
+                      <.stack gap="lg">
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 1</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 2</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 3</div>
@@ -232,13 +232,13 @@ defmodule DemoWeb.Ui.LayoutLive do
                   Generous Spacing Sizes
                 </h3>
 
-                <.stack size="large">
+                <.stack gap="xl">
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">
-                      size="large" <span class="text-muted-foreground">(2rem)</span>
+                      gap="md" <span class="text-muted-foreground">(1rem)</span>
                     </p>
                     <div class="bg-muted rounded-lg p-3">
-                      <.stack size="large">
+                      <.stack gap="xl">
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 1</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 2</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 3</div>
@@ -248,10 +248,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">
-                      size="xl" <span class="text-muted-foreground">(3rem)</span>
+                      gap="lg" <span class="text-muted-foreground">(1.5rem)</span>
                     </p>
                     <div class="bg-muted rounded-lg p-3">
-                      <.stack size="xl">
+                      <.stack gap="xl">
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 1</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 2</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 3</div>
@@ -261,10 +261,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm font-medium text-foreground mb-2">
-                      size="xxl" <span class="text-muted-foreground">(4rem)</span>
+                      gap="xl" <span class="text-muted-foreground">(2rem)</span>
                     </p>
                     <div class="bg-muted rounded-lg p-3">
-                      <.stack size="xxl">
+                      <.stack gap="xl">
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 1</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 2</div>
                         <div class="bg-background rounded p-2 text-xs text-foreground">Item 3</div>
@@ -282,18 +282,18 @@ defmodule DemoWeb.Ui.LayoutLive do
               Flex Layouts
             </h2>
 
-            <.stack size="large">
+            <.stack gap="xl">
               <%!-- Alignment options --%>
               <div>
                 <h3 class="text-lg font-semibold text-foreground mb-4">Alignment Options</h3>
 
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>align="start"</code> (default)
+                      <code>justify="start" items="start"</code>
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex align="start">
+                      <.flex justify="start" items="start">
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">Left</div>
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">
                           Center
@@ -307,10 +307,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>align="center"</code>
+                      <code>justify="center" items="center"</code>
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex align="center">
+                      <.flex justify="center" items="center">
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">
                           Centered
                         </div>
@@ -323,10 +323,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>align="between"</code> (common for headers)
+                      <code>justify="between" items="center"</code> (common for headers)
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex align="between">
+                      <.flex justify="between" items="center">
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">Left</div>
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">
                           Right
@@ -337,10 +337,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>align="end"</code>
+                      <code>justify="end" items="end"</code>
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex align="end">
+                      <.flex justify="end" items="end">
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">All</div>
                         <div class="bg-primary text-primary-foreground px-3 py-1 rounded">
                           Items
@@ -358,7 +358,7 @@ defmodule DemoWeb.Ui.LayoutLive do
               <div>
                 <h3 class="text-lg font-semibold text-foreground mb-4">Gap Sizes</h3>
 
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
                       <code>gap="xs"</code> - Very tight
@@ -380,10 +380,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>gap="small"</code> - Compact
+                      <code>gap="sm"</code> - Compact
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex gap="small">
+                      <.flex gap="sm">
                         <div class="bg-secondary text-secondary-foreground px-2 py-1 rounded text-xs">
                           Tag
                         </div>
@@ -399,10 +399,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>gap="medium"</code> - Standard (default)
+                      <code>gap="md"</code> - Standard (default)
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex gap="medium">
+                      <.flex gap="md">
                         <div class="bg-secondary text-secondary-foreground px-2 py-1 rounded text-xs">
                           Tag
                         </div>
@@ -418,10 +418,10 @@ defmodule DemoWeb.Ui.LayoutLive do
 
                   <div>
                     <p class="text-sm text-muted-foreground mb-2">
-                      <code>gap="large"</code> - Generous
+                      <code>gap="lg"</code> - Generous
                     </p>
                     <div class="bg-card border border-border rounded-lg p-4">
-                      <.flex gap="large">
+                      <.flex gap="lg">
                         <div class="bg-secondary text-secondary-foreground px-2 py-1 rounded text-xs">
                           Tag
                         </div>
@@ -478,7 +478,7 @@ defmodule DemoWeb.Ui.LayoutLive do
               Sidebar Layout
             </h2>
 
-            <.stack size="large">
+            <.stack gap="xl">
               <div>
                 <p class="text-sm text-muted-foreground mb-2">
                   <code>sidebar_width="narrow"</code> (12rem)
@@ -564,21 +564,21 @@ defmodule DemoWeb.Ui.LayoutLive do
               Usage Tips
             </h2>
 
-            <.grid cols={2} gap="medium">
+            <.grid cols={2} gap="md">
               <div class="bg-card border border-border rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-foreground mb-3">When spacing feels...</h3>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="text-sm">
                     <span class="font-medium text-foreground">Too tight?</span>
                     <span class="text-muted-foreground">Try the next size up</span>
                   </div>
                   <div class="text-sm">
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded">
-                      gap="small"
+                      gap="sm"
                     </code>
                     →
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded">
-                      gap="medium"
+                      gap="md"
                     </code>
                   </div>
                   <div class="text-sm pt-2">
@@ -587,11 +587,11 @@ defmodule DemoWeb.Ui.LayoutLive do
                   </div>
                   <div class="text-sm">
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded">
-                      size="large"
+                      gap="lg"
                     </code>
                     →
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded">
-                      size="medium"
+                      gap="md"
                     </code>
                   </div>
                 </.stack>
@@ -601,23 +601,23 @@ defmodule DemoWeb.Ui.LayoutLive do
                 <h3 class="text-lg font-semibold text-foreground mb-3">
                   Common patterns
                 </h3>
-                <.stack size="small">
+                <.stack gap="md">
                   <div class="text-sm">
                     <span class="font-medium text-foreground">Page sections:</span>
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded ml-2">
-                      size="xl"
+                      gap="xl"
                     </code>
                   </div>
                   <div class="text-sm">
                     <span class="font-medium text-foreground">Card grids:</span>
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded ml-2">
-                      gap="medium"
+                      gap="md"
                     </code>
                   </div>
                   <div class="text-sm">
                     <span class="font-medium text-foreground">Form fields:</span>
                     <code class="text-xs text-foreground bg-muted px-2 py-1 rounded ml-2">
-                      size="small"
+                      gap="sm"
                     </code>
                   </div>
                   <div class="text-sm">

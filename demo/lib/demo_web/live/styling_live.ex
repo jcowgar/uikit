@@ -22,7 +22,7 @@ defmodule DemoWeb.Ui.StylingLive do
           <:subtitle>Typography, colors, and semantic tokens</:subtitle>
         </.header>
 
-        <.stack size="xl" class="mt-8">
+        <.stack gap="xl" class="mt-8">
           <%!-- Typography Section --%>
           <section>
             <h2 class="text-2xl font-bold text-foreground mb-6 pb-2 border-b border-border">
@@ -123,7 +123,7 @@ defmodule DemoWeb.Ui.StylingLive do
               <%!-- Background Colors --%>
               <div>
                 <h3 class="text-lg font-semibold text-foreground mb-4">Background Colors</h3>
-                <.grid cols={3} gap="small">
+                <.grid cols={3} gap="sm">
                   <div class="border border-border rounded-lg overflow-hidden">
                     <div class="h-24 bg-background border-b border-border"></div>
                     <div class="p-4">
@@ -183,7 +183,7 @@ defmodule DemoWeb.Ui.StylingLive do
               <%!-- Semantic Colors --%>
               <div>
                 <h3 class="text-lg font-semibold text-foreground mb-4">Semantic Colors</h3>
-                <.grid cols={2} gap="small">
+                <.grid cols={2} gap="sm">
                   <div class="border border-border rounded-lg overflow-hidden">
                     <div class="h-24 bg-destructive border-b border-border flex items-center justify-center">
                       <span class="text-destructive-foreground font-semibold">Destructive</span>
@@ -284,10 +284,10 @@ defmodule DemoWeb.Ui.StylingLive do
               Spacing & Layout
             </h2>
 
-            <.stack size="medium">
+            <.stack gap="lg">
               <div class="bg-card border border-border rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-foreground mb-4">Shadow Variants</h3>
-                <.grid cols={4} gap="medium">
+                <.grid cols={4} gap="md">
                   <div class="bg-background p-6 rounded-lg shadow-sm">
                     <p class="font-medium text-foreground">Small</p>
                     <code class="text-xs text-muted-foreground">shadow-sm</code>
@@ -309,7 +309,7 @@ defmodule DemoWeb.Ui.StylingLive do
 
               <div class="bg-card border border-border rounded-lg p-6">
                 <h3 class="text-lg font-semibold text-foreground mb-4">Border Radius</h3>
-                <.grid cols={4} gap="small">
+                <.grid cols={4} gap="sm">
                   <div class="bg-muted p-4 rounded-sm border border-border">
                     <code class="text-xs text-muted-foreground">rounded-sm</code>
                   </div>

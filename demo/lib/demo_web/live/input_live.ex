@@ -11,7 +11,7 @@ defmodule DemoWeb.Ui.InputLive do
   def render(assigns) do
     ~H"""
     <.container>
-      <.stack size="large">
+      <.stack gap="xl">
         <%!-- Header --%>
         <div>
           <h1 class="text-3xl font-bold text-foreground">Input Component</h1>
@@ -23,7 +23,7 @@ defmodule DemoWeb.Ui.InputLive do
         <%!-- Basic Inputs --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Input Types</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="text-input" class="mb-1.5">Text Input</.label>
               <.input type="text" id="text-input" placeholder="Enter text" />
@@ -59,7 +59,7 @@ defmodule DemoWeb.Ui.InputLive do
         <%!-- Disabled State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Disabled</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="disabled-input" class="mb-1.5">Disabled Input</.label>
               <.input type="text" id="disabled-input" placeholder="Disabled input" disabled />
@@ -82,7 +82,7 @@ defmodule DemoWeb.Ui.InputLive do
         <%!-- Error/Invalid State --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Error State</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="REPLACE_ID" class="mb-1.5">
                 Invalid Email
@@ -119,7 +119,7 @@ defmodule DemoWeb.Ui.InputLive do
         <%!-- File Input --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">File Input</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="REPLACE_ID" class="mb-1.5">
                 Upload File
@@ -146,7 +146,7 @@ defmodule DemoWeb.Ui.InputLive do
         <%!-- With Custom Width --%>
         <section>
           <h2 class="text-xl font-semibold text-foreground mb-4">Custom Width</h2>
-          <.stack size="medium">
+          <.stack gap="lg">
             <div>
               <.label for="REPLACE_ID" class="mb-1.5">
                 Half Width (max-w-md)
@@ -180,7 +180,7 @@ defmodule DemoWeb.Ui.InputLive do
             </.card_header>
             <.card_content>
               <form>
-                <.stack size="medium">
+                <.stack gap="lg">
                   <div>
                     <.label for="form-name" class="mb-1.5">Name</.label>
                     <.input
@@ -229,7 +229,7 @@ defmodule DemoWeb.Ui.InputLive do
               <.card_title>Accessibility Features</.card_title>
             </.card_header>
             <.card_content>
-              <.stack size="small">
+              <.stack gap="md">
                 <p class="text-sm text-muted-foreground">
                   The input component includes several accessibility features:
                 </p>
