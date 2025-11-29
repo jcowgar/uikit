@@ -63,8 +63,20 @@ import AccordionHook from "../../../assets/js/hooks/accordion"
 import {ContextMenu} from "../../../assets/js/hooks/context_menu"
 // Slider value display and filled track updates
 import {Slider, SliderFilled} from "../../../assets/js/hooks/slider"
-// Markdown editor using EasyMDE
+// Sonner toast auto-dismiss
+import {SonnerToast} from "../../../assets/js/hooks/sonner_toast"
+// Tooltip positioning
+import {Tooltip} from "../../../assets/js/hooks/tooltip"
+// Dialog auto-focus
+import {DialogAutoFocus} from "../../../assets/js/hooks/dialog_auto_focus"
+// Destructive confirmation input
+import {DestructiveConfirmationInput} from "../../../assets/js/hooks/destructive_confirmation"
+// Toggle group state management
+import {ToggleGroup} from "../../../assets/js/hooks/toggle_group"
+// Markdown editor using TipTap
 import {MarkdownEditor} from "../../../assets/js/hooks/markdown_editor"
+// Dialog server-side close event handler
+import {initDialogEvents} from "../../../assets/js/hooks/dialog"
 
 // Custom hooks for LiveView components
 const Hooks = {
@@ -118,6 +130,11 @@ const Hooks = {
   ContextMenu: ContextMenu,
   Slider: Slider,
   SliderFilled: SliderFilled,
+  SonnerToast: SonnerToast,
+  Tooltip: Tooltip,
+  DialogAutoFocus: DialogAutoFocus,
+  DestructiveConfirmationInput: DestructiveConfirmationInput,
+  ToggleGroup: ToggleGroup,
   MarkdownEditor: MarkdownEditor
 }
 
@@ -135,6 +152,9 @@ window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
+
+// Initialize dialog event handlers for server-side closing
+initDialogEvents()
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()

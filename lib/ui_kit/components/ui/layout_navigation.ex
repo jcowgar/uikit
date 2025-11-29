@@ -676,14 +676,16 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_trigger>
 
   """
+  attr(:id, :string, default: "sidebar-trigger")
   attr(:class, :string, default: nil)
-  attr(:rest, :global, include: ~w(id disabled aria-label))
+  attr(:rest, :global, include: ~w(disabled aria-label))
   slot(:inner_block)
 
   @spec sidebar_trigger(map()) :: Rendered.t()
   def sidebar_trigger(assigns) do
     ~H"""
     <.button
+      id={@id}
       variant="unstyled"
       phx-hook="SidebarTrigger"
       type="button"

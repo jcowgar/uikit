@@ -2367,6 +2367,34 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   rendering the content underneath inert. Perfect for important messages,
   forms, or confirmations that require user attention.
 
+  ## JavaScript Setup (Required)
+
+  The dialog component requires two JavaScript elements to be set up in your `app.js`:
+
+  ### 1. DialogAutoFocus Hook
+
+  Required for auto-focusing input fields when the dialog opens:
+
+      // In app.js
+      import {DialogAutoFocus} from "../deps/ui_kit/assets/js/hooks/dialog_auto_focus"
+
+      const Hooks = {
+        DialogAutoFocus: DialogAutoFocus,
+        // ... other hooks
+      }
+
+  ### 2. Dialog Events (for server-side closing)
+
+  Required if you want to close dialogs from the server using `push_event`:
+
+      // In app.js
+      import {initDialogEvents} from "../deps/ui_kit/assets/js/hooks/dialog"
+
+      // After liveSocket.connect()
+      initDialogEvents()
+
+  Without `initDialogEvents()`, calls to `push_event("close-dialog", %{id: "..."})` will not work.
+
   ## Features
 
   - Modal overlay with backdrop
@@ -2375,8 +2403,8 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   - Server-controlled closing for action buttons (after server logic completes)
   - Keyboard navigation (Escape to close)
   - Focus trap within dialog
-  - Auto-focus first input field (optional)
-  - Smooth fade and zoom animations
+  - Auto-focus first input field (optional, requires DialogAutoFocus hook)
+  - Smooth fade and zoom animations (200ms duration)
   - Semantic color tokens
   - Optional close button (can be hidden)
 
@@ -2384,8 +2412,12 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
 
   The dialog can be closed in two ways:
 
-  1. **Client-side close** (immediate): Click outside, click X button, or press Escape
-  2. **Server-side close** (after action): Use `push_event("close-dialog", %{id: "dialog-id"})`
+  1. **Client-side close** (immediate): Click outside, click X button, or press Escape.
+     These work automatically without any server round-trip.
+
+  2. **Server-side close** (after action): Use `push_event("close-dialog", %{id: "dialog-id"})`.
+     This is useful when you want to close the dialog only after server-side validation
+     or processing succeeds. Requires `initDialogEvents()` to be called in app.js.
 
   ## Basic Structure
 
@@ -2477,6 +2509,31 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
           </.dialog_header>
         </:content>
       </.dialog>
+
+  ## Troubleshooting
+
+  ### Dialog won't close from server
+
+  If `push_event("close-dialog", %{id: "my-dialog"})` doesn't close the dialog:
+
+  1. Ensure `initDialogEvents()` is called in your app.js after `liveSocket.connect()`
+  2. Verify the `id` matches exactly (case-sensitive) with the dialog's `id` attribute
+  3. Check browser console for warnings about missing close buttons
+
+  ### Auto-focus not working
+
+  If input fields aren't being focused when the dialog opens:
+
+  1. Ensure the `DialogAutoFocus` hook is registered in your Hooks object
+  2. Add the `autofocus` attribute to the input you want focused: `<.input autofocus />`
+  3. If no `autofocus` attribute is set, the first focusable input will be focused
+  4. Focus happens after a 250ms delay to allow animations to complete
+
+  ### Dialog opens but content doesn't appear
+
+  1. Check that the `:content` slot is provided (it's required)
+  2. Ensure there are no JavaScript errors in the console
+  3. Verify CSS is properly loaded (check for missing Tailwind classes)
 
   """
   attr(:id, :string, required: true)

@@ -62,12 +62,25 @@ Run this in your `assets` directory:
 
 ```bash
 cd assets
-npm install sortablejs chart.js marked marked-highlight highlight.js mermaid
+npm install sortablejs chart.js marked marked-highlight highlight.js mermaid \
+  @tiptap/core @tiptap/starter-kit @tiptap/extension-placeholder \
+  @tiptap/extension-table @tiptap/extension-table-row @tiptap/extension-table-cell \
+  @tiptap/extension-table-header turndown turndown-plugin-gfm
 ```
 
-*   `sortablejs`: For drag-and-drop lists.
+*   `sortablejs`: For drag-and-drop lists (Sortable, Kanban).
 *   `chart.js`: For chart components.
-*   `marked`, `marked-highlight`, `highlight.js`, `mermaid`: For the Markdown renderer.
+*   `marked`, `marked-highlight`, `highlight.js`, `mermaid`: For the Markdown viewer.
+*   `@tiptap/*`: For the WYSIWYG Markdown editor.
+*   `turndown`, `turndown-plugin-gfm`: For HTML-to-Markdown conversion in the editor.
+
+**Optional:**
+
+```bash
+npm install @tailwindcss/typography
+```
+
+*   `@tailwindcss/typography`: For styling rendered markdown/prose content. Add `@plugin "@tailwindcss/typography"` to your CSS if using this.
 
 #### Import Hooks
 
@@ -84,41 +97,80 @@ import { toggleTheme } from "../deps/ui_kit/assets/js/theme"
 import { SidebarHook, SidebarTriggerHook } from "../deps/ui_kit/assets/js/sidebar"
 import { TabsHook } from "../deps/ui_kit/assets/js/tabs"
 import { CollapsibleHook } from "../deps/ui_kit/assets/js/collapsible"
-import { SelectDropdown } from "../deps/ui_kit/assets/js/hooks/select_dropdown"
-import { SortableHook } from "../deps/ui_kit/assets/js/hooks/sortable"
-import { KanbanSwimlaneHook } from "../deps/ui_kit/assets/js/hooks/kanban_swimlane"
-import { MarkdownRenderer } from "../deps/ui_kit/assets/js/hooks/markdown"
-import { FileUpload, Download } from "../deps/ui_kit/assets/js/hooks/file_transfer"
-import { CommandFilter, CommandKeyboard, CommandInputFocus } from "../deps/ui_kit/assets/js/hooks/command"
+import Accordion from "../deps/ui_kit/assets/js/hooks/accordion"
+import { ChartHook } from "../deps/ui_kit/assets/js/hooks/chart"
 import { ChipInput } from "../deps/ui_kit/assets/js/hooks/chip_input"
 import { Combobox } from "../deps/ui_kit/assets/js/hooks/combobox"
-import SlugGenerator from "../deps/ui_kit/assets/js/hooks/slug_generator"
+import { CommandFilter, CommandKeyboard, CommandInputFocus } from "../deps/ui_kit/assets/js/hooks/command"
+import { ContextMenu } from "../deps/ui_kit/assets/js/hooks/context_menu"
+import { DestructiveConfirmationInput } from "../deps/ui_kit/assets/js/hooks/destructive_confirmation"
+import { DialogAutoFocus } from "../deps/ui_kit/assets/js/hooks/dialog_auto_focus"
+import { FileUpload, Download } from "../deps/ui_kit/assets/js/hooks/file_transfer"
+import { KanbanSwimlaneHook } from "../deps/ui_kit/assets/js/hooks/kanban_swimlane"
 import { LocalTime } from "../deps/ui_kit/assets/js/hooks/local_time"
+import { MarkdownRenderer } from "../deps/ui_kit/assets/js/hooks/markdown"
+import { MarkdownEditor } from "../deps/ui_kit/assets/js/hooks/markdown_editor"
 import { PositionDropdown } from "../deps/ui_kit/assets/js/hooks/position_dropdown"
-import { ChartHook } from "../deps/ui_kit/assets/js/hooks/chart"
+import { SelectDropdown } from "../deps/ui_kit/assets/js/hooks/select_dropdown"
+import { Slider, SliderFilled } from "../deps/ui_kit/assets/js/hooks/slider"
+import SlugGenerator from "../deps/ui_kit/assets/js/hooks/slug_generator"
+import { SonnerToast } from "../deps/ui_kit/assets/js/hooks/sonner_toast"
+import { SortableHook } from "../deps/ui_kit/assets/js/hooks/sortable"
+import { TabBarHook } from "../deps/ui_kit/assets/js/hooks/tab_bar_hook"
+import { ToggleGroup } from "../deps/ui_kit/assets/js/hooks/toggle_group"
+import { Tooltip } from "../deps/ui_kit/assets/js/hooks/tooltip"
+
+// Dialog server-side close event handler (required for push_event("close-dialog", ...))
+import { initDialogEvents } from "../deps/ui_kit/assets/js/hooks/dialog"
 
 // Define the Hooks object
 const Hooks = {
+  // Layout & Navigation
   Sidebar: SidebarHook,
   SidebarTrigger: SidebarTriggerHook,
   Tabs: TabsHook,
+  TabBar: TabBarHook,
   Collapsible: CollapsibleHook,
+  Accordion: Accordion,
+
+  // Form & Input
   SelectDropdown: SelectDropdown,
-  Sortable: SortableHook,
-  KanbanSwimlane: KanbanSwimlaneHook,
-  MarkdownRenderer: MarkdownRenderer,
-  FileUpload: FileUpload,
-  Download: Download,
+  ChipInput: ChipInput,
+  Combobox: Combobox,
+  Slider: Slider,
+  SliderFilled: SliderFilled,
+  SlugGenerator: SlugGenerator,
+  ToggleGroup: ToggleGroup,
+
+  // Overlays & Dialogs
+  ContextMenu: ContextMenu,
+  DestructiveConfirmationInput: DestructiveConfirmationInput,
+  DialogAutoFocus: DialogAutoFocus,
+  Tooltip: Tooltip,
+  PositionDropdown: PositionDropdown,
+
+  // Command Palette
   CommandFilter: CommandFilter,
   CommandKeyboard: CommandKeyboard,
   CommandInputFocus: CommandInputFocus,
-  ChipInput: ChipInput,
-  Combobox: Combobox,
-  SlugGenerator: SlugGenerator,
-  LocalTime: LocalTime,
-  PositionDropdown: PositionDropdown,
+
+  // Feedback & Status
+  SonnerToast: SonnerToast,
+
+  // Display & Media
   Chart: ChartHook,
-  
+  MarkdownRenderer: MarkdownRenderer,
+  MarkdownEditor: MarkdownEditor,
+  LocalTime: LocalTime,
+
+  // Drag & Drop
+  Sortable: SortableHook,
+  KanbanSwimlane: KanbanSwimlaneHook,
+
+  // File Operations
+  FileUpload: FileUpload,
+  Download: Download,
+
   // Theme Toggle Hook
   ThemeToggle: {
     mounted() {
@@ -149,6 +201,13 @@ let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
   hooks: Hooks
 })
+
+// Connect LiveSocket
+liveSocket.connect()
+
+// Initialize dialog event handlers (required for server-side dialog closing)
+// This enables push_event("close-dialog", %{id: "my-dialog"}) to work from LiveView
+initDialogEvents()
 ```
 
 ### 4. Heroicons Configuration
