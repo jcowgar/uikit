@@ -18,6 +18,7 @@ defmodule UiKit.Components.Ui.Typography do
     - `:lead` - Large body text
     - `:large` - Large text
     - `:small` - Small text
+    - `:tiny` - Tiny text (9px, for labels/badges)
     - `:muted` - Muted text
   - `element` - The HTML tag to use (e.g., "h1", "p", "span"). Defaults based on variant.
   - `class` - Additional CSS classes.
@@ -31,7 +32,7 @@ defmodule UiKit.Components.Ui.Typography do
   """
   attr(:variant, :atom,
     default: :p,
-    values: [:h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :muted]
+    values: [:h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :tiny, :muted]
   )
 
   attr(:element, :string, default: nil)
@@ -68,6 +69,7 @@ defmodule UiKit.Components.Ui.Typography do
   defp default_element(:lead), do: "p"
   defp default_element(:large), do: "div"
   defp default_element(:small), do: "small"
+  defp default_element(:tiny), do: "span"
   defp default_element(:muted), do: "p"
 
   defp variant_class(:h1), do: "text-heading-xl"
@@ -79,6 +81,7 @@ defmodule UiKit.Components.Ui.Typography do
   defp variant_class(:body), do: "text-body"
   defp variant_class(:large), do: "text-lg font-semibold"
   defp variant_class(:small), do: "text-body-sm font-medium leading-none"
+  defp variant_class(:tiny), do: "text-[0.5625rem] font-normal leading-none"
   defp variant_class(:muted), do: "text-muted-text"
 
   @doc """
