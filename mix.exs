@@ -11,7 +11,8 @@ defmodule UiKit.MixProject do
       description: description(),
       package: package(),
       name: "UiKit",
-      source_url: "https://github.com/example/ui_kit"
+      source_url: "https://github.com/example/ui_kit",
+      docs: docs()
     ]
   end
 
@@ -30,7 +31,8 @@ defmodule UiKit.MixProject do
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_view, "~> 1.1.0"},
       {:gettext, "~> 0.26"},
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false}
       # Note: Heroicons is required for the icon component but cannot be a Git dependency in a Hex package.
       # The consuming application must add it to their deps:
       # {:heroicons, github: "tailwindlabs/heroicons", tag: "v2.2.0", sparse: "optimized", app: false, compile: false, depth: 1}
@@ -48,6 +50,43 @@ defmodule UiKit.MixProject do
       files: ~w(lib assets mix.exs README.md .formatter.exs LICENSE),
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/example/ui_kit"}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      extras: ["README.md"],
+      groups_for_modules: [
+        Core: [
+          UiKit.CoreComponents,
+          UiKit.LayoutComponents
+        ],
+        "Form & Input": [
+          UiKit.Components.UI.FormInput,
+          UiKit.Components.UI.Combobox,
+          UiKit.Components.UI.ChipInput
+        ],
+        Navigation: [
+          UiKit.Components.UI.LayoutNavigation
+        ],
+        "Overlays & Dialogs": [
+          UiKit.Components.UI.OverlaysDialogs,
+          UiKit.Components.UI.Command
+        ],
+        "Feedback & Status": [
+          UiKit.Components.UI.FeedbackStatus
+        ],
+        "Display & Media": [
+          UiKit.Components.UI.DisplayMedia,
+          UiKit.Components.UI.Kanban,
+          UiKit.Components.UI.Typography,
+          UiKit.Components.UI.Marketing
+        ],
+        Miscellaneous: [
+          UiKit.Components.UI.Miscellaneous
+        ]
+      ]
     ]
   end
 end
