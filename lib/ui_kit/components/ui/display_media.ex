@@ -596,6 +596,112 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   end
 
   @doc """
+  Renders markdown content with syntax highlighting, diagrams, and math support.
+
+  A markdown viewer component powered by marked.js with support for:
+  - GitHub Flavored Markdown (GFM)
+  - Syntax highlighting via highlight.js
+  - Mermaid diagrams (```mermaid code blocks)
+  - MathJax equations ($...$ inline, $$...$$ display)
+
+  ## Examples
+
+      <%!-- Basic markdown rendering --%>
+      <.markdown id="readme" content={@readme_content} />
+
+      <%!-- Markdown in a card --%>
+      <.card>
+        <.card_header>
+          <.card_title>Documentation</.card_title>
+        </.card_header>
+        <.card_content>
+          <.markdown id="docs" content={@doc_content} />
+        </.card_content>
+      </.card>
+
+      <%!-- With custom styling --%>
+      <.markdown
+        id="article"
+        content={@article}
+        class="prose-lg"
+      />
+
+      <%!-- Compact variant for tighter spacing --%>
+      <.markdown id="notes" content={@notes} variant="compact" />
+
+  ## Markdown Features
+
+  The component supports the following markdown features:
+
+  ### Code Blocks with Syntax Highlighting
+
+      ```elixir
+      defmodule Example do
+        def hello, do: "world"
+      end
+      ```
+
+  ### Mermaid Diagrams
+
+      ```mermaid
+      graph TD
+        A[Start] --> B[Process]
+        B --> C[End]
+      ```
+
+  ### Math Equations
+
+      Inline math: $E = mc^2$
+
+      Display math:
+      $$
+      \\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}
+      $$
+
+  ## Styling
+
+  The component uses Tailwind Typography (`prose`) classes for consistent styling.
+  It automatically adapts to light/dark themes via the `dark:prose-invert` class.
+
+  You can customize the appearance by:
+  - Using the `variant` attribute for predefined styles
+  - Adding custom classes via the `class` attribute
+  - The prose styles can be extended with `prose-lg`, `prose-sm`, etc.
+
+  """
+  attr :id, :string, required: true, doc: "Unique identifier for the markdown container"
+  attr :content, :string, required: true, doc: "Raw markdown content to render"
+
+  attr :variant, :string,
+    default: "default",
+    values: ~w(default compact),
+    doc: "Style variant: default (normal spacing) or compact (tighter spacing)"
+
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global
+
+  @spec markdown(map()) :: Rendered.t()
+  def markdown(assigns) do
+    ~H"""
+    <div
+      id={@id}
+      data-slot="markdown"
+      phx-hook="MarkdownRenderer"
+      phx-update="ignore"
+      data-markdown={@content}
+      class={[
+        "prose dark:prose-invert max-w-none",
+        @variant == "compact" && "prose-compact",
+        @class
+      ]}
+      {@rest}
+    >
+      <p class="text-muted-foreground">Loading...</p>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a Chart.js chart.
 
   A responsive chart component powered by Chart.js. Supports all Chart.js chart types
