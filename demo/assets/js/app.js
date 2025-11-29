@@ -63,6 +63,8 @@ import AccordionHook from "../../../assets/js/hooks/accordion"
 import {ContextMenu} from "../../../assets/js/hooks/context_menu"
 // Slider value display and filled track updates
 import {Slider, SliderFilled} from "../../../assets/js/hooks/slider"
+// Markdown editor using EasyMDE
+import {MarkdownEditor} from "../../../assets/js/hooks/markdown_editor"
 
 // Custom hooks for LiveView components
 const Hooks = {
@@ -116,7 +118,7 @@ const Hooks = {
   ContextMenu: ContextMenu,
   Slider: Slider,
   SliderFilled: SliderFilled,
-  // ... (Other hooks can be copied if needed, but let's start with these)
+  MarkdownEditor: MarkdownEditor
 }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")

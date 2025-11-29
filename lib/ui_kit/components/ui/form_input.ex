@@ -555,6 +555,79 @@ defmodule UiKit.Components.Ui.FormInput do
   end
 
   @doc """
+  Renders a WYSIWYG markdown editor using TipTap.
+
+  The markdown editor provides a rich text editing experience that outputs markdown.
+  Content is displayed as formatted text while editing (WYSIWYG), and converts to
+  markdown for form submission.
+
+  ## Features
+
+  - WYSIWYG editing (what you see is what you get)
+  - Toolbar with formatting buttons (bold, italic, headings, lists, etc.)
+  - Outputs clean markdown
+  - Loads existing markdown content
+  - Code block support
+  - Blockquote support
+  - Undo/redo support
+
+  ## Attributes
+
+  - `id` - Unique identifier (required)
+  - `name` - Input name for form submission
+  - `value` - Initial markdown content
+  - `placeholder` - Placeholder text when empty
+  - `autofocus` - Focus editor on mount (default: false)
+  - `class` - Additional CSS classes
+
+  ## Examples
+
+      # Basic markdown editor
+      <.markdown_editor id="readme" name="content" />
+
+      # With initial content
+      <.markdown_editor id="notes" name="notes" value={@notes_content} />
+
+      # With placeholder
+      <.markdown_editor id="comment" name="comment" placeholder="Write a comment..." />
+
+      # With autofocus
+      <.markdown_editor id="editor" name="content" autofocus />
+
+      # In a form
+      <.form for={@form} phx-change="validate" phx-submit="save">
+        <.markdown_editor id="editor" name="content" value={@form[:content].value} />
+        <.button type="submit">Save</.button>
+      </.form>
+
+  """
+  attr :id, :string, required: true, doc: "Unique identifier for the editor"
+  attr :name, :string, default: nil, doc: "Input name for form submission"
+  attr :value, :string, default: nil, doc: "Initial markdown content"
+  attr :placeholder, :string, default: nil, doc: "Placeholder text when empty"
+  attr :autofocus, :boolean, default: false, doc: "Focus editor on mount"
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+  attr :rest, :global, include: ~w(disabled required form)
+
+  @spec markdown_editor(map()) :: Rendered.t()
+  def markdown_editor(assigns) do
+    ~H"""
+    <div
+      id={@id}
+      phx-hook="MarkdownEditor"
+      phx-update="ignore"
+      data-slot="markdown-editor"
+      data-placeholder={@placeholder}
+      data-autofocus={to_string(@autofocus)}
+      class={["markdown-editor", @class]}
+      {@rest}
+    >
+      <textarea id={"#{@id}-textarea"} name={@name}>{@value}</textarea>
+    </div>
+    """
+  end
+
+  @doc """
   Renders an accessible label associated with form controls.
 
   The label component provides proper semantic association with form inputs through

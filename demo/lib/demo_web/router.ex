@@ -71,6 +71,7 @@ defmodule DemoWeb.Router do
       live "/chart", Ui.ChartLive
       live "/aspect-ratio", Ui.AspectRatioLive
       live "/markdown", Ui.MarkdownLive
+      live "/markdown-editor", Ui.MarkdownEditorLive
     end
   end
 
