@@ -178,8 +178,15 @@ defmodule UiKit.Components.LayoutComponents do
         <.stat_card title="Stat 3" />
         <.stat_card title="Stat 4" />
       </.grid>
+
+      # Custom grid template (non-responsive)
+      <.grid cols="[1fr_auto_1fr]" class="items-center">
+        <div>Left (1fr)</div>
+        <div>Center (auto)</div>
+        <div>Right (1fr)</div>
+      </.grid>
   """
-  attr(:cols, :integer, default: 3, doc: "Number of columns (1-6)")
+  attr(:cols, :any, default: 3, doc: "Number of columns (1-6 for responsive presets) or custom template string like \"[1fr_auto_1fr]\"")
 
   attr(:gap, :string,
     default: "lg",
@@ -194,13 +201,16 @@ defmodule UiKit.Components.LayoutComponents do
   def grid(assigns) do
     col_classes =
       case assigns.cols do
+        # Responsive presets (1-6)
         1 -> "grid-cols-1"
         2 -> "grid-cols-1 md:grid-cols-2"
         3 -> "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
         4 -> "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
         5 -> "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         6 -> "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
-        invalid -> raise ArgumentError, "invalid cols value: #{inspect(invalid)}. Expected 1-6"
+        # Custom template string (e.g., "[1fr_auto_1fr]" -> "grid-cols-[1fr_auto_1fr]")
+        template when is_binary(template) -> "grid-cols-#{template}"
+        invalid -> raise ArgumentError, "invalid cols value: #{inspect(invalid)}. Expected 1-6 or a template string"
       end
 
     assigns =
