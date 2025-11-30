@@ -61,6 +61,12 @@ defmodule UiKit.Components.LayoutComponents do
     doc: "Horizontal padding: none (no padding), small (px-4), default (px-4 sm:px-6 lg:px-8)"
   )
 
+  attr(:py, :string,
+    default: "lg",
+    values: ~w(none xs sm md lg xl),
+    doc: "Vertical padding: none (0), xs (py-1), sm (py-2), md (py-4), lg (py-8, default), xl (py-12)"
+  )
+
   attr(:class, :string, default: nil, doc: "Additional CSS classes")
   slot(:inner_block, required: true)
 
@@ -71,9 +77,10 @@ defmodule UiKit.Components.LayoutComponents do
       |> assign(:max_width_class, build_max_width_class(assigns.max_width))
       |> assign(:base_class, build_base_class(assigns.max_width))
       |> assign(:padding_class, build_padding_class(assigns.padding))
+      |> assign(:py_class, build_py_class(assigns.py))
 
     ~H"""
-    <div class={[@base_class, "mx-auto py-8", @padding_class, @max_width_class, @class]}>
+    <div class={[@base_class, "mx-auto", @py_class, @padding_class, @max_width_class, @class]}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -136,6 +143,18 @@ defmodule UiKit.Components.LayoutComponents do
       invalid ->
         raise ArgumentError,
               "invalid padding value: #{inspect(invalid)}. Expected none, small, or default"
+    end
+  end
+
+  @spec build_py_class(String.t()) :: String.t() | nil
+  defp build_py_class(py) do
+    case py do
+      "none" -> nil
+      "xs" -> "py-1"
+      "sm" -> "py-2"
+      "md" -> "py-4"
+      "lg" -> "py-8"
+      "xl" -> "py-12"
     end
   end
 

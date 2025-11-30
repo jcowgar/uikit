@@ -21,6 +21,8 @@ defmodule UiKit.Components.Ui.Typography do
     - `:tiny` - Tiny text (9px, for labels/badges)
     - `:muted` - Muted text
   - `element` - The HTML tag to use (e.g., "h1", "p", "span"). Defaults based on variant.
+    When set to an inline element like "span" without a variant, no styling is applied
+    (inherits from parent context).
   - `class` - Additional CSS classes.
 
   ## Examples
@@ -29,10 +31,11 @@ defmodule UiKit.Components.Ui.Typography do
       <.typography variant={:h2}>Subtitle</.typography>
       <.typography variant={:p}>Body text...</.typography>
       <.typography variant={:muted} element="span">Muted label</.typography>
+      <.typography element="span" class="text-primary">Inherits, plus custom class</.typography>
   """
   attr(:variant, :atom,
-    default: :p,
-    values: [:h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :tiny, :muted]
+    default: nil,
+    values: [nil, :h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :tiny, :muted]
   )
 
   attr(:element, :string, default: nil)
@@ -40,11 +43,14 @@ defmodule UiKit.Components.Ui.Typography do
   attr(:rest, :global)
   slot(:inner_block, required: true)
 
+  @inline_elements ~w(span a strong em b i u s mark sub sup code abbr cite q)
+
   def typography(assigns) do
-    element = assigns.element || default_element(assigns.variant)
+    # Determine effective variant and element
+    {element, variant_class} = resolve_element_and_class(assigns.variant, assigns.element)
 
     classes = [
-      variant_class(assigns.variant),
+      variant_class,
       assigns.class
     ]
 
@@ -58,6 +64,23 @@ defmodule UiKit.Components.Ui.Typography do
       {render_slot(@inner_block)}
     </Phoenix.Component.dynamic_tag>
     """
+  end
+
+  # When variant is explicitly set, use it
+  defp resolve_element_and_class(variant, element) when not is_nil(variant) do
+    el = element || default_element(variant)
+    {el, variant_class(variant)}
+  end
+
+  # When no variant but element is inline, inherit (no styling)
+  defp resolve_element_and_class(nil, element) when element in @inline_elements do
+    {element, nil}
+  end
+
+  # When no variant and no element (or block element), default to :p
+  defp resolve_element_and_class(nil, element) do
+    el = element || "p"
+    {el, variant_class(:p)}
   end
 
   defp default_element(:h1), do: "h1"
