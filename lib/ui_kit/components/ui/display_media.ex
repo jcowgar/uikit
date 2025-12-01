@@ -75,6 +75,12 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   The card component provides a flexible container for grouping related content.
   Use with the card_* sub-components for consistent structure.
 
+  ## Attributes
+
+  - `navigate` - When provided, wraps the card in a link and adds hover effects
+    (scale and shadow) for a clickable card experience.
+  - `class` - Additional CSS classes.
+
   ## Examples
 
       <.card>
@@ -90,7 +96,12 @@ defmodule UiKit.Components.Ui.DisplayMedia do
         </.card_footer>
       </.card>
 
+      <.card navigate={~p"/some/path"}>
+        <.card_content>Clickable card with hover effects</.card_content>
+      </.card>
+
   """
+  attr(:navigate, :string, default: nil, doc: "Navigation path - makes card clickable with hover effects")
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
@@ -98,18 +109,36 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec card(map()) :: Rendered.t()
   def card(assigns) do
     ~H"""
-    <.flex
-      direction="col"
-      items="stretch"
-      gap="lg"
-      class={[
-        "bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
-        @class
-      ]}
-      {@rest}
-    >
-      {render_slot(@inner_block)}
-    </.flex>
+    <%= if @navigate do %>
+      <Phoenix.Component.link navigate={@navigate} class="block">
+        <.flex
+          direction="col"
+          items="stretch"
+          gap="lg"
+          class={[
+            "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
+            "transition-all hover:scale-[1.02] hover:shadow-md cursor-pointer",
+            @class
+          ]}
+          {@rest}
+        >
+          {render_slot(@inner_block)}
+        </.flex>
+      </Phoenix.Component.link>
+    <% else %>
+      <.flex
+        direction="col"
+        items="stretch"
+        gap="lg"
+        class={[
+          "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
+          @class
+        ]}
+        {@rest}
+      >
+        {render_slot(@inner_block)}
+      </.flex>
+    <% end %>
     """
   end
 
