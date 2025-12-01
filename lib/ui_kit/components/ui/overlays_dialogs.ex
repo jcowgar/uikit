@@ -2538,6 +2538,17 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   """
   attr(:id, :string, required: true)
   attr(:class, :string, default: nil)
+
+  attr(:open, :boolean,
+    default: false,
+    doc: "Server-controlled open state. Use this to keep the dialog open during LiveView updates."
+  )
+
+  attr(:on_close, :string,
+    default: nil,
+    doc: "Event name to push when dialog is closed via overlay or X button. Use with `open` attr."
+  )
+
   attr(:rest, :global)
   slot(:trigger, doc: "Optional trigger button/element")
 
@@ -2547,6 +2558,9 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
 
   @spec dialog(map()) :: Rendered.t()
   def dialog(assigns) do
+    close_action = build_close_action(assigns.id, assigns.on_close)
+    assigns = assign(assigns, :close_action, close_action)
+
     ~H"""
     <div
       id={@id}
@@ -2568,9 +2582,14 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <div
         id={"#{@id}-overlay"}
         data-slot="dialog-overlay"
-        class="hidden fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-        data-state="closed"
-        phx-click={close_dialog(@id)}
+        class={[
+          "fixed inset-0 z-50 bg-black/50",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          !@open && "hidden"
+        ]}
+        data-state={if @open, do: "open", else: "closed"}
+        phx-click={@close_action}
       >
       </div>
 
@@ -2578,6 +2597,8 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <%= for content <- @content do %>
         <.dialog_content
           id={"#{@id}-content"}
+          open={@open}
+          on_close={@on_close}
           show_close_button={Map.get(content, :show_close_button, true)}
         >
           {render_slot(content)}
@@ -2588,13 +2609,21 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <button
         id={"#{@id}-server-close"}
         type="button"
-        phx-click={close_dialog(@id)}
+        phx-click={@close_action}
         class="hidden"
         aria-hidden="true"
       >
       </button>
     </div>
     """
+  end
+
+  # Builds the close action, optionally including a server event push
+  defp build_close_action(id, nil), do: close_dialog(id)
+
+  defp build_close_action(id, event_name) do
+    close_dialog(id)
+    |> JS.push(event_name)
   end
 
   @doc """
@@ -2618,22 +2647,32 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   """
   attr(:id, :string, required: true)
   attr(:show_close_button, :boolean, default: true)
+  attr(:open, :boolean, default: false)
+  attr(:on_close, :string, default: nil)
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
 
   @spec dialog_content(map()) :: Rendered.t()
   def dialog_content(assigns) do
+    dialog_id = String.replace_suffix(assigns.id, "-content", "")
+    close_action = build_close_action(dialog_id, assigns.on_close)
+    assigns = assign(assigns, :close_action, close_action)
+
     ~H"""
     <div
       id={@id}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={"#{@id}-title"}
+      aria-describedby={"#{@id}-description"}
       data-slot="dialog-content"
-      data-state="closed"
+      data-state={if @open, do: "open", else: "closed"}
       phx-hook="DialogAutoFocus"
       class={
         [
           # Base styles
-          "hidden fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2",
+          "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2",
           "gap-4 rounded-lg border border-border bg-background p-6 shadow-lg duration-200",
           # Animation classes
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -2641,6 +2680,8 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           # Max width
           "sm:max-w-lg",
+          # Hidden when not open
+          !@open && "hidden",
           # Custom classes
           @class
         ]
@@ -2652,7 +2693,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <%!-- Close button --%>
       <.close_button
         :if={@show_close_button}
-        phx-click={close_dialog(String.replace_suffix(@id, "-content", ""))}
+        phx-click={@close_action}
         class="absolute top-4 right-4"
       />
     </div>
@@ -2800,6 +2841,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       <.dialog_title class="text-destructive">Delete Account</.dialog_title>
 
   """
+  attr(:id, :string, default: nil, doc: "Optional ID for ARIA labelling. Auto-generated when used within dialog.")
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
@@ -2808,6 +2850,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   def dialog_title(assigns) do
     ~H"""
     <h2
+      id={@id}
       data-slot="dialog-title"
       class={["text-lg font-semibold leading-none text-foreground", @class]}
       {@rest}
@@ -2833,6 +2876,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
       </.dialog_description>
 
   """
+  attr(:id, :string, default: nil, doc: "Optional ID for ARIA description. Auto-generated when used within dialog.")
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
@@ -2841,6 +2885,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
   def dialog_description(assigns) do
     ~H"""
     <p
+      id={@id}
       data-slot="dialog-description"
       class={["text-sm text-muted-foreground", @class]}
       {@rest}
