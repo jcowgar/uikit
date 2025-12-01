@@ -9,17 +9,37 @@ defmodule UiKit.Components.Ui.Typography do
 
   ## Attributes
 
-  - `variant` - The semantic style of the text. Options:
+  - `variant` - The style of the text. Options:
+
+    Semantic variants:
     - `:h1` - Main heading
     - `:h2` - Section heading
     - `:h3` - Subsection heading
     - `:h4` - Minor heading
     - `:p` (or `:body`) - Standard body text
     - `:lead` - Large body text
-    - `:large` - Large text
-    - `:small` - Small text
-    - `:tiny` - Tiny text (9px, for labels/badges)
     - `:muted` - Muted text
+
+    Standard size scale (maps to Tailwind text sizes):
+    - `:xs` - Extra small (0.75rem)
+    - `:sm` - Small (0.875rem)
+    - `:md` - Medium/base (1rem)
+    - `:lg` - Large (1.125rem)
+    - `:xl` - Extra large (1.25rem)
+    - `:"2xl"` - 2x large (1.5rem)
+    - `:"3xl"` - 3x large (1.875rem)
+    - `:"4xl"` - 4x large (2.25rem)
+    - `:"5xl"` - 5x large (3rem)
+    - `:"6xl"` - 6x large (3.75rem)
+    - `:"7xl"` - 7x large (4.5rem)
+    - `:"8xl"` - 8x large (6rem)
+    - `:"9xl"` - 9x large (8rem)
+
+    Legacy (kept for compatibility):
+    - `:large` - Large text with semibold
+    - `:small` - Small text with medium weight
+    - `:tiny` - Tiny text (9px)
+
   - `element` - The HTML tag to use (e.g., "h1", "p", "span"). Defaults based on variant.
     When set to an inline element like "span" without a variant, no styling is applied
     (inherits from parent context).
@@ -31,11 +51,41 @@ defmodule UiKit.Components.Ui.Typography do
       <.typography variant={:h2}>Subtitle</.typography>
       <.typography variant={:p}>Body text...</.typography>
       <.typography variant={:muted} element="span">Muted label</.typography>
+      <.typography variant={:"6xl"} class="font-bold">Large number</.typography>
       <.typography element="span" class="text-primary">Inherits, plus custom class</.typography>
   """
   attr(:variant, :atom,
     default: nil,
-    values: [nil, :h1, :h2, :h3, :h4, :p, :body, :lead, :large, :small, :tiny, :muted]
+    values: [
+      nil,
+      # Semantic variants
+      :h1,
+      :h2,
+      :h3,
+      :h4,
+      :p,
+      :body,
+      :lead,
+      :muted,
+      # Legacy size variants (kept for compatibility)
+      :large,
+      :small,
+      :tiny,
+      # Standard size scale
+      :xs,
+      :sm,
+      :md,
+      :lg,
+      :xl,
+      :"2xl",
+      :"3xl",
+      :"4xl",
+      :"5xl",
+      :"6xl",
+      :"7xl",
+      :"8xl",
+      :"9xl"
+    ]
   )
 
   attr(:element, :string, default: nil)
@@ -94,6 +144,20 @@ defmodule UiKit.Components.Ui.Typography do
   defp default_element(:small), do: "small"
   defp default_element(:tiny), do: "span"
   defp default_element(:muted), do: "p"
+  # Standard size scale - use span for flexibility
+  defp default_element(:xs), do: "span"
+  defp default_element(:sm), do: "span"
+  defp default_element(:md), do: "span"
+  defp default_element(:lg), do: "span"
+  defp default_element(:xl), do: "span"
+  defp default_element(:"2xl"), do: "span"
+  defp default_element(:"3xl"), do: "span"
+  defp default_element(:"4xl"), do: "span"
+  defp default_element(:"5xl"), do: "span"
+  defp default_element(:"6xl"), do: "span"
+  defp default_element(:"7xl"), do: "span"
+  defp default_element(:"8xl"), do: "span"
+  defp default_element(:"9xl"), do: "span"
 
   defp variant_class(:h1), do: "text-heading-xl"
   defp variant_class(:h2), do: "text-heading-lg"
@@ -106,6 +170,20 @@ defmodule UiKit.Components.Ui.Typography do
   defp variant_class(:small), do: "text-body-sm font-medium leading-none"
   defp variant_class(:tiny), do: "text-[0.5625rem] font-normal leading-none"
   defp variant_class(:muted), do: "text-muted-text"
+  # Standard size scale - maps to Tailwind text sizes
+  defp variant_class(:xs), do: "text-xs"
+  defp variant_class(:sm), do: "text-sm"
+  defp variant_class(:md), do: "text-base"
+  defp variant_class(:lg), do: "text-lg"
+  defp variant_class(:xl), do: "text-xl"
+  defp variant_class(:"2xl"), do: "text-2xl"
+  defp variant_class(:"3xl"), do: "text-3xl"
+  defp variant_class(:"4xl"), do: "text-4xl"
+  defp variant_class(:"5xl"), do: "text-5xl"
+  defp variant_class(:"6xl"), do: "text-6xl"
+  defp variant_class(:"7xl"), do: "text-7xl"
+  defp variant_class(:"8xl"), do: "text-8xl"
+  defp variant_class(:"9xl"), do: "text-9xl"
 
   @doc """
   Renders a code block with syntax highlighting hints and optional features.
