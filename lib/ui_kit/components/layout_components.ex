@@ -228,6 +228,7 @@ defmodule UiKit.Components.LayoutComponents do
         5 -> "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         6 -> "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
         # Custom template string (e.g., "[1fr_auto_1fr]" -> "grid-cols-[1fr_auto_1fr]")
+        # Common patterns: grid-cols-[1fr_1fr] grid-cols-[1fr_1fr_1fr] grid-cols-[1fr_1fr_1fr_1fr] grid-cols-[1fr_2fr_1fr]
         template when is_binary(template) -> "grid-cols-#{template}"
         invalid -> raise ArgumentError, "invalid cols value: #{inspect(invalid)}. Expected 1-6 or a template string"
       end
@@ -538,12 +539,13 @@ defmodule UiKit.Components.LayoutComponents do
       </.section>
   """
   attr(:class, :string, default: nil, doc: "Additional CSS classes")
+  attr(:rest, :global)
   slot(:inner_block, required: true)
 
   @spec section(map()) :: Rendered.t()
   def section(assigns) do
     ~H"""
-    <section class={["w-full", @class]}>
+    <section class={["w-full", @class]} {@rest}>
       {render_slot(@inner_block)}
     </section>
     """
