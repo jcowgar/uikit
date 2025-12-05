@@ -3150,4 +3150,49 @@ defmodule UiKit.Components.Ui.FormInput do
     </div>
     """
   end
+
+  @doc """
+  Renders a simple form element for LiveView interactions.
+
+  A wrapper around the HTML `<form>` element that provides consistent
+  styling and passes through all Phoenix LiveView form attributes.
+  Use this for simple forms without changesets. For changeset-based forms,
+  use Phoenix's built-in `<.form>` component.
+
+  ## Attributes
+
+  - `class` - Additional CSS classes
+  - All global attributes including `phx-change`, `phx-submit`, etc.
+
+  ## Examples
+
+      <%!-- Simple LiveView form --%>
+      <.simple_form phx-change="validate" phx-submit="save">
+        <.input type="text" name="email" value={@email} />
+        <.button type="submit">Save</.button>
+      </.simple_form>
+
+      <%!-- Form with search input --%>
+      <.simple_form phx-change="search" phx-submit="go">
+        <.input_group>
+          <.input_group_input type="text" name="q" value={@query} />
+          <.input_group_button>
+            <.button type="submit">Search</.button>
+          </.input_group_button>
+        </.input_group>
+      </.simple_form>
+
+  """
+  attr(:class, :string, default: nil)
+  attr(:rest, :global, include: ~w(phx-change phx-submit phx-target autocomplete))
+  slot(:inner_block, required: true)
+
+  @spec simple_form(map()) :: Rendered.t()
+  def simple_form(assigns) do
+    ~H"""
+    <form class={@class} {@rest}>
+      {render_slot(@inner_block)}
+    </form>
+    """
+  end
 end
