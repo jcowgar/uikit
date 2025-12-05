@@ -400,10 +400,11 @@ defmodule UiKit.Components.Ui.FormInput do
   attr(:value, :string, default: nil)
   attr(:placeholder, :string, default: nil)
   attr(:class, :string, default: nil)
+  attr(:autofocus, :boolean, default: false, doc: "Focus input on mount (works with LiveView navigation)")
 
   attr(:rest, :global,
     include:
-      ~w(disabled required autocomplete readonly maxlength minlength pattern id aria-label aria-invalid aria-describedby form autofocus multiple accept)
+      ~w(disabled required autocomplete readonly maxlength minlength pattern id aria-label aria-invalid aria-describedby form multiple accept)
   )
 
   @spec input(map()) :: Rendered.t()
@@ -430,6 +431,7 @@ defmodule UiKit.Components.Ui.FormInput do
       value={@value}
       placeholder={@placeholder}
       autocomplete={@computed_autocomplete}
+      phx-mounted={@autofocus && Phoenix.LiveView.JS.focus()}
       data-slot="input"
       class={
         [
