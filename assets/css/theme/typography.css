@@ -24,33 +24,36 @@
 }
 
 /* Optional: Semantic utility classes for common typography patterns */
+/* Note: These do NOT set color - color should be controlled via separate classes
+   like text-foreground, text-primary-foreground, etc. This allows typography
+   to be used on any background color. */
 @layer utilities {
   .text-body-sm {
-    @apply text-sm text-foreground;
+    @apply text-sm;
   }
 
   .text-body {
-    @apply text-base text-foreground;
+    @apply text-base;
   }
 
   .text-body-lg {
-    @apply text-lg text-foreground;
+    @apply text-lg;
   }
 
   .text-heading-sm {
-    @apply text-lg font-semibold text-foreground;
+    @apply text-lg font-semibold;
   }
 
   .text-heading {
-    @apply text-xl font-semibold text-foreground;
+    @apply text-xl font-semibold;
   }
 
   .text-heading-lg {
-    @apply text-2xl font-bold text-foreground;
+    @apply text-2xl font-bold;
   }
 
   .text-heading-xl {
-    @apply text-3xl font-bold text-foreground;
+    @apply text-3xl font-bold;
   }
 
   .text-muted-text {
