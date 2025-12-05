@@ -550,4 +550,57 @@ defmodule UiKit.Components.LayoutComponents do
     </section>
     """
   end
+
+  @doc """
+  Full-bleed section with edge-to-edge background and centered content.
+
+  Combines a full-width background wrapper with a centered container inside.
+  This is the standard pattern for marketing pages with alternating
+  background colors that extend to screen edges.
+
+  ## Examples
+
+      # Gradient background hero
+      <.full_bleed class="bg-gradient-to-b from-primary/5 to-background">
+        <.section class="py-20">
+          Hero content here
+        </.section>
+      </.full_bleed>
+
+      # Muted background section
+      <.full_bleed class="bg-muted/50">
+        <.section class="py-16">
+          Feature cards here
+        </.section>
+      </.full_bleed>
+
+      # Primary colored CTA
+      <.full_bleed class="bg-primary">
+        <.section class="py-12">
+          <.typography class="text-primary-foreground">
+            Call to action
+          </.typography>
+        </.section>
+      </.full_bleed>
+
+      # With custom container max-width
+      <.full_bleed class="bg-muted" max_width="5xl">
+        Narrower centered content
+      </.full_bleed>
+  """
+  attr(:class, :string, default: nil, doc: "CSS classes for the outer wrapper (backgrounds, etc.)")
+  attr(:max_width, :string, default: "7xl", doc: "Max width for the inner container")
+  attr(:rest, :global)
+  slot(:inner_block, required: true)
+
+  @spec full_bleed(map()) :: Rendered.t()
+  def full_bleed(assigns) do
+    ~H"""
+    <div class={["w-full", @class]} {@rest}>
+      <.container max_width={@max_width} py="none">
+        {render_slot(@inner_block)}
+      </.container>
+    </div>
+    """
+  end
 end
