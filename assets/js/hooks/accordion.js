@@ -7,7 +7,14 @@
 export default {
   mounted() {
     this.type = this.el.dataset.type || 'single'
+    this.defaultValues = this.parseDefaultValues()
     this.setupAccordion()
+  },
+
+  parseDefaultValues() {
+    const defaultValue = this.el.dataset.defaultValue
+    if (!defaultValue) return []
+    return defaultValue.split(',').map(v => v.trim())
   },
 
   setupAccordion() {
@@ -40,11 +47,17 @@ export default {
 
       trigger.id = triggerId
       trigger.setAttribute('aria-controls', contentId)
-      trigger.setAttribute('aria-expanded', 'false')
 
       content.id = contentId
       content.setAttribute('role', 'region')
       content.setAttribute('aria-labelledby', triggerId)
+
+      // Open by default if value is in defaultValues
+      if (this.defaultValues.includes(item.dataset.value)) {
+        this.openItem(trigger, content, true)
+      } else {
+        trigger.setAttribute('aria-expanded', 'false')
+      }
     })
   },
 
@@ -68,23 +81,36 @@ export default {
     if (isOpen) {
       this.closeItem(trigger, content)
     } else {
-      this.openItem(trigger, content)
+      this.openItem(trigger, content, false)
     }
   },
 
-  openItem(trigger, content) {
+  openItem(trigger, content, skipAnimation = false) {
     trigger.dataset.state = 'open'
     trigger.setAttribute('aria-expanded', 'true')
     content.dataset.state = 'open'
 
-    // Force reflow to ensure animation runs
-    content.offsetHeight
+    // Temporarily remove max-height constraint to measure true height
+    const previousMaxHeight = content.style.maxHeight
+    content.style.maxHeight = 'none'
+    const scrollHeight = content.scrollHeight
 
-    // Trigger animation
-    requestAnimationFrame(() => {
-      content.style.maxHeight = content.scrollHeight + 'px'
+    if (skipAnimation) {
+      // Set directly without animation for initial state
+      content.style.maxHeight = scrollHeight + 'px'
       content.style.opacity = '1'
-    })
+    } else {
+      content.style.maxHeight = previousMaxHeight
+
+      // Force reflow to ensure animation runs
+      content.offsetHeight
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        content.style.maxHeight = scrollHeight + 'px'
+        content.style.opacity = '1'
+      })
+    }
   },
 
   closeItem(trigger, content) {

@@ -2367,18 +2367,27 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
   """
   attr(:id, :string, required: true, doc: "Unique identifier for the accordion")
   attr(:type, :string, default: "single", values: ~w(single multiple), doc: "Accordion type")
+  attr(:default_value, :any, default: nil, doc: "Value(s) of items to open by default. String for single, list for multiple.")
   attr(:class, :string, default: nil, doc: "Additional CSS classes")
   attr(:rest, :global, doc: "Additional HTML attributes")
   slot(:inner_block, required: true, doc: "Accordion items")
 
   @spec accordion(map()) :: Rendered.t()
   def accordion(assigns) do
+    default_value = case assigns.default_value do
+      nil -> nil
+      list when is_list(list) -> Enum.join(list, ",")
+      value -> value
+    end
+    assigns = assign(assigns, :default_value_str, default_value)
+
     ~H"""
     <div
       id={@id}
       phx-hook="Accordion"
       data-slot="accordion"
       data-type={@type}
+      data-default-value={@default_value_str}
       class={@class}
       {@rest}
     >
