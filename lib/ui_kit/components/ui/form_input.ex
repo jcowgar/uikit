@@ -75,7 +75,7 @@ defmodule UiKit.Components.Ui.FormInput do
     values: ~w(default destructive outline secondary ghost link unstyled)
   )
 
-  attr(:size, :string, default: "default", values: ~w(default sm lg icon icon-sm icon-lg))
+  attr(:size, :string, default: "default", values: ~w(default xs sm lg icon icon-xs icon-sm icon-lg))
   attr(:class, :any, default: nil, doc: "Additional CSS classes (string or list)")
 
   attr(:rest, :global,
@@ -152,9 +152,11 @@ defmodule UiKit.Components.Ui.FormInput do
   defp button_variant("link"), do: "text-primary underline-offset-4 hover:underline"
 
   defp button_size("default"), do: "h-9 px-4 py-2 has-[>svg]:px-3"
+  defp button_size("xs"), do: "h-7 rounded-md gap-1 px-2.5 text-xs has-[>svg]:px-2"
   defp button_size("sm"), do: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5"
   defp button_size("lg"), do: "h-10 rounded-md px-6 has-[>svg]:px-4"
   defp button_size("icon"), do: "size-9"
+  defp button_size("icon-xs"), do: "size-7"
   defp button_size("icon-sm"), do: "size-8"
   defp button_size("icon-lg"), do: "size-10"
 
