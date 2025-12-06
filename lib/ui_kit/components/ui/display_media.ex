@@ -102,6 +102,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
 
   """
   attr(:navigate, :string, default: nil, doc: "Navigation path - makes card clickable with hover effects")
+  attr(:gap, :string, default: "lg", doc: "Gap between card sections: none, xs, sm, md, lg, xl")
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
@@ -114,7 +115,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
         <.flex
           direction="col"
           items="stretch"
-          gap="lg"
+          gap={@gap}
           class={[
             "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
             "transition-all hover:scale-[1.02] hover:shadow-md cursor-pointer",
@@ -129,7 +130,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
       <.flex
         direction="col"
         items="stretch"
-        gap="lg"
+        gap={@gap}
         class={[
           "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
           @class
