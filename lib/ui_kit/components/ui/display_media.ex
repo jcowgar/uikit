@@ -147,6 +147,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   Renders a card header section.
 
   Contains the card title, description, and optional action element.
+  Automatically adjusts grid rows based on whether a description is present.
   """
   attr(:class, :string, default: nil)
   attr(:rest, :global)
@@ -157,7 +158,8 @@ defmodule UiKit.Components.Ui.DisplayMedia do
     ~H"""
     <div
       class={[
-        "grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6",
+        "grid auto-rows-min items-start gap-2 px-6",
+        "has-[[data-card-description]]:grid-rows-[auto_auto]",
         "has-[[data-card-action]]:grid-cols-[1fr_auto]",
         @class
       ]}
@@ -198,7 +200,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec card_description(map()) :: Rendered.t()
   def card_description(assigns) do
     ~H"""
-    <div class={["text-muted-foreground text-sm", @class]} {@rest}>
+    <div data-card-description class={["text-muted-foreground text-sm", @class]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
