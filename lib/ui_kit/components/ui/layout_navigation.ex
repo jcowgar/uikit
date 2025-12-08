@@ -509,6 +509,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       id={@id}
       phx-hook="Sidebar"
       data-slot="sidebar-wrapper"
+      data-state={if @default_open, do: "expanded", else: "collapsed"}
       style={@style_list}
       class={[
         "group/sidebar-wrapper flex w-full h-svh max-h-svh",
