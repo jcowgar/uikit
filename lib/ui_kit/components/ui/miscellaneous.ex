@@ -253,6 +253,7 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       data-variant={@variant}
       data-size={@size}
       data-spacing={@spacing}
+      data-on-value-change={@on_value_change}
       phx-hook={if @on_value_change, do: "ToggleGroup", else: nil}
       gap="none"
       class={[
@@ -355,8 +356,6 @@ defmodule UiKit.Components.Ui.Miscellaneous do
       aria-label={@aria_label}
       aria-pressed={to_string(@is_selected)}
       disabled={@is_disabled}
-      phx-click={if @on_value_change, do: @on_value_change}
-      phx-value-item={@value}
       class={[
         toggle_item_base_classes(),
         toggle_item_variant_classes(@parent_variant),

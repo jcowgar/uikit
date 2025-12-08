@@ -1,12 +1,15 @@
 /**
  * ToggleGroup Hook
  *
- * Manages client-side state for toggle groups when on_value_change is used.
+ * Manages toggle groups with server-side state.
  * Handles single and multiple selection modes.
+ * Pushes events to the server when values change.
+ * Server controls the selected state - client only sends events.
  */
 export const ToggleGroup = {
   mounted() {
     this.type = this.el.dataset.type || 'single'
+    this.eventName = this.el.dataset.onValueChange
 
     // Handle clicks on toggle group items
     this.handleClick = (e) => {
@@ -16,36 +19,21 @@ export const ToggleGroup = {
       const value = item.dataset.value
       if (!value) return
 
-      // Get currently selected values
-      const selectedItems = this.el.querySelectorAll('[data-slot="toggle-group-item"][data-state="on"]')
-      let selectedValues = Array.from(selectedItems).map(el => el.dataset.value)
-
-      if (this.type === 'single') {
-        // Single selection: toggle between this value and empty
-        selectedValues = selectedValues.includes(value) ? [] : [value]
-      } else {
-        // Multiple selection: toggle this value in/out of the list
-        if (selectedValues.includes(value)) {
-          selectedValues = selectedValues.filter(v => v !== value)
-        } else {
-          selectedValues.push(value)
-        }
+      // For single type, don't do anything if already selected
+      if (this.type === 'single' && item.dataset.state === 'on') {
+        return
       }
 
-      // Update visual state
-      this.updateState(selectedValues)
+      // Push event to server - let server control the state
+      if (this.eventName) {
+        const payload = this.type === 'single'
+          ? { value: value }
+          : { value: value, current_state: item.dataset.state }
+        this.pushEvent(this.eventName, payload)
+      }
     }
 
     this.el.addEventListener('click', this.handleClick)
-  },
-
-  updateState(selectedValues) {
-    const items = this.el.querySelectorAll('[data-slot="toggle-group-item"]')
-    items.forEach(item => {
-      const isSelected = selectedValues.includes(item.dataset.value)
-      item.dataset.state = isSelected ? 'on' : 'off'
-      item.setAttribute('aria-pressed', isSelected)
-    })
   },
 
   destroyed() {
