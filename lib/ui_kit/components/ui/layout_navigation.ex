@@ -480,10 +480,11 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       </.sidebar_provider>
 
   """
+  attr(:id, :string, default: nil, doc: "Unique identifier for the sidebar provider")
   attr(:default_open, :boolean, default: true)
   attr(:class, :string, default: nil)
   attr(:style, :string, default: nil)
-  attr(:rest, :global, include: ~w(id))
+  attr(:rest, :global)
   slot(:inner_block, required: true)
 
   @spec sidebar_provider(map()) :: Rendered.t()
@@ -493,10 +494,15 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       ["--sidebar-width: 16rem;", "--sidebar-width-icon: 3.5rem;"] ++
         if assigns.style, do: [assigns.style], else: []
 
+    # Only generate a dynamic ID if no explicit ID was provided.
+    # Using a stable ID is important for LiveView's morphdom to correctly
+    # identify the element across renders and preserve scroll position.
+    id = assigns.id || "sidebar-#{System.unique_integer([:positive])}"
+
     assigns =
       assigns
       |> assign(:style_list, style_list)
-      |> assign_new(:id, fn -> "sidebar-#{System.unique_integer([:positive])}" end)
+      |> assign(:id, id)
 
     ~H"""
     <div
