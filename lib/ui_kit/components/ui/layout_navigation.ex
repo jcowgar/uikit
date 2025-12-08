@@ -864,7 +864,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="sidebar-header"
       data-sidebar="header"
       class={[
-        "flex flex-col h-16 p-2 gap-2 border-b border-border transition-[height] ease-linear",
+        "flex flex-col justify-center h-16 p-2 gap-2 border-b border-border transition-[height] ease-linear",
         "group-has-data-[collapsible=icon]/sidebar-wrapper:h-12",
         @class
       ]}
