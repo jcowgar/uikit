@@ -1637,7 +1637,7 @@ defmodule UiKit.Components.Ui.OverlaysDialogs do
     <div
       id={@id}
       data-slot="sheet"
-      class={["inline-block", @class]}
+      class={["contents", @class]}
       phx-click-away={close_sheet(@id, get_sheet_side(@content))}
       {@rest}
     >
