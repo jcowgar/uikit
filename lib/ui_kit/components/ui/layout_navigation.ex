@@ -2245,7 +2245,7 @@ defmodule UiKit.Components.Ui.LayoutNavigation do
       data-slot="tab-bar"
       data-active-path={@active_path}
       class={[
-        "fixed inset-x-0 bottom-0 z-40 block bg-background shadow-md md:hidden h-16",
+        "shrink-0 bg-background shadow-md h-16",
         "flex items-stretch justify-around border-t border-border",
         @class
       ]}
