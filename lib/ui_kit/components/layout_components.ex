@@ -365,7 +365,7 @@ defmodule UiKit.Components.LayoutComponents do
   defp flex_items("stretch"), do: "items-stretch"
   defp flex_items("baseline"), do: "items-baseline"
 
-  defp flex_gap("none"), do: nil
+  defp flex_gap("none"), do: "gap-0"
   defp flex_gap("xs"), do: "gap-1"
   defp flex_gap("sm"), do: "gap-2"
   defp flex_gap("default"), do: "gap-3"

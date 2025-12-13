@@ -177,6 +177,222 @@ defmodule DemoWeb.Ui.CardLive do
             </.card_content>
           </.card>
         </section>
+
+        <%!-- Card Badge Section --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Card Badge</h2>
+          <p class="text-muted-foreground mb-6">
+            Corner badges for status indicators, labels, and metadata.
+          </p>
+
+          <.grid cols={2} class="max-w-4xl">
+            <%!-- Single badge --%>
+            <.card auto_badge_padding={false}>
+              <.card_badge>
+                <:top_right variant="success">NEW</:top_right>
+              </.card_badge>
+              <.card_header>
+                <.card_title>Single Badge</.card_title>
+                <.card_description>Top-right with success variant</.card_description>
+              </.card_header>
+              <.card_content>
+                <p class="text-sm text-muted-foreground">
+                  A single badge in the top-right corner.
+                </p>
+              </.card_content>
+            </.card>
+
+            <%!-- Multiple badges horizontal --%>
+            <.card auto_badge_padding={false}>
+              <.card_badge>
+                <:top_right variant="muted">
+                  <.icon name="hero-star-solid" class="size-3.5" />
+                </:top_right>
+                <:top_right variant="success">SL 5</:top_right>
+              </.card_badge>
+              <.card_header>
+                <.card_title>Multiple Badges (Horizontal)</.card_title>
+                <.card_description>Like the player card pattern</.card_description>
+              </.card_header>
+              <.card_content>
+                <p class="text-sm text-muted-foreground">
+                  Multiple badges stack horizontally by default.
+                </p>
+              </.card_content>
+            </.card>
+
+            <%!-- Multiple badges vertical --%>
+            <.card auto_badge_padding={false}>
+              <.card_badge>
+                <:top_right variant="muted" direction="vertical">
+                  <.icon name="hero-star-solid" class="size-3.5" />
+                </:top_right>
+                <:top_right variant="success" direction="vertical">SL 5</:top_right>
+              </.card_badge>
+              <.card_header>
+                <.card_title>Vertical Stacking</.card_title>
+                <.card_description>Badges stack downward</.card_description>
+              </.card_header>
+              <.card_content>
+                <p class="text-sm text-muted-foreground">
+                  Use direction="vertical" for column layout.
+                </p>
+              </.card_content>
+            </.card>
+
+            <%!-- All corners --%>
+            <.card>
+              <.card_badge>
+                <:top_left variant="warning">DRAFT</:top_left>
+                <:top_right variant="success">$99</:top_right>
+                <:bottom_left variant="primary">Featured</:bottom_left>
+                <:bottom_right variant="muted">v2.1</:bottom_right>
+              </.card_badge>
+              <.card_header>
+                <.card_title>All Four Corners</.card_title>
+                <.card_description>Badges in every position</.card_description>
+              </.card_header>
+              <.card_content>
+                <p class="text-sm text-muted-foreground">
+                  Each corner can have its own badge(s).
+                </p>
+              </.card_content>
+            </.card>
+
+            <%!-- Variant showcase --%>
+            <.card class="col-span-2">
+              <.card_badge>
+                <:top_left variant="default">Default</:top_left>
+                <:top_left variant="primary">Primary</:top_left>
+                <:top_right variant="success">Success</:top_right>
+                <:top_right variant="warning">Warning</:top_right>
+                <:top_right variant="destructive">Destructive</:top_right>
+              </.card_badge>
+              <.card_header>
+                <.card_title>Badge Variants</.card_title>
+                <.card_description>All available color variants</.card_description>
+              </.card_header>
+              <.card_content>
+                <p class="text-sm text-muted-foreground">
+                  Variants: default, primary, success, warning, destructive
+                </p>
+              </.card_content>
+            </.card>
+          </.grid>
+        </section>
+
+        <%!-- Card Status Section --%>
+        <section>
+          <h2 class="text-xl font-semibold text-foreground mb-4">Card Status</h2>
+          <p class="text-muted-foreground mb-6">
+            A status bar at the bottom of a card with left/center/right layout.
+          </p>
+
+          <.grid cols={2} class="max-w-4xl">
+            <%!-- Simple left/right --%>
+            <.card gap="none">
+              <.card_header>
+                <.card_title>Simple Status</.card_title>
+                <.card_description>Left and right content</.card_description>
+              </.card_header>
+              <.card_content class="pb-4">
+                <p class="text-sm text-muted-foreground">
+                  Basic status bar with left/right layout.
+                </p>
+              </.card_content>
+              <.card_status>
+                <:left>
+                  <.icon name="hero-map-pin" class="size-3.5" />
+                  <span>Corner Pocket</span>
+                </:left>
+                <:right>12 hours ago</:right>
+              </.card_status>
+            </.card>
+
+            <%!-- With actions --%>
+            <.card gap="none">
+              <.card_header>
+                <.card_title>With Actions</.card_title>
+                <.card_description>Action buttons on the left</.card_description>
+              </.card_header>
+              <.card_content class="pb-4">
+                <p class="text-sm text-muted-foreground">
+                  Actions are separated with a border.
+                </p>
+              </.card_content>
+              <.card_status>
+                <:actions>
+                  <.button variant="ghost" size="icon-xs" aria-label="Send invite">
+                    <.icon name="hero-paper-airplane" class="size-4" />
+                  </.button>
+                  <.button variant="ghost" size="icon-xs" aria-label="More options">
+                    <.icon name="hero-ellipsis-horizontal" class="size-4" />
+                  </.button>
+                </:actions>
+                <:left>
+                  <.icon name="hero-map-pin" class="size-3.5" />
+                  <span>Billiards Club</span>
+                </:left>
+                <:right>Just now</:right>
+              </.card_status>
+            </.card>
+
+            <%!-- With center content --%>
+            <.card gap="none">
+              <.card_header>
+                <.card_title>With Center</.card_title>
+                <.card_description>Three-column layout</.card_description>
+              </.card_header>
+              <.card_content class="pb-4">
+                <p class="text-sm text-muted-foreground">
+                  Left, center, and right sections.
+                </p>
+              </.card_content>
+              <.card_status>
+                <:left>
+                  <.icon name="hero-user" class="size-3.5" />
+                  <span>4 players</span>
+                </:left>
+                <:center>
+                  <.icon name="hero-clock" class="size-3.5" />
+                  <span>In Progress</span>
+                </:center>
+                <:right>Round 2/5</:right>
+              </.card_status>
+            </.card>
+
+            <%!-- Combined with badge --%>
+            <.card gap="none">
+              <.card_badge>
+                <:top_right variant="muted">
+                  <.icon name="hero-star-solid" class="size-3.5" />
+                </:top_right>
+                <:top_right variant="success">SL 5</:top_right>
+              </.card_badge>
+              <.card_header>
+                <.card_title>Badge + Status</.card_title>
+                <.card_description>Both components together</.card_description>
+              </.card_header>
+              <.card_content class="pb-4">
+                <p class="text-sm text-muted-foreground">
+                  Combining badge and status bar.
+                </p>
+              </.card_content>
+              <.card_status>
+                <:actions>
+                  <.button variant="ghost" size="icon-xs" aria-label="Edit">
+                    <.icon name="hero-pencil" class="size-4" />
+                  </.button>
+                </:actions>
+                <:left>
+                  <.icon name="hero-trophy" class="size-3.5" />
+                  <span>8-Ball</span>
+                </:left>
+                <:right>Active</:right>
+              </.card_status>
+            </.card>
+          </.grid>
+        </section>
       </.stack>
     </.container>
     """

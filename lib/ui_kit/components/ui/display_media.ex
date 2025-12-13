@@ -103,12 +103,44 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   """
   attr(:navigate, :string, default: nil, doc: "Navigation path - makes card clickable with hover effects")
   attr(:gap, :string, default: "lg", doc: "Gap between card sections: none, xs, sm, md, lg, xl")
+
+  attr(:auto_badge_padding, :boolean,
+    default: true,
+    doc: "Auto-add padding when card_badge is present. Disable when card content is designed to accommodate badges."
+  )
+
   attr(:class, :string, default: nil)
   attr(:rest, :global)
   slot(:inner_block, required: true)
 
   @spec card(map()) :: Rendered.t()
   def card(assigns) do
+    # Base card styles
+    base_classes = [
+      "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
+      # Remove bottom padding when card_status is present (it goes edge-to-edge)
+      "has-[[data-slot=card-status]]:pb-0"
+    ]
+
+    # Auto-padding when card_badge is present using :has() selectors
+    # Note: Using hyphens not underscores because Tailwind converts _ to space
+    badge_padding_classes =
+      if assigns.auto_badge_padding do
+        [
+          # Add top padding when top badges exist
+          "has-[[data-slot=card-badge-top-left]]:pt-10",
+          "has-[[data-slot=card-badge-top-right]]:pt-10",
+          # Add bottom padding when bottom badges exist
+          "has-[[data-slot=card-badge-bottom-left]]:pb-10",
+          "has-[[data-slot=card-badge-bottom-right]]:pb-10"
+        ]
+      else
+        []
+      end
+
+    assigns = assign(assigns, :base_classes, base_classes)
+    assigns = assign(assigns, :badge_padding_classes, badge_padding_classes)
+
     ~H"""
     <%= if @navigate do %>
       <Phoenix.Component.link navigate={@navigate} class="block">
@@ -117,7 +149,8 @@ defmodule UiKit.Components.Ui.DisplayMedia do
           items="stretch"
           gap={@gap}
           class={[
-            "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
+            @base_classes,
+            @badge_padding_classes,
             "transition-all hover:scale-[1.02] hover:shadow-md cursor-pointer",
             @class
           ]}
@@ -132,7 +165,8 @@ defmodule UiKit.Components.Ui.DisplayMedia do
         items="stretch"
         gap={@gap}
         class={[
-          "relative bg-card text-card-foreground rounded-xl border border-border py-6 shadow-sm",
+          @base_classes,
+          @badge_padding_classes,
           @class
         ]}
         {@rest}
@@ -157,6 +191,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   def card_header(assigns) do
     ~H"""
     <div
+      data-slot="card-header"
       class={[
         "grid auto-rows-min items-start gap-2 px-6",
         "has-[[data-card-description]]:grid-rows-[auto_auto]",
@@ -242,7 +277,7 @@ defmodule UiKit.Components.Ui.DisplayMedia do
   @spec card_content(map()) :: Rendered.t()
   def card_content(assigns) do
     ~H"""
-    <div class={["px-6", @class]} {@rest}>
+    <div data-slot="card-content" class={["px-6", @class]} {@rest}>
       {render_slot(@inner_block)}
     </div>
     """
@@ -263,6 +298,357 @@ defmodule UiKit.Components.Ui.DisplayMedia do
     <.flex class={["px-6", @class]} {@rest}>
       {render_slot(@inner_block)}
     </.flex>
+    """
+  end
+
+  @doc """
+  Renders corner badges on a card.
+
+  Displays badges in any of the four corners of a card. Multiple badges in the
+  same corner stack horizontally or vertically based on the direction attribute.
+
+  Must be used inside a card component (which has `relative` positioning).
+
+  ## Examples
+
+      <%!-- Single badge in top-right --%>
+      <.card>
+        <.card_badge>
+          <:top_right variant="success">NEW</:top_right>
+        </.card_badge>
+        <.card_content>...</.card_content>
+      </.card>
+
+      <%!-- Multiple badges stacking horizontally --%>
+      <.card>
+        <.card_badge>
+          <:top_right variant="muted">
+            <.icon name="hero-star-solid" class="size-3.5" />
+          </:top_right>
+          <:top_right variant="success">SL 5</:top_right>
+        </.card_badge>
+        <.card_content>...</.card_content>
+      </.card>
+
+      <%!-- Badges in multiple corners --%>
+      <.card>
+        <.card_badge>
+          <:top_left variant="warning">DRAFT</:top_left>
+          <:top_right variant="success">$99</:top_right>
+          <:bottom_right variant="muted">v2.1</:bottom_right>
+        </.card_badge>
+        <.card_content>...</.card_content>
+      </.card>
+
+      <%!-- Vertical stacking --%>
+      <.card>
+        <.card_badge>
+          <:top_right variant="muted" direction="vertical">★</:top_right>
+          <:top_right variant="success" direction="vertical">SL 5</:top_right>
+        </.card_badge>
+        <.card_content>...</.card_content>
+      </.card>
+
+  """
+  slot :top_left, doc: "Badges in the top-left corner" do
+    attr :variant, :string, doc: "Color variant: default, success, warning, destructive, primary"
+    attr :direction, :string, doc: "Stack direction: horizontal (default) or vertical"
+  end
+
+  slot :top_right, doc: "Badges in the top-right corner" do
+    attr :variant, :string, doc: "Color variant: default, success, warning, destructive, primary"
+    attr :direction, :string, doc: "Stack direction: horizontal (default) or vertical"
+  end
+
+  slot :bottom_left, doc: "Badges in the bottom-left corner" do
+    attr :variant, :string, doc: "Color variant: default, success, warning, destructive, primary"
+    attr :direction, :string, doc: "Stack direction: horizontal (default) or vertical"
+  end
+
+  slot :bottom_right, doc: "Badges in the bottom-right corner" do
+    attr :variant, :string, doc: "Color variant: default, success, warning, destructive, primary"
+    attr :direction, :string, doc: "Stack direction: horizontal (default) or vertical"
+  end
+
+  @spec card_badge(map()) :: Rendered.t()
+  def card_badge(assigns) do
+    ~H"""
+    <.card_badge_corner
+      :if={@top_left != []}
+      corner={:top_left}
+      badges={@top_left}
+    />
+    <.card_badge_corner
+      :if={@top_right != []}
+      corner={:top_right}
+      badges={@top_right}
+    />
+    <.card_badge_corner
+      :if={@bottom_left != []}
+      corner={:bottom_left}
+      badges={@bottom_left}
+    />
+    <.card_badge_corner
+      :if={@bottom_right != []}
+      corner={:bottom_right}
+      badges={@bottom_right}
+    />
+    """
+  end
+
+  # Renders a group of badges in a specific corner
+  attr :corner, :atom, required: true
+  attr :badges, :list, required: true
+
+  defp card_badge_corner(assigns) do
+    direction = get_badge_direction(assigns.badges)
+    badges = prepare_badges(assigns.badges, assigns.corner, direction)
+
+    assigns =
+      assigns
+      |> assign(:direction, direction)
+      |> assign(:prepared_badges, badges)
+
+    ~H"""
+    <div
+      data-slot={"card-badge-#{corner_to_slug(@corner)}"}
+      class={[
+        "absolute z-10 flex",
+        corner_position_class(@corner),
+        if(@direction == "vertical", do: "flex-col", else: "flex-row")
+      ]}
+    >
+      <div
+        :for={badge <- @prepared_badges}
+        class={[
+          "px-2 py-1 text-xs font-medium flex items-center gap-1",
+          badge.variant_class,
+          badge.border_class,
+          badge.radius_class
+        ]}
+      >
+        {render_slot(badge.slot)}
+      </div>
+    </div>
+    """
+  end
+
+  # Get direction from first badge (all badges in a corner share the same direction)
+  defp get_badge_direction([first | _]), do: Map.get(first, :direction, "horizontal")
+  defp get_badge_direction([]), do: "horizontal"
+
+  # Prepare badges with computed classes for borders and radius
+  defp prepare_badges(badges, corner, direction) do
+    total = length(badges)
+
+    badges
+    |> Enum.with_index()
+    |> Enum.map(fn {badge, index} ->
+      is_first = index == 0
+      is_last = index == total - 1
+
+      %{
+        slot: badge,
+        variant_class: badge_variant_class(Map.get(badge, :variant, "default")),
+        border_class: badge_border_class(corner, direction, is_first, is_last, total),
+        radius_class: badge_radius_class(corner, direction, is_first, is_last, total)
+      }
+    end)
+  end
+
+  # Position classes for each corner
+  defp corner_position_class(:top_left), do: "top-0 left-0"
+  defp corner_position_class(:top_right), do: "top-0 right-0"
+  defp corner_position_class(:bottom_left), do: "bottom-0 left-0"
+  defp corner_position_class(:bottom_right), do: "bottom-0 right-0"
+
+  # Convert corner atom to hyphenated slug for data attributes
+  # (Tailwind converts underscores to spaces, so we use hyphens)
+  defp corner_to_slug(:top_left), do: "top-left"
+  defp corner_to_slug(:top_right), do: "top-right"
+  defp corner_to_slug(:bottom_left), do: "bottom-left"
+  defp corner_to_slug(:bottom_right), do: "bottom-right"
+
+  # Variant color classes
+  defp badge_variant_class("success"), do: "bg-success/70 text-success-foreground"
+  defp badge_variant_class("warning"), do: "bg-warning/70 text-warning-foreground"
+  defp badge_variant_class("destructive"), do: "bg-destructive text-destructive-foreground"
+  defp badge_variant_class("primary"), do: "bg-primary text-primary-foreground"
+  defp badge_variant_class(_default), do: "bg-muted text-muted-foreground"
+
+  # Border classes based on corner, direction, and position
+  # The outer badge (first) gets the full border, inner badges only get connecting borders
+  defp badge_border_class(corner, direction, is_first, is_last, total)
+
+  # Single badge - gets all inner borders
+  defp badge_border_class(:top_left, _dir, true, true, 1), do: "border-r border-b border-border"
+  defp badge_border_class(:top_right, _dir, true, true, 1), do: "border-l border-b border-border"
+  defp badge_border_class(:bottom_left, _dir, true, true, 1), do: "border-r border-t border-border"
+  defp badge_border_class(:bottom_right, _dir, true, true, 1), do: "border-l border-t border-border"
+
+  # Multiple badges - horizontal
+  defp badge_border_class(:top_left, "horizontal", true, false, _), do: "border-r border-b border-border"
+  defp badge_border_class(:top_left, "horizontal", false, true, _), do: "border-b border-border"
+  defp badge_border_class(:top_left, "horizontal", false, false, _), do: "border-r border-b border-border"
+
+  defp badge_border_class(:top_right, "horizontal", true, false, _), do: "border-b border-border"
+  defp badge_border_class(:top_right, "horizontal", false, true, _), do: "border-l border-b border-border"
+  defp badge_border_class(:top_right, "horizontal", false, false, _), do: "border-b border-border"
+
+  defp badge_border_class(:bottom_left, "horizontal", true, false, _), do: "border-r border-t border-border"
+  defp badge_border_class(:bottom_left, "horizontal", false, true, _), do: "border-t border-border"
+  defp badge_border_class(:bottom_left, "horizontal", false, false, _), do: "border-r border-t border-border"
+
+  defp badge_border_class(:bottom_right, "horizontal", true, false, _), do: "border-t border-border"
+  defp badge_border_class(:bottom_right, "horizontal", false, true, _), do: "border-l border-t border-border"
+  defp badge_border_class(:bottom_right, "horizontal", false, false, _), do: "border-t border-border"
+
+  # Multiple badges - vertical
+  defp badge_border_class(:top_left, "vertical", true, false, _), do: "border-r border-b border-border"
+  defp badge_border_class(:top_left, "vertical", false, true, _), do: "border-r border-border"
+  defp badge_border_class(:top_left, "vertical", false, false, _), do: "border-r border-b border-border"
+
+  defp badge_border_class(:top_right, "vertical", true, false, _), do: "border-l border-b border-border"
+  defp badge_border_class(:top_right, "vertical", false, true, _), do: "border-l border-border"
+  defp badge_border_class(:top_right, "vertical", false, false, _), do: "border-l border-b border-border"
+
+  defp badge_border_class(:bottom_left, "vertical", true, false, _), do: "border-r border-border"
+  defp badge_border_class(:bottom_left, "vertical", false, true, _), do: "border-r border-t border-border"
+  defp badge_border_class(:bottom_left, "vertical", false, false, _), do: "border-r border-border"
+
+  defp badge_border_class(:bottom_right, "vertical", true, false, _), do: "border-l border-border"
+  defp badge_border_class(:bottom_right, "vertical", false, true, _), do: "border-l border-t border-border"
+  defp badge_border_class(:bottom_right, "vertical", false, false, _), do: "border-l border-border"
+
+  # Corner radius classes for badges
+  # - Inner radius: the corner pointing into the card (rounded-br-lg for top-left, etc.)
+  # - Outer radius: the corner at the card edge, matching card's rounded-xl
+  defp badge_radius_class(corner, direction, is_first, is_last, total)
+
+  # Single badge - gets both inner corner radius AND outer corner to match card
+  defp badge_radius_class(:top_left, _dir, true, true, 1), do: "rounded-tl-xl rounded-br-lg"
+  defp badge_radius_class(:top_right, _dir, true, true, 1), do: "rounded-tr-xl rounded-bl-lg"
+  defp badge_radius_class(:bottom_left, _dir, true, true, 1), do: "rounded-bl-xl rounded-tr-lg"
+  defp badge_radius_class(:bottom_right, _dir, true, true, 1), do: "rounded-br-xl rounded-tl-lg"
+
+  # Multiple badges - horizontal
+  # Left corners: first badge is AT corner, last is away
+  # Right corners: first badge is AWAY from corner, last is at corner
+  defp badge_radius_class(:top_left, "horizontal", true, false, _), do: "rounded-tl-xl"
+  defp badge_radius_class(:top_left, "horizontal", false, true, _), do: "rounded-br-lg"
+  defp badge_radius_class(:top_right, "horizontal", true, false, _), do: "rounded-bl-lg"
+  defp badge_radius_class(:top_right, "horizontal", false, true, _), do: "rounded-tr-xl"
+  defp badge_radius_class(:bottom_left, "horizontal", true, false, _), do: "rounded-bl-xl"
+  defp badge_radius_class(:bottom_left, "horizontal", false, true, _), do: "rounded-tr-lg"
+  defp badge_radius_class(:bottom_right, "horizontal", true, false, _), do: "rounded-tl-lg"
+  defp badge_radius_class(:bottom_right, "horizontal", false, true, _), do: "rounded-br-xl"
+
+  # Multiple badges - vertical
+  # First badge (at corner for top, away for bottom) and last badge logic
+  defp badge_radius_class(:top_left, "vertical", true, false, _), do: "rounded-tl-xl"
+  defp badge_radius_class(:top_left, "vertical", false, true, _), do: "rounded-br-lg"
+  defp badge_radius_class(:top_right, "vertical", true, false, _), do: "rounded-tr-xl"
+  defp badge_radius_class(:top_right, "vertical", false, true, _), do: "rounded-bl-lg"
+  defp badge_radius_class(:bottom_left, "vertical", true, false, _), do: "rounded-tr-lg"
+  defp badge_radius_class(:bottom_left, "vertical", false, true, _), do: "rounded-bl-xl"
+  defp badge_radius_class(:bottom_right, "vertical", true, false, _), do: "rounded-tl-lg"
+  defp badge_radius_class(:bottom_right, "vertical", false, true, _), do: "rounded-br-xl"
+
+  # Default - no radius (middle badges in a stack of 3+)
+  defp badge_radius_class(_corner, _direction, _is_first, _is_last, _total), do: ""
+
+  @doc """
+  Renders a status bar at the bottom of a card.
+
+  Provides a visually distinct footer area with muted background and border,
+  supporting left, center, right, and actions slots for flexible layouts.
+
+  ## Examples
+
+      <%!-- Simple left/right layout --%>
+      <.card>
+        <.card_content>...</.card_content>
+        <.card_status>
+          <:left>
+            <.icon name="hero-map-pin" class="size-3.5" />
+            <span>Corner Pocket</span>
+          </:left>
+          <:right>12 hours ago</:right>
+        </.card_status>
+      </.card>
+
+      <%!-- With actions --%>
+      <.card>
+        <.card_content>...</.card_content>
+        <.card_status>
+          <:actions>
+            <.button variant="ghost" size="icon-xs">
+              <.icon name="hero-paper-airplane" class="size-4" />
+            </.button>
+          </:actions>
+          <:left>Location info</:left>
+          <:right>Timestamp</:right>
+        </.card_status>
+      </.card>
+
+      <%!-- With center content --%>
+      <.card>
+        <.card_content>...</.card_content>
+        <.card_status>
+          <:left>Start</:left>
+          <:center>Middle</:center>
+          <:right>End</:right>
+        </.card_status>
+      </.card>
+
+  """
+  attr :class, :string, default: nil
+  attr :rest, :global
+
+  slot :actions, doc: "Action buttons on the left side, separated with a border"
+  slot :left, doc: "Content aligned to the left"
+  slot :center, doc: "Content centered in the status bar"
+  slot :right, doc: "Content aligned to the right"
+
+  @spec card_status(map()) :: Rendered.t()
+  def card_status(assigns) do
+    ~H"""
+    <div
+      data-slot="card-status"
+      class={[
+        "flex w-full px-4 py-2 min-h-11 bg-muted/50 border-t border-border",
+        "text-sm text-muted-foreground items-center gap-3",
+        "rounded-b-xl mt-auto",
+        @class
+      ]}
+      {@rest}
+    >
+      <%!-- Left section: actions + left content --%>
+      <div class="flex items-center gap-3 flex-1 min-w-0">
+        <div
+          :if={@actions != []}
+          class={[
+            "flex items-center gap-1",
+            @left != [] && "pr-3 border-r border-border"
+          ]}
+        >
+          {render_slot(@actions)}
+        </div>
+        <div :if={@left != []} class="flex items-center gap-2 min-w-0">
+          {render_slot(@left)}
+        </div>
+      </div>
+
+      <%!-- Center section --%>
+      <div :if={@center != []} class="flex items-center justify-center gap-2">
+        {render_slot(@center)}
+      </div>
+
+      <%!-- Right section --%>
+      <div :if={@right != []} class="flex items-center justify-end gap-2 flex-1 min-w-0">
+        {render_slot(@right)}
+      </div>
+    </div>
     """
   end
 
