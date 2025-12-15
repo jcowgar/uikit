@@ -194,10 +194,24 @@ export const ChartHook = {
       themedConfig.options.plugins.legend.labels.color = getThemeColor('--foreground')
     }
 
-    // Apply tooltip colors
+    // Apply tooltip colors and formatting
     if (!themedConfig.options.plugins.tooltip) {
       themedConfig.options.plugins.tooltip = {}
     }
+
+    // Support custom tooltip suffix (e.g., "%" for percentages)
+    const tooltipSuffix = themedConfig.options.plugins.tooltip.valueSuffix
+    if (tooltipSuffix) {
+      themedConfig.options.plugins.tooltip.callbacks = {
+        ...themedConfig.options.plugins.tooltip.callbacks,
+        label: function(context) {
+          const label = context.dataset.label || ''
+          const value = context.raw
+          return `${label}: ${value}${tooltipSuffix}`
+        }
+      }
+    }
+
     if (!themedConfig.options.plugins.tooltip.backgroundColor) {
       // Use high-contrast tooltip backgrounds
       themedConfig.options.plugins.tooltip.backgroundColor = isDark
