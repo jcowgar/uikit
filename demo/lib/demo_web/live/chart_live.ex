@@ -104,6 +104,26 @@ defmodule DemoWeb.Ui.ChartLive do
           </.card>
         </section>
 
+        <%!-- Radar Chart --%>
+        <section class="space-y-4">
+          <div>
+            <h2 class="text-2xl font-semibold text-foreground">Radar Chart</h2>
+            <p class="text-muted-foreground">
+              Compare multiple variables across different categories on a radial grid.
+            </p>
+          </div>
+
+          <.card>
+            <.card_header>
+              <.card_title>Skills Comparison</.card_title>
+              <.card_description>Developer skill assessment across key areas</.card_description>
+            </.card_header>
+            <.card_content>
+              <.chart id="radar-chart" class="h-[350px]" config={@radar_chart_config} />
+            </.card_content>
+          </.card>
+        </section>
+
         <%!-- Interactive Example --%>
         <section class="space-y-4">
           <div>
@@ -223,6 +243,7 @@ defmodule DemoWeb.Ui.ChartLive do
     |> assign(:line_chart_config, line_chart_config())
     |> assign(:pie_chart_config, pie_chart_config())
     |> assign(:doughnut_chart_config, doughnut_chart_config())
+    |> assign(:radar_chart_config, radar_chart_config())
     |> assign(:interactive_chart_config, interactive_chart_config())
   end
 
@@ -357,6 +378,51 @@ defmodule DemoWeb.Ui.ChartLive do
           legend: %{
             display: true,
             position: "bottom"
+          }
+        }
+      }
+    }
+  end
+
+  @spec radar_chart_config() :: map()
+  defp radar_chart_config do
+    %{
+      type: "radar",
+      data: %{
+        labels: ["Frontend", "Backend", "DevOps", "Testing", "Architecture", "Communication"],
+        datasets: [
+          %{
+            label: "Developer A",
+            data: [90, 75, 60, 80, 70, 85],
+            borderColor: "rgb(59, 130, 246)",
+            backgroundColor: "rgba(59, 130, 246, 0.2)",
+            pointBackgroundColor: "rgb(59, 130, 246)"
+          },
+          %{
+            label: "Developer B",
+            data: [70, 90, 85, 65, 80, 75],
+            borderColor: "rgb(168, 85, 247)",
+            backgroundColor: "rgba(168, 85, 247, 0.2)",
+            pointBackgroundColor: "rgb(168, 85, 247)"
+          }
+        ]
+      },
+      options: %{
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: %{
+          legend: %{
+            display: true,
+            position: "bottom"
+          }
+        },
+        scales: %{
+          r: %{
+            beginAtZero: true,
+            max: 100,
+            ticks: %{
+              stepSize: 20
+            }
           }
         }
       }
